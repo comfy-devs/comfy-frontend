@@ -1,0 +1,8 @@
+/* Builds */
+build/**/*
+
+/* Node non-sense */
+node_modules/**/*
+
+/* Other */
+size-plugin.json

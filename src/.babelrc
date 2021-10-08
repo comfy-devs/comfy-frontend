@@ -1,0 +1,10 @@
+{
+    "presets": [ 
+        "preact-cli/babel"
+    ],
+    "plugins": [
+        ["babel-plugin-styled-components", {
+            "pure": true
+        }]
+    ]
+}

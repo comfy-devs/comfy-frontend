@@ -1,0 +1,11 @@
+.home {
+    min-height: calc(100% - 56px);
+    background-color: var(--color-background);
+}
+
+.home-row {
+    display: flex;
+    width: 100%;
+    padding: 15px;
+    grid-gap: 10px;
+}
