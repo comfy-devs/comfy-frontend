@@ -11,24 +11,9 @@
         "build": "preact build",
         "dev": "preact watch",
         "serve": "sirv build --port 8080 --cors --single",
-        "lint": "eslint src/**/*.{js,jsx,ts,tsx}",
-        "pretty": "prettier --write src/**/*.{js,jsx,ts,tsx}",
+        "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+        "pretty": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
         "typecheck": "tsc --noEmit"
-    },
-    "eslintConfig": {
-        "parser": "@typescript-eslint/parser",
-        "extends": [
-            "preact",
-            "plugin:@typescript-eslint/recommended"
-        ],
-        "ignorePatterns": [
-            "build/"
-        ]
-    },
-    "commitlint": {
-        "extends": [
-            "@commitlint/config-conventional"
-        ]
     },
     "dependencies": {},
     "devDependencies": {
