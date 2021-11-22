@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Whitney";
-    src: uri("fonts/Whitney_Medium.otf") format("otf");
+    src: url("/assets/fonts/Whitney_Medium.woff") format("woff");
 }
 
 html, body {
@@ -11,7 +11,7 @@ html, body {
 
     background: #fafafa;
     color: #444;
-    font-family: "Whitney", arial, sans-serif;
+    font-family: "Whitney";
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
