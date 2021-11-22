@@ -6,7 +6,7 @@ type ReduxAction = {
 
 /* Types */
 type ReduxState = {
-    users: User[];
+    users: Map<string, User>;
     counter: number;
 };
 

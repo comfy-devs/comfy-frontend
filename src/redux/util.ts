@@ -2,7 +2,7 @@ import { bindActionCreators } from "redux";
 
 export const INITIAL: ReduxState = {
     counter: 0,
-    users: [],
+    users: new Map(),
 };
 export enum ResourceType {
     USER = "user",
@@ -26,18 +26,8 @@ export function mapDispatch(actions: Record<string, any>): any {
 export function cacheResource(state: ReduxState, resource: any, resourceType: ResourceType): ReduxState {
     switch (resourceType) {
         case ResourceType.USER: {
-            let newResources = state.users.slice();
-            const previousResource: User | undefined = newResources.find((i: User) => {
-                return i.id !== resource.id;
-            });
-            if (previousResource !== undefined) {
-                const i = newResources.indexOf(previousResource);
-                newResources[i] = resource;
-                return { ...state, users: newResources };
-            }
-
-            newResources = [...newResources, resource];
-            return { ...state, users: newResources };
+            state.users.set(resource.id, resource);
+            return { ...state, users: state.users };
         }
     }
 
