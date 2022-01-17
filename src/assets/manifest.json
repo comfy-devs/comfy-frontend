@@ -1,11 +1,11 @@
 {
-    "name": "foxxy-frontend",
-    "short_name": "foxxy-frontend",
+    "name": "Nyan Anime - Watch Anime for Free",
+    "short_name": "Nyan Anime",
     "start_url": "/",
     "display": "standalone",
     "orientation": "portrait",
     "background_color": "#fff",
-    "theme_color": "#673ab8",
+    "theme_color": "#ffffff",
     "icons": [
         {
             "src": "/assets/icons/icon-192x192.png",

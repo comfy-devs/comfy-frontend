@@ -1,7 +1,7 @@
-# Foxxy Frontend
+# Nyan Anime (Front-end)
 
 ## Description
-This is a customizable web frontend, that I'm building for myself to use in my projects.
+This is a front-end for Nyan Anime written using Preact.
 
 ## Stack
 Frameworks: <a href="https://preactjs.com/">Preact</a>, <a href="https://redux.js.org/">Redux</a>  
@@ -22,9 +22,9 @@ Running is done with <code>yarn run dev</code>.
 | `yarn typecheck`                        | Runs Typescript checker on the codebase.     |
             
 ## Contributing
-If you want a feature added or you found a bug, make a new <a href="https://github.com/LamkasDev/foxxy-frontend/issues">Issue</a>.  
-If you want to contribute, make a new <a href="https://github.com/LamkasDev/foxxy-frontend/pulls">Pull Request</a>.  
+If you want a feature added or you found a bug, make a new <a href="https://github.com/nyananime-devs/nyananime-frontend/issues">Issue</a>.  
+If you want to contribute, make a new <a href="https://github.com/nyananime-devs/nyananime-frontend/pulls">Pull Request</a>.  
 There are no guidelines or any of the sort and contributing is highly encougaraged!
 
 ## License
-Foxxy Frontend is licensed under the [GNU General Public License v3.0](https://github.com/LamkasDev/foxxy-frontend/blob/master/LICENSE).
+Nyan Anime (Front-end) is licensed under the [GNU General Public License v3.0](https://github.com/nyananime-devs/nyananime-frontend/blob/master/LICENSE).

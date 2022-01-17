@@ -1,0 +1,46 @@
+/* Macros */
+%align-y {
+    display: flex;
+    align-items: center;
+}
+
+%align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content */
+.sub-header {
+	@extend %align-y;
+	width: 100%;
+	height: var(--subheader-height);
+	background-color: var(--color-primary-light);
+	padding: 5px 10px 15px 10px;
+	grid-gap: 10px;
+}
+
+.sub-header-button {
+	@extend %align-center;
+	width: 150px;
+	height: 100%;
+	background-color: var(--color-primary-light-c);
+	cursor: pointer;
+	border-radius: 10px;
+}
+.sub-header-button:hover {
+	background-color: var(--color-primary-light-b);
+}
+.sub-header-button-enabled {
+	background-color: var(--color-secondary);
+	pointer-events: none;
+}
+.sub-header-button-enabled:hover {
+	border: none !important;
+	height: 100% !important;
+}
+
+.sub-header-button-title {
+	color: var(--color-text-primary);
+	font-size: 13px;
+}

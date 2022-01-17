@@ -1,11 +1,17 @@
-.home {
-    min-height: calc(100% - 56px);
-    background-color: var(--color-background);
+.topic-group {
+	display: flex;
+	width: 100%;
+
+	@media screen and (max-width: 1500px) {
+		display: block;
+	}
 }
 
-.home-row {
-    display: flex;
-    width: 100%;
-    padding: 15px;
-    grid-gap: 10px;
+.topics-separator {
+	display: flex;
+	height: 2px;
+	margin-top: 20px;
+	background-color: var(--color-primary-light-a);
+	width: 90%;
+	margin-left: 10%;
 }

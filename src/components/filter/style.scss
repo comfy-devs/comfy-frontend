@@ -1,0 +1,65 @@
+/* Macros */
+%align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content */
+.filter-wrapper {
+	position: relative;
+
+	background-color: var(--color-primary-light-c);
+	border: 0;
+	padding: 0;
+	width: 130px;
+	height: 35px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.filter {
+	@extend %align-center;
+	width: calc(100% - 4px);
+	height: calc(100% - 4px);
+	padding: 2px;
+}
+
+.filter-title {
+	color: var(--color-text-primary);
+	font-size: 13px;
+
+	white-space: pre-wrap;
+}
+
+.filter-value {
+	color: var(--color-text-primary-a);
+	font-size: 12px;
+}
+
+.filter-items-wrapper {
+	position: absolute;
+	display: flex;
+	visibility: hidden;
+
+	border-radius: 10px;
+	overflow: hidden;
+	margin-top: 10px;
+}
+.filter-wrapper:focus .filter-items-wrapper { visibility: visible; }
+
+.filter-items {
+	width: 120px;
+	z-index: 4;
+	background-color: var(--color-primary-light-c);
+}
+
+.filter-item {
+	@extend %align-center;
+	height: 25px;
+	color: var(--color-text-primary);
+	font-size: 12px;
+}
+.filter-item:hover {
+	background-color: var(--color-primary-light-a);
+}

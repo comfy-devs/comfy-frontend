@@ -1,0 +1,16 @@
+/* Macros */
+%align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content */
+.navigation {
+	@extend %align-center;
+
+	width: 100%;
+	height: var(--navigation-height);
+	background-color: var(--color-primary-light);
+	grid-gap: 10px;
+}

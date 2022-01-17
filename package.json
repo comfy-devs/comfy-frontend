@@ -1,7 +1,7 @@
 {
-    "name": "foxxy-frontend",
+    "name": "nyananime-frontend",
     "version": "0.0.0",
-    "description": "A customizable web front-end template.",
+    "description": "A front-end for Nyan Anime written using Preact.",
     "license": "GPL-3.0-or-later",
     "author": {
         "name": "LamkasDev",
@@ -15,7 +15,6 @@
         "pretty": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
         "typecheck": "tsc --noEmit"
     },
-    "dependencies": {},
     "devDependencies": {
         "@commitlint/cli": "^15.0.0",
         "@commitlint/config-conventional": "^15.0.0",
@@ -33,9 +32,10 @@
         "preact": "^10.5.15",
         "preact-cli": "^3.3.2",
         "preact-render-to-string": "^5.1.4",
-        "preact-router": "^3.2.1",
         "prettier": "2.4.1",
         "react-redux": "^7.2.6",
+        "react-router": "^6.0.2",
+        "react-router-dom": "^6.0.2",
         "redux": "^4.1.2",
         "sass-loader": "^10.1.1",
         "sirv-cli": "^1.0.0-next.3",

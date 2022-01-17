@@ -1,19 +1,27 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
-import { Link } from "preact-router/match";
+import { NavLink } from "react-router-dom";
+import { HeaderConnectedProps } from "../../ts/components";
 /* Styles */
 import style from "./style.scss";
 
 const Header: FunctionalComponent<HeaderConnectedProps> = (props: HeaderConnectedProps) => {
     return (
-        <header class={style["header"]}>
-            <h1 class={style["header-title"]}>Foxxy UI</h1>
-            <nav class={style["header-nav"]}>
-                <Link class={style["header-nav-link"]} activeClassName={style["header-nav-link-active"]} href="/">
-                    Home
-                </Link>
-            </nav>
-        </header>
+        <div className={style.header}>
+            <div className={style["header-section-0"]}>
+                <img alt="logo" src={"/assets/icons/icon-32x32.webp"} className={style["header-icon"]} />
+                <a href="/" className={style["header-title"]}>
+                    Nyan Anime
+                </a>
+            </div>
+            <div className={style["header-section-1"]}>
+                <div className={style["header-button"]}>
+                    {props.user === undefined ?
+                    <NavLink to="/login" className={style["header-button-title"]}>Login</NavLink>
+                    : <NavLink to="/account" className={style["header-button-title"]}>{props.user.username}</NavLink>}
+                </div>
+            </div>
+        </div>
     );
 };
 

@@ -1,0 +1,27 @@
+/* Macros */
+%align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content */
+.navigation-button {
+	@extend %align-center;
+
+    background-color: #212121;
+	height: 34px;
+	width: 34px;
+	border-radius: 10px;
+	cursor: pointer;
+	color: var(--color-secondary);
+	font-size: 12px;
+}
+.navigation-button:hover {
+	background-color: var(--color-primary-light-b);
+}
+.navigation-button[data="true"] {
+	border: 1px solid var(--color-secondary);
+	background-color: var(--color-primary);
+	pointer-events: none;
+}

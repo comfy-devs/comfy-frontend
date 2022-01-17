@@ -1,6 +1,7 @@
 @font-face {
     font-family: "Whitney";
     src: url("/assets/fonts/Whitney_Medium.woff") format("woff");
+    font-display: swap;
 }
 
 html, body {
@@ -23,4 +24,31 @@ html, body {
 
 #app {
     height: 100%;
+}
+
+:focus {
+	outline: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+::cue {
+	color:white;
+    font-family: "Whitney";
+	background-color: transparent;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.route-container {
+	width: 100%;
+	min-height: 100vh;
+	background-color: var(--color-primary);
+}
+
+.route {
+    width: 100%;
+    min-height: calc(100vh - var(--header-height) - var(--subheader-height) - var(--footer-height));
+	background-color: var(--color-primary);
 }

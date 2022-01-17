@@ -1,0 +1,96 @@
+/* Types */
+import { Anime, Episode, Preferences, Segment, Session, Stats, User } from "./api";
+import { FilterType, AnimeGenre, Dimensions, FilterData, PlayerData, VideoPlayerNotificationType } from "./base";
+import { ConnectedActions } from "./redux";
+import { SegmentData } from "../scripts/nyan/util";
+
+/* Types */
+export type HeaderConnectedProps = {
+    user?: User;
+};
+
+export type FooterConnectedProps = {
+    stats: Stats;
+};
+
+export type GenreConnectedProps = {
+    item: AnimeGenre;
+    animes: Map<string, Anime>;
+};
+
+export type VideoPlayerConnectedProps = {
+    dimensions: Dimensions;
+    item: Episode;
+    parent: Anime;
+    segments: Segment[];
+    preferences: Preferences;
+
+    playerData: PlayerData;
+    actions: ConnectedActions;
+};
+
+export type VideoPlayerNotificationConnectedProps = {
+    type: VideoPlayerNotificationType;
+    segment: SegmentData;
+    video: HTMLVideoElement | null;
+
+    actions: ConnectedActions;
+};
+
+export type VideoPlayerControlsConnectedProps = {
+    dimensions: Dimensions;
+    item: Episode;
+    parent: Anime;
+    segments: Segment[];
+    preferences: Preferences;
+    video: HTMLVideoElement | null;
+    timelineTooltip: HTMLElement | null;
+
+    playerData: PlayerData;
+    actions: ConnectedActions;
+};
+
+export type AnimeCardConnectedProps = {
+    item?: Anime;
+    alt?: boolean;
+    extra?: string;
+};
+
+export type DebugConnectedProps = Record<string, never>;
+
+export type GroupConnectedProps = Record<string, never>;
+
+export type EpisodeCardConnectedProps = {
+    item?: Episode;
+    parent: Anime;
+    i: number;
+    disabled?: boolean;
+};
+
+export type EpisodeSmallCardConnectedProps = Record<string, never>;
+
+export type FilterConnectedProps = {
+    type: FilterType;
+    value: string;
+    
+    filterData: FilterData;
+    actions: ConnectedActions;
+};
+
+export type TopicConnectedProps = {
+    title: string;
+    icon?: string;
+    small?: boolean;
+    extra?: number;
+    items: Anime[];
+};
+
+export type NavigationConnectedProps = {
+    filterData: FilterData;
+};
+
+export type NavigationButtonConnectedProps = {
+    i: number;
+    
+    filterData: FilterData;
+};

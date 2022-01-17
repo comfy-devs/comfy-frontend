@@ -1,0 +1,46 @@
+/* Macros */
+%align-y {
+    display: flex;
+    align-items: center;
+}
+
+%align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content */
+.group {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+    min-height: calc(100vh - var(--header-height) - var(--subheader-height) - var(--footer-height));
+	grid-gap: 20px;
+	padding: 20px;
+}
+
+.group-title-wrapper {
+    @extend %align-center;
+    flex-direction: column;
+}
+
+.group-title {
+	color: white;
+	font-size: 20px;
+	text-align: center;
+}
+
+.group-subtitle {
+	color: var(--color-secondary);
+	font-size: 13px;
+	text-align: center;
+}
+
+.group-previews {
+	@extend %align-center;
+	grid-gap: 10px;
+
+	width: 100%;
+	overflow: hidden;
+}

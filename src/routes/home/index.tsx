@@ -1,5 +1,7 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { HomeConnectedProps } from "../../ts/routes";
+import { AnimeStatus } from "../../ts/base";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
@@ -7,24 +9,37 @@ import * as actions from "../../redux/actions";
 /* Styles */
 import style from "./style.scss";
 /* Components */
-import Button from "../../components/ui/button";
-import Checkbox from "../../components/ui/checkbox";
+import Topic from "../../components/topic";
 
 const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps) => {
+    /* Get sets to preview */
+    const animes = Array.from(props.animes.values());
+    const randomSet = animes.length < 1 ? [] : [animes[props.random % animes.length]];
+    const airingSet = animes.filter((e) => { return e.status === AnimeStatus.AIRING; });
+    const soonSet = airingSet.sort((a, b) => {
+        if(a.timestamp === null || b.timestamp === null) { return 0; }
+        return b.timestamp - a.timestamp;
+    });
+    const latestSet = animes.filter(e => { return e.timestamp !== null; }).sort((a, b) => {
+        if(a.timestamp === null || b.timestamp === null) { return 0; }
+        return b.timestamp - a.timestamp;
+    });
+
     return (
-        <div class={style["home"]}>
-            <div class={style["home-row"]}>
-                <Button>Button (Primary)</Button>
-                <Button secondary>Button (Secondary)</Button>
-                <Button disabled>Button (Disabled)</Button>
-                <Button icon={"/assets/ui_icons/i_close.png"} aria-label="Close" />
-                <Button icon={"/assets/ui_icons/i_close.png"} iconText>
-                    Close
-                </Button>
+        <div className="route">
+            <div className={style["topic-group"]}>
+                <Topic title="Airing anime" icon="airing" small={false} items={airingSet} />
             </div>
-            <div class={style["home-row"]}>
-                <Checkbox type="checkbox" />
+            <div className={style["topics-separator"]} />
+            <div className={style["topic-group"]}>
+                <Topic title="Airing soon" icon="soon" small={true} extra={1} items={soonSet} />
+                <Topic title="Latest episode" icon="latest" small={true} extra={0} items={latestSet} />
             </div>
+            <div className={style["topics-separator"]} />
+            <div className={style["topic-group"]}>
+                <Topic title="Random anime" icon="random" small={false} items={randomSet} />
+            </div>
+            <div className={style["topics-separator"]} />
         </div>
     );
 };

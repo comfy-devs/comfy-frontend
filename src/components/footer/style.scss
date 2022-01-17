@@ -1,0 +1,28 @@
+/* Macros */
+%align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content */
+.footer {
+	@extend %align-center;
+	flex-direction: column;
+
+	width: 100%;
+	height: var(--footer-height);
+	background-color: var(--color-primary-light-a);
+	color: white;
+	font-size: 12px;
+	white-space: pre-wrap;
+}
+
+.footer-text {
+	display: flex;
+	color: var(--color-text-primary-a);
+}
+
+.footer-text-highlight {
+	color: var(--color-text-primary-b);
+}

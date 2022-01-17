@@ -1,0 +1,82 @@
+/* Macros */
+%align-y {
+    display: flex;
+    align-items: center;
+}
+
+%align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content */
+.episode-overview {
+	@extend %align-center;
+	flex-direction: column;
+	padding-top: 40px;
+	padding-bottom: 20px;
+	grid-gap: 20px;
+}
+
+.episode-overview-title {
+	display: flex;
+	white-space: pre-wrap;
+
+	@media screen and (max-width: 500px) {
+		align-items: center;
+		flex-direction: column;
+	}
+
+	color: var(--color-text-primary-a);
+	font-size: 19px;
+}
+
+.episode-overview-title-highlight {
+	color: var(--color-text-primary-b);
+}
+
+.episode-overview-subtitle {
+	display: flex;
+	white-space: pre-wrap;
+
+	color: var(--color-text-primary-a);
+	font-size: 16px;
+}
+
+.episode-overview-subtitle-highlight {
+	color: var(--color-text-primary-b);
+}
+
+.episode-overview-extra {
+	@extend %align-center;
+	flex-direction: column;
+	grid-gap: 3px;
+}
+
+.episode-overview-episodes {
+	@extend %align-center;
+	flex-wrap: wrap;
+	width: 310px;
+	margin-top: 10px;
+	grid-gap: 10px;
+}
+
+.episode-overview-episodes-item {
+	@extend %align-center;
+
+	width: 70px;
+	height: 30px;
+	background-color: var(--color-primary-light-a);
+	color: var(--color-secondary);
+	border-radius: 5px;
+	cursor: pointer;
+}
+.episode-overview-episodes-item[data="true"] {
+	border: 1px solid var(--color-secondary);
+	background-color: var(--color-primary);
+	pointer-events: none;
+}
+.episode-overview-episodes-item:hover {
+	background-color: var(--color-primary-light-d);
+}
