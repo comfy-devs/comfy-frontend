@@ -2,7 +2,7 @@
 import { h, FunctionalComponent } from "preact";
 import { AllConnectedProps } from "../../ts/routes";
 import { useEffect } from "react";
-import { FilterSort, FilterType } from "../../ts/base";
+import { FilterGroup, FilterSort, FilterType } from "../../ts/base";
 import { filterValueToDisplayName } from "../../scripts/nyan/constants";
 /* Redux */
 import { connect } from "react-redux";
@@ -10,10 +10,10 @@ import { mapState, mapDispatch } from "../../redux/util";
 import * as actions from "../../redux/actions";
 /* Styles */
 import style from "./style.scss";
-import AnimeCard from "../../components/anime-card";
 /* Components */
+import AnimeCard from "../../components/anime-card";
+import GroupCard from "../../components/group-card";
 import Navigation from "../../components/navigation";
-import NavigationButton from "../../components/navigation-button";
 import Filter from "../../components/filter";
 
 const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) => {
@@ -53,6 +53,24 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
         <Filter key={5} type={FilterType.TAGS} value={filterValueToDisplayName(FilterType.TAGS, props.filterData.tags)} filterData={props.filterData} actions={props.actions} />
     ];
 
+    let previews: any[] = [];
+    if(props.filterData.group === FilterGroup.YES) {
+        previews = animes.filter(e => { return e.group === null || e.season === 0; }).map((e, i) => {
+            if(e.group !== null) {
+                const group = props.groups.get(e.group);
+                if(group !== undefined) {
+                    return <GroupCard key={i} item={group} children={animes.filter(el => { return el.group === e.group; })} />;
+                }
+            } else {
+                return <AnimeCard key={i} item={e} alt />;
+            }
+        });
+    } else {
+        previews = animes.map((e, i) => {
+            return <AnimeCard key={i} item={e} alt />;
+        });
+    }
+
     return (
         <div className={"route"}>
             <div className={style.all}>
@@ -79,9 +97,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                     </div>
                 </div>
                 <div className={style["all-previews"]}>
-                    {animes.map((e, i) => {
-                        return <AnimeCard key={i} item={e} alt />;
-                    })}
+                    {previews}
                 </div>
             </div>
             <Navigation filterData={props.filterData} />

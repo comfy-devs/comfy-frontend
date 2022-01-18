@@ -80,7 +80,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
                     <SubHeader />
                     <Routes>
                         <Route path="/" element={<Home dimensions={props.dimensions} users={props.users} animes={props.animes} groups={props.groups} episodes={props.episodes} random={props.random} actions={props.actions} />} />
-                        <Route path="/all" element={<All dimensions={props.dimensions} animes={props.animes} filterData={props.filterData} actions={props.actions} />} />
+                        <Route path="/all" element={<All dimensions={props.dimensions} animes={props.animes} groups={props.groups} filterData={props.filterData} actions={props.actions} />} />
                         <Route path="/settings" element={<Settings preferences={props.preferences} actions={props.actions} />} />
                         <Route path="/download" element={<Download />} />
                         <Route path="/login" element={<Login authData={props.authData} actions={props.actions} />} />

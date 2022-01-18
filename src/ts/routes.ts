@@ -18,6 +18,7 @@ export type HomeConnectedProps = {
 export type AllConnectedProps = {
     dimensions: Dimensions;
     animes: Map<string, Anime>;
+    groups: Map<string, Group>;
     filterData: FilterData;
     
     actions: ConnectedActions;

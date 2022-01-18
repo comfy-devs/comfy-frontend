@@ -1,5 +1,5 @@
 /* Types */
-import { Anime, Episode, Preferences, Segment, Session, Stats, User } from "./api";
+import { Anime, Episode, Group, Preferences, Segment, Session, Stats, User } from "./api";
 import { FilterType, AnimeGenre, Dimensions, FilterData, PlayerData, VideoPlayerNotificationType } from "./base";
 import { ConnectedActions } from "./redux";
 import { SegmentData } from "../scripts/nyan/util";
@@ -56,9 +56,10 @@ export type AnimeCardConnectedProps = {
     extra?: string;
 };
 
-export type DebugConnectedProps = Record<string, never>;
-
-export type GroupConnectedProps = Record<string, never>;
+export type GroupCardConnectedProps = {
+    item: Group;
+    children: Anime[];
+};
 
 export type EpisodeCardConnectedProps = {
     item?: Episode;

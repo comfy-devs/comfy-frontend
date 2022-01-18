@@ -20,7 +20,10 @@ const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteC
     if (group === undefined) {
         return null;
     }
-    const animes = Array.from(props.animes.values()).filter(e => { return e.group === group.id; });
+    const animes = Array.from(props.animes.values()).filter(e => { return e.group === group.id; }).sort((a, b) => {
+        if(a.season === null || b.season === null) { return 0; }
+        return a.season - b.season;
+    });
 
     return (
         <div className={"route"}>
