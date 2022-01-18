@@ -169,8 +169,8 @@ export function episodePresetToDisplayName(preset: EpisodePreset) {
 
 const episodePresetFileMap: Record<number, string> = {
     [EpisodePreset.LOW]: "ep_low.mp4",
-    [EpisodePreset.MEDIUM]: "ep_low.mp4",
-    [EpisodePreset.HIGH]: "ep_low.mp4",
+    [EpisodePreset.MEDIUM]: "ep_med.mp4",
+    [EpisodePreset.HIGH]: "ep_high.mp4",
     [EpisodePreset.VP9]: "ep_vp9.webm"
 }
 export function episodePresetToFile(preset: EpisodePreset) {

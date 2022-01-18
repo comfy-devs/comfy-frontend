@@ -18,7 +18,7 @@ const Download: FunctionalComponent = () => {
                 > Made compatible with API changes
                 > Minor bug fixes`,
             version: "beta-2",
-            link: "https://files.catbox.moe/nyj82y.apk"
+            link: "https://files.catbox.moe/c8erwb.apk"
         },
         {
             name: "Android",
