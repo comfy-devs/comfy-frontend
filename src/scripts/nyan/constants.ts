@@ -1,6 +1,6 @@
 /* Types */
 import { FilterType, AnimeGenre, AnimeStatus, AnimeTag, AnimeType, FilterSort, FilterGroup, PreferencesTheme, SegmentType, VideoPlayerNotificationType, EpisodeLocation, EpisodePreset, AuthResult } from "../../ts/base";
-import { Anime } from "../../ts/api";
+import { Anime, User } from "../../ts/api";
 import { secondsToStringHuman } from "./util";
 
 const preferenceThemeMap: Record<number, string> = {
@@ -9,6 +9,14 @@ const preferenceThemeMap: Record<number, string> = {
 }
 export function preferencesThemeToDisplayName(theme: PreferencesTheme) {
     return preferenceThemeMap[theme];
+}
+const notificationPreferenceMap: Record<NotificationPermission, string> = {
+    "default": "Off",
+    "granted": "On",
+    "denied": "Blocked",
+}
+export function notificationPreferencesToDisplayName(permission: NotificationPermission, user?: User) {
+    return user === undefined ? "Not Logged In" : (!user.pushEnabled ? "Off" : notificationPreferenceMap[permission]);
 }
 
 const authResultMap: Record<number, string> = {

@@ -28,32 +28,22 @@ export type ConnectedActions = {
     setDimensions(w: number, h: number): ReduxAction;
 
     fetchUser(id: string): ReduxAction;
-    fetchUserSuccess(user: User): ReduxAction;
     fetchAnime(id: string): ReduxAction;
-    fetchAnimeSuccess(anime: Anime): ReduxAction;
     fetchAllAnimes(): ReduxAction;
-    fetchAllAnimesSuccess(animes: Anime[]): ReduxAction;
     fetchAnimeEpisodes(id: string): ReduxAction;
-    fetchAnimeEpisodesSuccess(episodes: Episode[]): ReduxAction;
     fetchGroup(id: string): ReduxAction;
-    fetchGroupSuccess(group: Group): ReduxAction;
     fetchAllGroups(): ReduxAction;
-    fetchAllGroupsSuccess(groups: Group[]): ReduxAction;
     fetchEpisode(id: string): ReduxAction;
-    fetchEpisodeSuccess(episode: Episode): ReduxAction;
     fetchAllEpisodes(): ReduxAction;
-    fetchAllEpisodesSuccess(episodes: Episode[]): ReduxAction;
     fetchEpisodeSegments(id: string): ReduxAction;
-    fetchEpisodeSegmentsSuccess(segments: Segment[]): ReduxAction;
     fetchSegment(id: string): ReduxAction;
-    fetchSegmentSuccess(segment: Segment): ReduxAction;
     fetchAllSegments(): ReduxAction;
-    fetchAllSegmentsSuccess(segments: Segment[]): ReduxAction;
     fetchStats(): ReduxAction;
-    fetchStatsSuccess(stats: Stats): ReduxAction;
     login(username: string, password: string): ReduxAction;
     loginToken(): ReduxAction;
     register(username: string, password: string): ReduxAction;
+    pushSubscribe(url: string, key: string, auth: string): ReduxAction;
+    pushUnsubscribe(): ReduxAction;
 
     fetchPreferences(): ReduxAction;
     setPreferencesTheme(theme: PreferencesTheme): ReduxAction;

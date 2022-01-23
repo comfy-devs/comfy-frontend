@@ -5,11 +5,11 @@ import { AuthResult, PreferencesTheme } from "../ts/base";
 import { ReduxAction, ReduxState } from "../ts/redux";
 /* Redux */
 import { cacheResource, ResourceType } from "./util";
-import { fetchAllAnimesSuccess, fetchAllEpisodesSuccess, fetchAllGroupsSuccess, fetchAllSegmentsSuccess, fetchAnimeEpisodesSuccess, fetchAnimeSuccess, fetchEpisodeSegmentsSuccess, fetchEpisodeSuccess, fetchGroupSuccess, fetchSegmentSuccess, fetchStatsSuccess, fetchUserSuccess, loginSuccess, registerSuccess, setAuthResult } from "./actions";
+import { fetchAllAnimesSuccess, fetchAllEpisodesSuccess, fetchAllGroupsSuccess, fetchAllSegmentsSuccess, fetchAnimeEpisodesSuccess, fetchAnimeSuccess, fetchEpisodeSegmentsSuccess, fetchEpisodeSuccess, fetchGroupSuccess, fetchSegmentSuccess, fetchStatsSuccess, fetchUserSuccess, loginSuccess, pushSubscribeSuccess, pushUnsubscribeSuccess, registerSuccess, setAuthResult } from "./actions";
 // eslint-disable-next-line no-duplicate-imports
 import { fetchUser as fetchUserAction, login as loginAction } from "./actions";
 /* API */
-import { fetchAllAnimes, fetchAllEpisodes, fetchAllGroups, fetchAllSegments, fetchAnime, fetchAnimeEpisodes, fetchEpisode, fetchEpisodeSegments, fetchGroup, fetchSegment, fetchStats, fetchUser, login, loginToken, register } from "../scripts/api/routes";
+import { fetchAllAnimes, fetchAllEpisodes, fetchAllGroups, fetchAllSegments, fetchAnime, fetchAnimeEpisodes, fetchEpisode, fetchEpisodeSegments, fetchGroup, fetchSegment, fetchStats, fetchUser, login, loginToken, pushSubscribe, pushUnsubscribe, register } from "../scripts/api/routes";
 
 const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> = {
     SET_DIMENSIONS: (state: ReduxState, action: ReduxAction): any => {
@@ -41,6 +41,16 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     REGISTER_SUCCESS: (state: ReduxState, action: ReduxAction): any => {
         state = cacheResource(state, action.data, ResourceType.USER);
+        return state;
+    },
+
+    PUSH_SUBSCRIBE_SUCCESS: (state: ReduxState, action: ReduxAction): any => {
+        console.log("subscribed owo");
+        return state;
+    },
+
+    PUSH_UNSUBSCRIBE_SUCCESS: (state: ReduxState, action: ReduxAction): any => {
+        console.log("unsubscribed awa");
         return state;
     },
 
@@ -221,6 +231,20 @@ const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState:
 
         dispatch(loginAction(action.data.username, action.data.password));
         dispatch(registerSuccess(user));
+    },
+
+    PUSH_SUBSCRIBE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        const result = await pushSubscribe(action.data.url, action.data.key, action.data.auth);
+        if(result === 200) {
+            dispatch(pushSubscribeSuccess());
+        }
+    },
+
+    PUSH_UNSUBSCRIBE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        const result = await pushUnsubscribe();
+        if(result === 200) {
+            dispatch(pushUnsubscribeSuccess());
+        }
     },
     
     FETCH_USER: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {

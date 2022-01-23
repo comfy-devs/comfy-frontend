@@ -221,6 +221,33 @@ export function setPreferencesTheme(theme: PreferencesTheme): ReduxAction {
     };
 }
 
+/* Notifications */
+export function pushSubscribe(url: string, key: string, auth: string): ReduxAction {
+    return {
+        type: "PUSH_SUBSCRIBE",
+        data: { url, key, auth },
+    };
+}
+export function pushSubscribeSuccess(): ReduxAction {
+    return {
+        type: "PUSH_SUBSCRIBE_SUCCESS",
+        data: {},
+    };
+}
+
+export function pushUnsubscribe(): ReduxAction {
+    return {
+        type: "PUSH_UNSUBSCRIBE",
+        data: {},
+    };
+}
+export function pushUnsubscribeSuccess(): ReduxAction {
+    return {
+        type: "PUSH_UNSUBSCRIBE_SUCCESS",
+        data: {},
+    };
+}
+
 /* Filters */
 export function setFilterSearchTerm(searchTerm: string): ReduxAction {
     return {

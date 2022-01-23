@@ -32,6 +32,7 @@ export type GenresConnectedProps = {
 
 export type SettingsConnectedProps = {
     preferences: Preferences;
+    user?: User;
 
     actions: ConnectedActions;
 };

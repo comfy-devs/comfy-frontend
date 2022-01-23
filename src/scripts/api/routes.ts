@@ -86,3 +86,13 @@ export async function register(username: string, password: string): Promise<User
 
     return response.body;
 }
+
+export async function pushSubscribe(url: string, key: string, auth: string): Promise<number> {
+    const response: APIResponse = await post({ path: `/notifications/subscribe?url=${url}&key=${key}&auth=${auth}`, body: { } });
+    return response.status;
+}
+
+export async function pushUnsubscribe(): Promise<number> {
+    const response: APIResponse = await post({ path: "/notifications/unsubscribe", body: { } });
+    return response.status;
+}
