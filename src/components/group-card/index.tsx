@@ -1,5 +1,6 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { Text } from "preact-i18n";
 import { GroupCardConnectedProps } from "../../ts/components";
 /* Styles */
 import style from "./style.scss";
@@ -14,7 +15,7 @@ const GroupCard: FunctionalComponent<GroupCardConnectedProps> = (props: GroupCar
                 <div className={style["group-title"]}>{title}</div>
             </div>
             <div className={style["group-extra-wrapper"]}>
-                <div className={style["group-extra-text"]}>{props.children.length} seasons</div>
+                <div className={style["group-extra-text"]}><Text id="group.seasons" fields={{ count: props.children.length }} /></div>
             </div>
             <div className={style["group-overlay"]}>
                 <div className={style["icon-info"]} />

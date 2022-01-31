@@ -1,5 +1,6 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { Text } from "preact-i18n";
 import { AnimeCardConnectedProps } from "../../ts/components";
 /* Styles */
 import style from "./style.scss";
@@ -10,7 +11,7 @@ const AnimeCard: FunctionalComponent<AnimeCardConnectedProps> = (props: AnimeCar
             <a className={style.anime}>
                 <div className={style["anime-thumbnail"]} style={{ cursor: "default" }} />
                 <div className={style["anime-title-wrapper"]}>
-                    <div className={style["anime-title"]}>Nothing here</div>
+                    <div className={style["anime-title"]}><Text id="anime.missing" /></div>
                 </div>
             </a>
         );

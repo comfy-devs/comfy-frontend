@@ -1,7 +1,7 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { TopicConnectedProps } from "../../ts/components";
-import { topicExtraToDisplayName } from "../../scripts/nyan/constants";
+import { topicExtraToDisplayName } from "../../scripts/nyan/functions";
 /* Styles */
 import style from "./style.scss";
 /* Components */

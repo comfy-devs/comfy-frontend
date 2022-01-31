@@ -2,6 +2,7 @@
 import { h, FunctionalComponent } from "preact";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { IntlProvider } from "preact-i18n";
 import { AppConnectedProps, PreferencesTheme } from "../ts/base";
 /* Styles */
 import * as dark from "../style/themes/dark";
@@ -27,6 +28,7 @@ import Footer from "./footer";
 const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
     const [resizeID, setResizeID] = useState(setTimeout(() => { /* */ }, 0));
     const [ruleID, setRuleID] = useState(-1);
+    const [localization, setLocalization] = useState({});
 
     /* API calls */
     useEffect(() => {
@@ -45,9 +47,19 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
         });
     }, [true]);
 
+    /* Localization */
+    useEffect(() => {
+        const loadLocalization = async() => {
+            const localizationReq = await fetch(`/assets/lang/${props.preferences.lang}.json`);
+            setLocalization(await localizationReq.json());
+        }
+        loadLocalization();
+    }, [props.preferences.lang]);
+
     /* Preferences */
     useEffect(() => {
         localStorage.setItem("theme", props.preferences.theme.toString());
+        localStorage.setItem("lang", props.preferences.lang);
         localStorage.setItem("developer", props.preferences.developer.toString());
     }, [props.preferences]);
 
@@ -73,26 +85,28 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
 
     if(typeof window === "undefined") { return <div />; }
     return (
-        <div id="app">
-            <BrowserRouter>
-                <div className="route-container">
-                    <Header user={user} />
-                    <SubHeader />
-                    <Routes>
-                        <Route path="/" element={<Home dimensions={props.dimensions} users={props.users} animes={props.animes} groups={props.groups} episodes={props.episodes} random={props.random} actions={props.actions} />} />
-                        <Route path="/all" element={<All dimensions={props.dimensions} animes={props.animes} groups={props.groups} filterData={props.filterData} actions={props.actions} />} />
-                        <Route path="/settings" element={<Settings preferences={props.preferences} user={user} actions={props.actions} />} />
-                        <Route path="/download" element={<Download />} />
-                        <Route path="/login" element={<Login authData={props.authData} actions={props.actions} />} />
-                        <Route path="/register" element={<Register authData={props.authData} actions={props.actions} />} />
-                        <Route path="/animes/:id" element={<Anime animes={props.animes} episodes={props.episodes} actions={props.actions} />} />
-                        <Route path="/groups/:id" element={<Group dimensions={props.dimensions} animes={props.animes} groups={props.groups} actions={props.actions} />} />
-                        <Route path="/episodes/:id" element={<Episode dimensions={props.dimensions} playerData={props.playerData} animes={props.animes} episodes={props.episodes} segments={props.segments} preferences={props.preferences} actions={props.actions} />} />
-                    </Routes>
-                    <Footer stats={props.stats} />
-                </div>
-            </BrowserRouter>
-        </div>
+        <IntlProvider definition={localization}>
+            <div id="app">
+                <BrowserRouter>
+                    <div className="route-container">
+                        <Header user={user} />
+                        <SubHeader />
+                        <Routes>
+                            <Route path="/" element={<Home dimensions={props.dimensions} users={props.users} animes={props.animes} groups={props.groups} episodes={props.episodes} random={props.random} actions={props.actions} />} />
+                            <Route path="/all" element={<All dimensions={props.dimensions} animes={props.animes} groups={props.groups} filterData={props.filterData} actions={props.actions} />} />
+                            <Route path="/settings" element={<Settings preferences={props.preferences} user={user} actions={props.actions} />} />
+                            <Route path="/download" element={<Download />} />
+                            <Route path="/login" element={<Login authData={props.authData} actions={props.actions} />} />
+                            <Route path="/register" element={<Register authData={props.authData} actions={props.actions} />} />
+                            <Route path="/animes/:id" element={<Anime animes={props.animes} episodes={props.episodes} actions={props.actions} />} />
+                            <Route path="/groups/:id" element={<Group dimensions={props.dimensions} animes={props.animes} groups={props.groups} actions={props.actions} />} />
+                            <Route path="/episodes/:id" element={<Episode dimensions={props.dimensions} playerData={props.playerData} animes={props.animes} episodes={props.episodes} segments={props.segments} preferences={props.preferences} actions={props.actions} />} />
+                        </Routes>
+                        <Footer stats={props.stats} />
+                    </div>
+                </BrowserRouter>
+            </div>
+        </IntlProvider>
     );
 };
 App.displayName = "App";

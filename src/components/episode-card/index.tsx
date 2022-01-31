@@ -1,5 +1,6 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { Text } from "preact-i18n";
 import { episodeLocationToURL } from "../../scripts/nyan/constants";
 import { EpisodeCardConnectedProps } from "../../ts/components";
 /* Styles */
@@ -9,7 +10,7 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
     if(props.item === undefined) {
         return <a className={style.episode}>
             <div className={style["episode-title-wrapper"]}>
-                <div className={style["episode-title"]}>Nothing here</div>
+                <div className={style["episode-title"]}><Text id="anime.episode.missing" /></div>
             </div>
             <div alt="episode-thumbnail" className={style["episode-thumbnail"]} />
         </a>
@@ -28,7 +29,7 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
             <div className={style["episode-data-wrapper"]}>
                 <div className={style["episode-title"]}>
                     <span className={style["episode-title-highlight"]}>
-                        Episode {props.i + 1}/{props.parent.episodes}
+                        <Text id="anime.episode.number" fields={{ num: props.i + 1, episodes: props.parent.episodes }} />
                     </span>
                 </div>
                 <div className={style["episode-title"]}>
@@ -39,7 +40,7 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
                     <div className={style["episode-stat"]}><div className={style["icon-comment"]} /> 0</div>
                 </div>
                 <div className={style["episode-buttons"]}>
-                    <a href={`/episodes/${props.item.id}`} className={style["episode-button"]}>Play</a>
+                    <a href={`/episodes/${props.item.id}`} className={style["episode-button"]}><Text id="anime.episode.play" /></a>
                     <div onClick={() => {
                         if(props.item === undefined) { return; }
                         const e = document.createElement("a");
@@ -48,7 +49,7 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
                         e.setAttribute("target", "_blank");
                         e.click();
                         e.remove();
-                    }} className={style["episode-button"]}>Download</div>
+                    }} className={style["episode-button"]}><Text id="anime.episode.download" /></div>
                 </div>
             </div>
         </div>

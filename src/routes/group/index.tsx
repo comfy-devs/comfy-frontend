@@ -1,7 +1,8 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
-import { GroupRouteConnectedProps } from "../../ts/routes";
 import { useParams } from "react-router-dom";
+import { Text } from "preact-i18n";
+import { GroupRouteConnectedProps } from "../../ts/routes";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
@@ -30,12 +31,12 @@ const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteC
             <div className={style.group}>
                 <div className={style["group-title-wrapper"]}>
                     <div className={style["group-title"]}>{group.title}</div>
-                    <div className={style["group-subtitle"]}>({animes.length} seasons)</div>
+                    <div className={style["group-subtitle"]}>(<Text id="group.seasons" fields={{ count: animes.length }} />)</div>
                 </div>
                 <div className={style["group-previews"]}>
                     {animes.map((e, i) => {
                         if(e.season === null) { return; }
-                        return <AnimeCard key={i} item={e} alt extra={`Season ${(e.season + 1)}`} />;
+                        return <AnimeCard key={i} item={e} alt extra={<Text id="group.anime.season" fields={{ number: e.season + 1 }} />} />;
                     })}
                 </div>
             </div>

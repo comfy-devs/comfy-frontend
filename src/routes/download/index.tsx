@@ -1,5 +1,6 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { Text } from "preact-i18n";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
@@ -32,13 +33,13 @@ const Download: FunctionalComponent = () => {
     return (
         <div className={"route"}>
             <div className={style.download}>
-                <div className={style["download-title"]}>Downloads</div>
+                <div className={style["download-title"]}><Text id="download.title" /></div>
                 {versions.map((e, i) => {
                     return <div key={i} className={style["download-item"]}>
                         <div className={style["download-item-row"]}>
                             <div className={style[`icon-${e.type}`]} />
                             {e.name} <span className={style["download-item-row-version"]}>[{e.version}]</span>
-                            <a href={e.link} download={`nyananime-${e.version}`} className={style["download-item-row-link"]}>(Download)</a>
+                            <a href={e.link} download={`nyananime-${e.version}`} className={style["download-item-row-link"]}>(<Text id="download.link" />)</a>
                         </div>
                         <div className={style["download-item-row"]}>
                             <div className={style["download-item-row-details"]}>

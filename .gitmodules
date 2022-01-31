@@ -1,0 +1,3 @@
+[submodule "src/assets/lang"]
+	path = src/assets/lang
+	url = https://github.com/nyananime-devs/nyananime-translations

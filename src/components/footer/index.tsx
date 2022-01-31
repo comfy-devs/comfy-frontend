@@ -1,5 +1,6 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { Text } from "preact-i18n";
 import { FooterConnectedProps } from "../../ts/components";
 /* Styles */
 import style from "./style.scss";
@@ -8,7 +9,7 @@ const Footer: FunctionalComponent<FooterConnectedProps> = (props: FooterConnecte
     return (
         <div className={style.footer}>
             <div className={style["footer-text"]}>
-                Hosting <span className={style["footer-text-highlight"]}>{"a"}</span> files with size of <span className={style["footer-text-highlight"]}>{"a"}</span>
+                <Text id="footer.hosting" fields={{ files: "a", size: "a" }} />
             </div>
             <div className={style["footer-text"]}>
                 Discord: <span className={style["footer-text-highlight"]}>LamkasDev#4235</span> - Email: <span className={style["footer-text-highlight"]}>me@lamkas.dev</span>

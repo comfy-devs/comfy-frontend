@@ -1,13 +1,13 @@
 /* Base */
 import { h, Component } from "preact";
 import { VideoPlayerConnectedProps } from "../../ts/components";
+import { SegmentType, VideoPlayerNotificationType } from "../../ts/base";
+import { episodeLocationToURL, episodePresetToFile } from "../../scripts/nyan/constants";
+import { findSegmentForTimestamp } from "../../scripts/nyan/functions";
 /* Styles */
 import style from "./style.scss";
 /* Components */
 import VideoPlayerControls from "../video-player-controls";
-import { findSegmentForTimestamp } from "../../scripts/nyan/util";
-import { episodeLocationToURL, episodePresetToFile } from "../../scripts/nyan/constants";
-import { SegmentType, VideoPlayerNotificationType } from "../../ts/base";
 import VideoPlayerNotification from "../video-player-notification";
 
 class VideoPlayer extends Component<VideoPlayerConnectedProps> {

@@ -1,9 +1,10 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
-import { AllConnectedProps } from "../../ts/routes";
 import { useEffect } from "react";
+import { Text, Localizer } from "preact-i18n";
+import { AllConnectedProps } from "../../ts/routes";
 import { FilterGroup, FilterSort, FilterType } from "../../ts/base";
-import { filterValueToDisplayName } from "../../scripts/nyan/constants";
+import { filterValueToDisplayName } from "../../scripts/nyan/functions";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
@@ -74,22 +75,24 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
     return (
         <div className={"route"}>
             <div className={style.all}>
-                <div className={style["all-title"]}>Animes ({animes.length}):</div>
+                <div className={style["all-title"]}><Text id="all.title" fields={{ count: animes.length }} /></div>
                 <div className={style["all-filters"]}>
                     <div className={style["all-filters-chunk-wrapper"]}>
                         {props.dimensions.w > 500 ? <div className={style["all-filters-chunk"]}>{filterItems.slice(0, 3)}</div> : <div className={style["all-filters-chunk"]}>{filterItems.slice(0, 2)}</div>}
                         {props.dimensions.w > 500 ? <div className={style["all-filters-chunk"]}>{filterItems.slice(3)}</div> : <div className={style["all-filters-chunk"]}>{filterItems.slice(2, 4)}</div>}
                         {props.dimensions.w > 500 ? null : <div className={style["all-filters-chunk"]}>{filterItems.slice(4)}</div>}
                     </div>
-                    <div className={style["all-filters-chunk-wrapper"]}> 
-                        <input
-                            placeholder="Search..."
-                            className={style["all-filter-search"]}
-                            onChange={(e) => {
-                                props.actions.setFilterSearchTerm(e.currentTarget.value);
-                            }}
-                            value={props.filterData.searchTerm}
-                        />
+                    <div className={style["all-filters-chunk-wrapper"]}>
+                        <Localizer>
+                            <input
+                                placeholder={<Text id="all.search" />}
+                                className={style["all-filter-search"]}
+                                onChange={(e) => {
+                                    props.actions.setFilterSearchTerm(e.currentTarget.value);
+                                }}
+                                value={props.filterData.searchTerm}
+                            />
+                        </Localizer>
                         <div className={style["all-filters-chunk"]}>
                             <Filter type={FilterType.ITEMS} value={filterValueToDisplayName(FilterType.ITEMS, props.filterData.items)} filterData={props.filterData} actions={props.actions} />
                             <Filter type={FilterType.GROUP} value={filterValueToDisplayName(FilterType.GROUP, props.filterData.group)} filterData={props.filterData} actions={props.actions} />

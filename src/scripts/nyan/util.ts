@@ -47,21 +47,3 @@ export function splitArray (array: any[], chunk_size: number) {
         return acc;
     }, []);
 }
-
-export type SegmentData = {
-    end: number;
-    item: Segment | null;
-};
-export function findSegmentForTimestamp(segments: Segment[], timestamp: number): SegmentData {
-    const segmentData = segments.reduce((acc: any, curr) => {
-        if(acc.item !== null) { return acc; }
-        if(timestamp < acc.end + curr.length) {
-            acc.item = curr;
-        }
-
-        acc.end += curr.length;
-        return acc;
-    }, { end: 0, item: null });
-
-    return segmentData;
-}

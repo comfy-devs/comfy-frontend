@@ -2,13 +2,14 @@
 import { h, FunctionalComponent } from "preact";
 import { VideoPlayerNotificationConnectedProps } from "../../ts/components";
 import { VideoPlayerNotificationType } from "../../ts/base";
-import { videoPlayerNotificationTypeToText } from "../../scripts/nyan/constants";
 /* Styles */
 import style from "./style.scss";
 
 const VideoPlayerNotification: FunctionalComponent<VideoPlayerNotificationConnectedProps> = (props: VideoPlayerNotificationConnectedProps) => {
     return <div className={style.notification}>
-        <div className={style["notification-text"]}>{videoPlayerNotificationTypeToText(props.type)}</div>
+        <div className={style["notification-text"]}>
+            <Text id={`enum.videoPlayerNotification.${props.type}`} />
+        </div>
         {props.type === VideoPlayerNotificationType.OP || props.type === VideoPlayerNotificationType.ED ?
             <div className={style["notification-links"]}>
                 <div onClick={() => {
@@ -24,7 +25,7 @@ const VideoPlayerNotification: FunctionalComponent<VideoPlayerNotificationConnec
                             props.actions.setPlayerEdNotification(false);
                             break;
                     }
-                }} className={style["notification-link"]}>(Skip)</div>
+                }} className={style["notification-link"]}>({<Text id="video.notification.skip" />})</div>
                 <div onClick={() => {
                     if(props.video === null) { return; }
                     switch(props.type) {
@@ -36,7 +37,7 @@ const VideoPlayerNotification: FunctionalComponent<VideoPlayerNotificationConnec
                             props.actions.setPlayerEdNotification(false);
                             break;
                     }
-                }} className={style["notification-link"]}>(Hide)</div>
+                }} className={style["notification-link"]}>({<Text id="video.notification.hide" />})</div>
             </div> : null
         }
     </div>

@@ -1,10 +1,11 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { Text } from "preact-i18n";
 import { VideoPlayerControlsConnectedProps } from "../../ts/components";
 import { AnimeTag, EpisodePreset, SegmentType } from "../../ts/base";
 import { Segment } from "../../ts/api";
-import { findSegmentForTimestamp, secondsToString } from "../../scripts/nyan/util";
-import { episodePresetToDisplayName, segmentTypeToDisplayName } from "../../scripts/nyan/constants";
+import { secondsToString } from "../../scripts/nyan/util";
+import { findSegmentForTimestamp } from "../../scripts/nyan/functions";
 /* Styles */
 import style from "./style.scss";
 import { useState } from "react";
@@ -39,7 +40,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             }
                         }}>
                         <div className={style["icon-play"]} data={props.video.paused ? "false" : "true"} />
-                        <div className={style.tooltip} data={"left"}>{props.video.paused ? "Play (k)" : "Pause (k)"}</div>
+                        <div className={style.tooltip} data={"left"}>{props.video.paused ? <Text id="video.play.tooltip" /> : <Text id="video.pause.tooltip" />}</div>
                     </div>
                     <div className={style["video-controls-time"]}>
                         {secondsToString(Math.round(props.video.currentTime))}/{isNaN(props.video.duration) ? "??" : secondsToString(Math.round(props.video.duration))}
@@ -53,7 +54,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             props.video.muted = !props.video.muted;
                         }}>
                         <div className={style["icon-volume"]} data={props.video.muted ? "false" : "true"} />
-                        <div className={style.tooltip}>{props.video.muted ? "Unmute (m)" : "Mute (m)"}</div>
+                        <div className={style.tooltip}>{props.video.muted ? <Text id="video.unmute.tooltip" /> : <Text id="video.mute.tooltip" />}</div>
                     </div>
                     <div
                         className={style["video-controls-volume"]}
@@ -68,7 +69,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                         disabled={props.video.muted}>
                         <div className={style["video-controls-volume-bg"]} />
                         <div className={style["video-controls-volume-value"]} style={{ width: `${props.video.volume * 100}%` }} />
-                        <div className={[style.tooltip, style["tooltip-volume"]].join(" ")}>Volume ({Math.round(props.video.volume * 100)}%)</div>
+                        <div className={[style.tooltip, style["tooltip-volume"]].join(" ")}><Text id="video.volume" fields={{ volume: Math.round(props.video.volume * 100) }} /></div>
                     </div>
                     {props.preferences.developer === false ? null : <div
                         className={style["video-controls-button"]}
@@ -104,7 +105,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             e.preventDefault();
                         }}>
                             <div className={style[`icon-segment-${devSegmentType}`]} />
-                            <div className={style.tooltip}>Mark segment end ({segmentTypeToDisplayName(devSegmentType)})</div>
+                            <div className={style.tooltip}>Mark segment end ({<Text id={`enum.segmentType.${devSegmentType}`} />})</div>
                     </div>}
                     {props.preferences.developer === false ? null : <div
                         className={style["video-controls-button"]}
@@ -140,7 +141,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             props.timelineTooltip.style.left = `calc(${(value * 100)}% - ${Math.round(props.timelineTooltip.getBoundingClientRect().width / 2)}px)`;
 
                             const segment = findSegmentForTimestamp(segments, value * props.video.duration);
-                            props.timelineTooltip.innerText = `${secondsToString(Math.round(props.video.duration * value))} ${segment.item === null || segment.item.type === SegmentType.EPISODE ? "" : `(${segmentTypeToDisplayName(segment.item.type)})`}`;
+                            props.timelineTooltip.innerText = `${secondsToString(Math.round(props.video.duration * value))} ${segment.item === null || segment.item.type === SegmentType.EPISODE ? "" : `(${<Text id={`enum.segmentType.${segment.item.type}`} />})`}`;
                         }}
                         onMouseLeave={() => {
                             if (props.timelineTooltip === null) {
@@ -169,11 +170,11 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             props.actions.setPlayerSubs(!props.playerData.subs);
                         }}>
                         <div className={style["icon-subs"]} data={props.playerData.subs ? "true" : "false"} />
-                        <div className={style.tooltip}>{props.playerData.subs ? "Subtitles On (c)" : "Subtitles Off (c)"}</div>
+                        <div className={style.tooltip}>{props.playerData.subs ? <Text id="video.showSubtitles.tooltip" /> : <Text id="video.hideSubtitles.tooltip" />}</div>
                     </div>
                     <div className={style["video-controls-button"]} disabled>
                         <div className={style["icon-audio"]} data={"false"} />
-                        <div className={style.tooltip}>Not Dubbed</div>
+                        <div className={style.tooltip}><Text id="video.noDub" /></div>
                     </div>
                     <div className={style["video-controls-button"]}
                         onClick={() => {
@@ -184,7 +185,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             }
                         }}>
                         <div className={style["icon-quality"]} data={"false"} />
-                        <div className={style.tooltip}>Quality - {episodePresetToDisplayName(props.playerData.preset)} ({presetIndex + 1}/{presets.length})</div>
+                        <div className={style.tooltip}><Text id="video.quality" fields={{ quality: <Text id={`enum.episodePreset.${props.playerData.preset}`} />, number: presetIndex + 1, count: presets.length }} /></div>
                     </div>
                     <div
                         className={style["video-controls-button"]}
@@ -192,7 +193,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             props.actions.setPlayerTheater(!props.playerData.theater);
                         }}>
                         <div className={style["icon-theater"]} data={props.playerData.theater ? "true" : "false"} />
-                        <div className={style.tooltip}>{props.playerData.theater ? "Theater On (t)" : "Theater Off (t)"}</div>
+                        <div className={style.tooltip}>{props.playerData.theater ? <Text id="video.hideTheater.tooltip" /> : <Text id="video.showTheater.tooltip" />}</div>
                     </div>
                     <div
                         className={style["video-controls-button"]}
@@ -207,7 +208,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             }
                         }}>
                         <div className={style["icon-fullscreen"]} />
-                        <div className={style.tooltip} data={"right"}>Fullscreen (f)</div>
+                        <div className={style.tooltip} data={"right"}><Text id="video.fullscreen.tooltip" /></div>
                     </div>
                 </div>
             </div>

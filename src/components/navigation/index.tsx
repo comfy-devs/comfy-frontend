@@ -1,9 +1,10 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { NavigationConnectedProps } from "../../ts/components";
-import NavigationButton from "../navigation-button";
 /* Styles */
 import style from "./style.scss";
+/* Components */
+import NavigationButton from "../navigation-button";
 
 const Navigation: FunctionalComponent<NavigationConnectedProps> = (props: NavigationConnectedProps) => {
     const totalPages = 1;

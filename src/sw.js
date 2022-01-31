@@ -3,7 +3,6 @@ import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 
 const files = getFiles();
-files.push({ url: "/favicon.ico", revision: null });
 setupPrecaching(files);
 
 registerRoute(({ url }) => {

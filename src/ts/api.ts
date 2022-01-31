@@ -19,6 +19,7 @@ export type APIResponse = {
 /* Types */
 export type Preferences = {
     theme: PreferencesTheme;
+    lang: string;
     developer: boolean;
 };
 

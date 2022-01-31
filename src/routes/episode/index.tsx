@@ -1,8 +1,9 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { useEffect } from "react";
-import { EpisodeConnectedProps } from "../../ts/routes";
 import { useParams } from "react-router-dom";
+import { Text } from "preact-i18n";
+import { EpisodeConnectedProps } from "../../ts/routes";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
@@ -45,12 +46,13 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
         <div className={"route"}>
             <div className={style["episode-overview"]}>
                 <div className={style["episode-overview-title"]}>
-                    Episode {(episode.pos + 1)} - <span className={style["episode-overview-title-highlight"]}>{episode.title}</span>
+                    <Text id="episode.number" fields={{ num: episode.pos + 1 }} />
+                    <span className={style["episode-overview-title-highlight"]}>{episode.title}</span>
                 </div>
                 <VideoPlayer dimensions={props.dimensions} playerData={props.playerData} item={episode} parent={anime} segments={segments} preferences={props.preferences} actions={props.actions} />
                 <div className={style["episode-overview-extra"]}>
                     <div className={style["episode-overview-subtitle"]}>
-                        Anime: <a href={`/animes/${anime.id}`} className={style["episode-overview-subtitle-highlight"]}>{anime.title}</a>
+                        <Text id="episode.anime" /><a href={`/animes/${anime.id}`} className={style["episode-overview-subtitle-highlight"]}>{anime.title}</a>
                     </div>
                     <div className={style["episode-overview-separator"]} />
                     <div className={style["episode-overview-episodes"]}>

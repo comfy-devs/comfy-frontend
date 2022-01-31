@@ -1,5 +1,6 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { Text, withText } from "preact-i18n";
 import { HomeConnectedProps } from "../../ts/routes";
 import { AnimeStatus } from "../../ts/base";
 /* Redux */
@@ -24,24 +25,24 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
         if(a.timestamp === null || b.timestamp === null) { return 0; }
         return b.timestamp - a.timestamp;
     });
-
+    
     return (
         <div className="route">
             <div className={style["topic-group"]}>
-                <Topic title="Airing anime" icon="airing" small={false} items={airingSet} />
+                <Topic title={<Text id="home.airing" />} icon="airing" small={false} items={airingSet} />
             </div>
             <div className={style["topics-separator"]} />
             <div className={style["topic-group"]}>
-                <Topic title="Airing soon" icon="soon" small={true} extra={1} items={soonSet} />
-                <Topic title="Latest episode" icon="latest" small={true} extra={0} items={latestSet} />
+                <Topic title={<Text id="home.soon" />} icon="soon" small={true} extra={1} items={soonSet} />
+                <Topic title={<Text id="home.latest" />} icon="latest" small={true} extra={0} items={latestSet} />
             </div>
             <div className={style["topics-separator"]} />
             <div className={style["topic-group"]}>
-                <Topic title="Random anime" icon="random" small={false} items={randomSet} />
+                <Topic title={<Text id="home.random" />} icon="random" small={false} items={randomSet} />
             </div>
             <div className={style["topics-separator"]} />
         </div>
     );
 };
 
-export default connect(mapState, mapDispatch(actions))(Home);
+export default (connect(mapState, mapDispatch(actions))(Home));

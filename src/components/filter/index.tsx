@@ -1,11 +1,13 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { Text } from "preact-i18n";
 import { FilterConnectedProps } from "../../ts/components";
+import { FilterGroup, FilterSort, FilterType } from "../../ts/base";
 import { splitArray } from "../../scripts/nyan/util";
+import { filterTypeToValues } from "../../scripts/nyan/constants";
+import { filterValueToDisplayName } from "../../scripts/nyan/functions";
 /* Styles */
 import style from "./style.scss";
-import { filterTypeToDisplayname, filterTypeToValues, filterValueToDisplayName } from "../../scripts/nyan/constants";
-import { FilterGroup, FilterSort, FilterType } from "../../ts/base";
 
 const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnectedProps) => {
     const filterValues: (number | null)[] = filterTypeToValues(props.type);
@@ -53,7 +55,7 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
     return (
         <button className={style["filter-wrapper"]}>
             <div className={style.filter}>
-                <div className={style["filter-title"]}>{`${filterTypeToDisplayname(props.type)}: `}</div>
+                <div className={style["filter-title"]}><Text id={`enum.filterType.${props.type}`} />: </div>
                 <div className={style["filter-value"]}>{props.value}</div>
             </div>
             <div className={style["filter-items-wrapper"]}>

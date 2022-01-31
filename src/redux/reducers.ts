@@ -19,12 +19,18 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
     FETCH_PREFERENCES: (state: ReduxState, action: ReduxAction): any => {
         const preferences = {
             theme: PreferencesTheme.DARK,
+            lang: "en",
             developer: false
         };
 
         const theme = localStorage.getItem("theme");
         if(theme !== null) {
             preferences.theme = parseInt(theme, 10);
+        }
+
+        const lang = localStorage.getItem("lang");
+        if(lang !== null) {
+            preferences.lang = lang;
         }
 
         const developer = localStorage.getItem("developer");

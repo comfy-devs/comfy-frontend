@@ -1,8 +1,8 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { Text } from "preact-i18n";
 import { SettingsConnectedProps } from "../../ts/routes";
 import { PreferencesTheme } from "../../ts/base";
-import { notificationPreferencesToDisplayName, preferencesThemeToDisplayName } from "../../scripts/nyan/constants";
 import { setupNotifications } from "../../scripts/nyan/notifications";
 /* Redux */
 import { connect } from "react-redux";
@@ -18,7 +18,10 @@ const Settings: FunctionalComponent<SettingsConnectedProps> = (props: SettingsCo
                 <div className={style["settings-button"]} onClick={() => {
                     props.actions.setPreferencesTheme(props.preferences.theme === PreferencesTheme.DARK ? PreferencesTheme.LIGHT : PreferencesTheme.DARK);
                 }}>
-                    <div className={style["settings-button-title"]}>Theme: {preferencesThemeToDisplayName(props.preferences.theme)}</div></div>
+                    <div className={style["settings-button-title"]}>
+                        <Text id="settings.theme" fields={{ theme: <Text id={`enum.preferencesTheme.${props.preferences.theme}`} /> }} />
+                    </div>
+                </div>
                 <div className={style["settings-button"]} onClick={async() => {
                     if(props.user === undefined) { return; }
                     if(Notification.permission === "default" || (Notification.permission === "granted" && !props.user.pushEnabled)) {
@@ -35,7 +38,11 @@ const Settings: FunctionalComponent<SettingsConnectedProps> = (props: SettingsCo
                         props.actions.pushUnsubscribe();
                     }
                 }}>
-                    <div className={style["settings-button-title"]}>Notifications: {notificationPreferencesToDisplayName(Notification.permission, props.user)}</div>
+                    <div className={style["settings-button-title"]}>
+                        <Text id="settings.notifications" fields={{
+                            status: props.user === undefined ? <Text id="enum.notificationPreference.notLoggedIn" /> : (!props.user.pushEnabled ? <Text id="enum.notificationPreference.off" /> : <Text id={`enum.notificationPreference.${Notification.permission}`} />)
+                        }} />
+                    </div>
                 </div>
             </div>
         </div>
