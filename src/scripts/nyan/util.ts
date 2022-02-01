@@ -1,5 +1,7 @@
 export function secondsToString(time: number) {
-    if(time < 0) { return "??"; }
+    if (time < 0) {
+        return "??";
+    }
     let timeString = "";
 
     const hrs = Math.floor(time / 3600);
@@ -13,7 +15,9 @@ export function secondsToString(time: number) {
     return timeString;
 }
 export function secondsToStringHuman(time: number) {
-    if(time < 0) { return "??"; }
+    if (time < 0) {
+        return "??";
+    }
     let timeString = "";
 
     const years = Math.floor(time / 31557600);
@@ -37,10 +41,10 @@ export function secondsToStringHuman(time: number) {
     return timeString;
 }
 
-export function splitArray (array: any[], chunk_size: number) {
+export function splitArray(array: any[], chunk_size: number) {
     return array.reduce((acc, curr, i) => {
-        const ch = Math.floor(i / chunk_size); 
-        acc[ch] = [].concat((acc[ch] || []), curr); 
+        const ch = Math.floor(i / chunk_size);
+        acc[ch] = [].concat(acc[ch] || [], curr);
         return acc;
     }, []);
 }

@@ -17,10 +17,12 @@ import EpisodeCard from "../../components/episode-card";
 const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedProps) => {
     const { id } = useParams();
     const anime = id === undefined ? undefined : props.animes.get(id);
-    
+
     /* API calls */
     useEffect(() => {
-        if (id === undefined) { return; }
+        if (id === undefined) {
+            return;
+        }
         if (anime !== undefined) {
             props.actions.fetchAnimeEpisodes(id);
         }
@@ -29,12 +31,16 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
     if (anime === undefined) {
         return null;
     }
-    const episodes = Array.from(props.episodes.values()).filter((e) => {
-        return e.anime === anime.id;
-    }).sort((b, a) => { return b.pos - a.pos; });
+    const episodes = Array.from(props.episodes.values())
+        .filter((e) => {
+            return e.anime === anime.id;
+        })
+        .sort((b, a) => {
+            return b.pos - a.pos;
+        });
     const episodeElements = [];
-    for(let i = 0; i < anime.episodes; i++) {
-        if(episodes[i] !== undefined) {
+    for (let i = 0; i < anime.episodes; i++) {
+        if (episodes[i] !== undefined) {
             episodeElements.push(<EpisodeCard key={i} parent={anime} item={episodes[i]} i={i} disabled={false} />);
         } else {
             episodeElements.push(<EpisodeCard key={i} parent={anime} item={episodes[i]} i={i} disabled={false} />);
@@ -49,33 +55,49 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                       <div key={i}>
                           {e}
                           <br />
-                      </div>    
+                      </div>
                   );
               });
-    const genres = Object.keys(AnimeGenre).filter(e => { return parseInt(e, 10) !== 0 && (anime.genres & parseInt(e, 10)) === parseInt(e, 10) }).map((e, i) => {
-        return (
-            <div key={i} className={style["anime-overview-field"]}>
-                <span className={style["anime-overview-data-field-highlight"]}>{i === 0 ? "" : ", "}{<Text id={`enum.animeGenre.${parseInt(e, 10)}`} />}</span>
-            </div>
-        );
-    });
-    const tags = Object.keys(AnimeTag).filter(e => { return parseInt(e, 10) !== 0 && (anime.tags & parseInt(e, 10)) === parseInt(e, 10) }).map((e, i) => {
-        return (
-            <div key={i} className={style["anime-overview-field"]}>
-                <span className={style["anime-overview-data-field-highlight"]}>{i === 0 ? "" : ", "}{<Text id={`enum.animeTag.${parseInt(e, 10)}`} />}</span>
-            </div>
-        );
-    });
+    const genres = Object.keys(AnimeGenre)
+        .filter((e) => {
+            return parseInt(e, 10) !== 0 && (anime.genres & parseInt(e, 10)) === parseInt(e, 10);
+        })
+        .map((e, i) => {
+            return (
+                <div key={i} className={style["anime-overview-field"]}>
+                    <span className={style["anime-overview-data-field-highlight"]}>
+                        {i === 0 ? "" : ", "}
+                        {<Text id={`enum.animeGenre.${parseInt(e, 10)}`} />}
+                    </span>
+                </div>
+            );
+        });
+    const tags = Object.keys(AnimeTag)
+        .filter((e) => {
+            return parseInt(e, 10) !== 0 && (anime.tags & parseInt(e, 10)) === parseInt(e, 10);
+        })
+        .map((e, i) => {
+            return (
+                <div key={i} className={style["anime-overview-field"]}>
+                    <span className={style["anime-overview-data-field-highlight"]}>
+                        {i === 0 ? "" : ", "}
+                        {<Text id={`enum.animeTag.${parseInt(e, 10)}`} />}
+                    </span>
+                </div>
+            );
+        });
     const views = episodes.reduce((acc, curr) => {
         return acc + curr.views;
     }, 0);
-    
+
     return (
         <div className="route">
             <div className={style["anime-overview"]}>
                 <div className={style["anime-overview-title-wrapper"]}>
                     <div className={style["anime-overview-favourite"]}>
-                        <div className={style["anime-overview-favourite-tooltip"]}><Text id="anime.favourite.tooltip" /></div>
+                        <div className={style["anime-overview-favourite-tooltip"]}>
+                            <Text id="anime.favourite.tooltip" />
+                        </div>
                         <div className={style["icon-star"]} />
                     </div>
                     <div className={style["anime-overview-title"]}>{anime.title}</div>
@@ -87,11 +109,15 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                         <div className={style["anime-overview-data-separator"]} />
                         <div className={style["anime-overview-data-field"]}>
                             <Text id="anime.type" />
-                            <span className={style["anime-overview-data-field-highlight"]}><Text id={`enum.animeType.${anime.type}`} /></span>
+                            <span className={style["anime-overview-data-field-highlight"]}>
+                                <Text id={`enum.animeType.${anime.type}`} />
+                            </span>
                         </div>
                         <div className={style["anime-overview-data-field"]}>
                             <Text id="anime.status" />
-                            <span className={style["anime-overview-data-field-highlight"]}><Text id={`enum.animeType.${anime.type}`} /></span>
+                            <span className={style["anime-overview-data-field-highlight"]}>
+                                <Text id={`enum.animeType.${anime.type}`} />
+                            </span>
                         </div>
                         <div className={style["anime-overview-data-field"]}>
                             <Text id="anime.genres" />
@@ -117,9 +143,7 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                         </div>
                     </div>
                 </div>
-                <div className={style["anime-overview-episodes"]}>
-                    {episodeElements}
-                </div>
+                <div className={style["anime-overview-episodes"]}>{episodeElements}</div>
             </div>
         </div>
     );

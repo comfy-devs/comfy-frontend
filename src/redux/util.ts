@@ -16,7 +16,7 @@ export const INITIAL: ReduxState = {
 
     playerData: { theater: false, subs: true, preset: EpisodePreset.HIGH, opNotification: true, edNotification: true },
     filterData: { page: 0, searchTerm: "", genres: null, year: null, type: null, status: null, sort: FilterSort.TITLE, tags: null, items: 50, group: FilterGroup.NO },
-    authData: { username: "", password: "", password2: "", result: AuthResult.NONE }
+    authData: { username: "", password: "", password2: "", result: AuthResult.NONE },
 };
 
 export function mapState(state: ReduxState | undefined): ReduxState {
@@ -75,7 +75,7 @@ export function cacheResource(state: ReduxState, resource: any, resourceType: Re
 }
 
 export function cacheResources(state: ReduxState, resources: any[], resourceType: ResourceType): ReduxState {
-    resources.forEach(resource => {
+    resources.forEach((resource) => {
         state = cacheResource(state, resource, resourceType);
     });
 

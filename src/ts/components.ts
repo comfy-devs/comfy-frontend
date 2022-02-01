@@ -73,7 +73,7 @@ export type EpisodeSmallCardConnectedProps = Record<string, never>;
 export type FilterConnectedProps = {
     type: FilterType;
     value: number | null;
-    
+
     filterData: FilterData;
     actions: ConnectedActions;
 };
@@ -92,6 +92,6 @@ export type NavigationConnectedProps = {
 
 export type NavigationButtonConnectedProps = {
     i: number;
-    
+
     filterData: FilterData;
 };

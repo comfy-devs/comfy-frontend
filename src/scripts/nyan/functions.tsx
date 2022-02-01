@@ -6,8 +6,10 @@ import { Anime, Segment } from "../../ts/api";
 import { secondsToStringHuman } from "./util";
 
 export function filterValueToDisplayName(type: FilterType, value: number | null) {
-    if(value === null) {
-        if(type === FilterType.SORT) { return <Text id="filter.default" />; }
+    if (value === null) {
+        if (type === FilterType.SORT) {
+            return <Text id="filter.default" />;
+        }
         return <Text id="filter.any" />;
     }
     const map: Record<number, h.JSX.Element> = {
@@ -18,14 +20,16 @@ export function filterValueToDisplayName(type: FilterType, value: number | null)
         [FilterType.SORT]: <Text id={`enum.filterSort.${value}`} />,
         [FilterType.TAGS]: <Text id={`enum.animeTag.${value}`} />,
         [FilterType.ITEMS]: <Text id="">{value.toString()}</Text>,
-        [FilterType.GROUP]: <Text id={`enum.filterGroup.${value}`} />
-    }
+        [FilterType.GROUP]: <Text id={`enum.filterGroup.${value}`} />,
+    };
     return map[type];
 }
 
 export function topicExtraToDisplayName(item: Anime, extra?: number) {
-    if (extra === undefined || item.timestamp === null) { return undefined; }
-    switch(extra) {
+    if (extra === undefined || item.timestamp === null) {
+        return undefined;
+    }
+    switch (extra) {
         case 0: {
             const t = secondsToStringHuman(Math.floor(Date.now() / 1000) - item.timestamp);
             return <Text id="home.releasedAgo" fields={{ time: t }} />;
@@ -44,15 +48,20 @@ export type SegmentData = {
     item: Segment | null;
 };
 export function findSegmentForTimestamp(segments: Segment[], timestamp: number): SegmentData {
-    const segmentData = segments.reduce((acc: any, curr) => {
-        if(acc.item !== null) { return acc; }
-        if(timestamp < acc.end + curr.length) {
-            acc.item = curr;
-        }
+    const segmentData = segments.reduce(
+        (acc: any, curr) => {
+            if (acc.item !== null) {
+                return acc;
+            }
+            if (timestamp < acc.end + curr.length) {
+                acc.item = curr;
+            }
 
-        acc.end += curr.length;
-        return acc;
-    }, { end: 0, item: null });
+            acc.end += curr.length;
+            return acc;
+        },
+        { end: 0, item: null }
+    );
 
     return segmentData;
 }

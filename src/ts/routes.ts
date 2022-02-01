@@ -21,14 +21,14 @@ export type AllConnectedProps = {
     animes: Map<string, Anime>;
     groups: Map<string, Group>;
     filterData: FilterData;
-    
+
     actions: ConnectedActions;
     dictionary: Record<string, any>;
 };
 
 export type GenresConnectedProps = {
     animes: Map<string, Anime>;
-    
+
     actions: ConnectedActions;
 };
 

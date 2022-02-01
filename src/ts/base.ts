@@ -27,11 +27,19 @@ export type Dimensions = {
 };
 
 export enum PreferencesTheme {
-    DARK, LIGHT
+    DARK,
+    LIGHT,
 }
 
 export enum AuthResult {
-    NONE, WAITING, FAILED_LOGIN, FAILED_REGISTER, USERNAME_TOO_SHORT, PASSWORD_TOO_SHORT, PASSWORD_NO_MATCH, USERNAME_EXISTS
+    NONE,
+    WAITING,
+    FAILED_LOGIN,
+    FAILED_REGISTER,
+    USERNAME_TOO_SHORT,
+    PASSWORD_TOO_SHORT,
+    PASSWORD_NO_MATCH,
+    USERNAME_EXISTS,
 }
 
 export type AuthData = {
@@ -50,7 +58,8 @@ export type PlayerData = {
 };
 
 export enum VideoPlayerNotificationType {
-    OP, ED
+    OP,
+    ED,
 }
 
 export type FilterData = {
@@ -66,9 +75,25 @@ export type FilterData = {
     items: number;
     group: FilterGroup;
 };
-export enum FilterType { GENRES, YEAR, TYPE, STATUS, SORT, TAGS, ITEMS, GROUP }
-export enum FilterSort { TITLE, RELEASE, FAVOURITES }
-export enum FilterGroup { YES, NO }
+export enum FilterType {
+    GENRES,
+    YEAR,
+    TYPE,
+    STATUS,
+    SORT,
+    TAGS,
+    ITEMS,
+    GROUP,
+}
+export enum FilterSort {
+    TITLE,
+    RELEASE,
+    FAVOURITES,
+}
+export enum FilterGroup {
+    YES,
+    NO,
+}
 
 export enum AnimeType {
     TV,
@@ -101,7 +126,7 @@ export enum AnimeGenre {
     SLICE_OF_LIFE = 16384,
     SPORTS = 32768,
     SUPERNATURAL = 65536,
-    THRILLER = 131072
+    THRILLER = 131072,
 }
 
 export enum AnimeTag {
@@ -117,15 +142,18 @@ export enum AnimeRating {
 
 export enum EpisodePreset {
     LOW = 1,
-    MEDIUM = 2, 
+    MEDIUM = 2,
     HIGH = 4,
-    VP9 = 8
+    VP9 = 8,
 }
 
 export enum EpisodeLocation {
-    AKAGI, KAGA
+    AKAGI,
+    KAGA,
 }
 
 export enum SegmentType {
-    OP, EPISODE, ED
+    OP,
+    EPISODE,
+    ED,
 }

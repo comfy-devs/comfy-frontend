@@ -15,11 +15,13 @@ const Topic: FunctionalComponent<TopicConnectedProps> = (props: TopicConnectedPr
                 <div className={style["topic-title"]}>{props.title}</div>
             </div>
             <div className={style["topic-previews"]}>
-                {props.items.length < 1 ? <AnimeCard /> :
+                {props.items.length < 1 ? (
+                    <AnimeCard />
+                ) : (
                     props.items.map((e, i) => {
                         return <AnimeCard key={i} item={e} extra={topicExtraToDisplayName(e, props.extra)} />;
                     })
-                }
+                )}
             </div>
         </div>
     );

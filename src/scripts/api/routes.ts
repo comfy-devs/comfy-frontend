@@ -61,7 +61,7 @@ export async function fetchStats(): Promise<Stats | undefined> {
 }
 
 export async function loginToken(): Promise<Session | undefined> {
-    const response: APIResponse = await post({ path: `/login?type=token`, body: { } });
+    const response: APIResponse = await post({ path: `/login?type=token`, body: {} });
     if (response.status !== 200) {
         return undefined;
     }
@@ -70,7 +70,7 @@ export async function loginToken(): Promise<Session | undefined> {
 }
 
 export async function login(username: string, password: string): Promise<Session | undefined> {
-    const response: APIResponse = await post({ path: `/login?type=classic&username=${username}&password=${password}`, body: { } });
+    const response: APIResponse = await post({ path: `/login?type=classic&username=${username}&password=${password}`, body: {} });
     if (response.status !== 200) {
         return undefined;
     }
@@ -79,7 +79,7 @@ export async function login(username: string, password: string): Promise<Session
 }
 
 export async function register(username: string, password: string): Promise<User | undefined> {
-    const response: APIResponse = await post({ path: `/register?username=${username}&password=${password}`, body: { } });
+    const response: APIResponse = await post({ path: `/register?username=${username}&password=${password}`, body: {} });
     if (response.status !== 200) {
         return undefined;
     }
@@ -88,11 +88,11 @@ export async function register(username: string, password: string): Promise<User
 }
 
 export async function pushSubscribe(url: string, key: string, auth: string): Promise<number> {
-    const response: APIResponse = await post({ path: `/notifications/subscribe?url=${url}&key=${key}&auth=${auth}`, body: { } });
+    const response: APIResponse = await post({ path: `/notifications/subscribe?url=${url}&key=${key}&auth=${auth}`, body: {} });
     return response.status;
 }
 
 export async function pushUnsubscribe(): Promise<number> {
-    const response: APIResponse = await post({ path: "/notifications/unsubscribe", body: { } });
+    const response: APIResponse = await post({ path: "/notifications/unsubscribe", body: {} });
     return response.status;
 }

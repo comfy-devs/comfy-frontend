@@ -15,16 +15,26 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
     /* Get sets to preview */
     const animes = Array.from(props.animes.values());
     const randomSet = animes.length < 1 ? [] : [animes[props.random % animes.length]];
-    const airingSet = animes.filter((e) => { return e.status === AnimeStatus.AIRING; });
+    const airingSet = animes.filter((e) => {
+        return e.status === AnimeStatus.AIRING;
+    });
     const soonSet = airingSet.sort((a, b) => {
-        if(a.timestamp === null || b.timestamp === null) { return 0; }
+        if (a.timestamp === null || b.timestamp === null) {
+            return 0;
+        }
         return b.timestamp - a.timestamp;
     });
-    const latestSet = animes.filter(e => { return e.timestamp !== null; }).sort((a, b) => {
-        if(a.timestamp === null || b.timestamp === null) { return 0; }
-        return b.timestamp - a.timestamp;
-    });
-    
+    const latestSet = animes
+        .filter((e) => {
+            return e.timestamp !== null;
+        })
+        .sort((a, b) => {
+            if (a.timestamp === null || b.timestamp === null) {
+                return 0;
+            }
+            return b.timestamp - a.timestamp;
+        });
+
     return (
         <div className="route">
             <div className={style["topic-group"]}>
@@ -44,4 +54,4 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
     );
 };
 
-export default (connect(mapState, mapDispatch(actions))(Home));
+export default connect(mapState, mapDispatch(actions))(Home);

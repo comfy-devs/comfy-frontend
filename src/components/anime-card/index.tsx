@@ -6,12 +6,14 @@ import { AnimeCardConnectedProps } from "../../ts/components";
 import style from "./style.scss";
 
 const AnimeCard: FunctionalComponent<AnimeCardConnectedProps> = (props: AnimeCardConnectedProps) => {
-    if(props.item === undefined) {
+    if (props.item === undefined) {
         return (
             <a className={style.anime}>
                 <div className={style["anime-thumbnail"]} style={{ cursor: "default" }} />
                 <div className={style["anime-title-wrapper"]}>
-                    <div className={style["anime-title"]}><Text id="anime.missing" /></div>
+                    <div className={style["anime-title"]}>
+                        <Text id="anime.missing" />
+                    </div>
                 </div>
             </a>
         );
@@ -19,7 +21,7 @@ const AnimeCard: FunctionalComponent<AnimeCardConnectedProps> = (props: AnimeCar
     const title = props.item.title.length <= 18 ? props.item.title : `${props.item.title.substring(0, 15)}...`;
 
     return (
-        <a href={`/animes/${props.item.id}`} className={style.anime} data={props.alt ? "alt" : undefined} >
+        <a href={`/animes/${props.item.id}`} className={style.anime} data={props.alt ? "alt" : undefined}>
             <img alt="anime-thumbnail" src={`https://image.nyananime.xyz/${props.item.id}/poster.webp`} className={style["anime-thumbnail"]} />
             <div className={style["anime-title-wrapper"]}>
                 <div className={style["anime-title"]}>{title}</div>
@@ -28,11 +30,11 @@ const AnimeCard: FunctionalComponent<AnimeCardConnectedProps> = (props: AnimeCar
                     <div className={style["anime-favourites"]}>{props.item.favourites}</div>
                 </div>
             </div>
-            {props.extra === undefined ? null :
+            {props.extra === undefined ? null : (
                 <div className={style["anime-extra-wrapper"]}>
                     <div className={style["anime-extra-text"]}>{props.extra}</div>
                 </div>
-            }
+            )}
             <div className={style["anime-overlay"]}>
                 <div className={style["icon-info"]} />
             </div>

@@ -7,13 +7,17 @@ import { EpisodeCardConnectedProps } from "../../ts/components";
 import style from "./style.scss";
 
 const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: EpisodeCardConnectedProps) => {
-    if(props.item === undefined) {
-        return <a className={style.episode}>
-            <div className={style["episode-title-wrapper"]}>
-                <div className={style["episode-title"]}><Text id="anime.episode.missing" /></div>
-            </div>
-            <div alt="episode-thumbnail" className={style["episode-thumbnail"]} />
-        </a>
+    if (props.item === undefined) {
+        return (
+            <a className={style.episode}>
+                <div className={style["episode-title-wrapper"]}>
+                    <div className={style["episode-title"]}>
+                        <Text id="anime.episode.missing" />
+                    </div>
+                </div>
+                <div alt="episode-thumbnail" className={style["episode-thumbnail"]} />
+            </a>
+        );
     }
 
     return (
@@ -32,24 +36,35 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
                         <Text id="anime.episode.number" fields={{ num: props.i + 1, episodes: props.parent.episodes }} />
                     </span>
                 </div>
-                <div className={style["episode-title"]}>
-                    {props.item.title}
-                </div>
+                <div className={style["episode-title"]}>{props.item.title}</div>
                 <div className={style["episode-stat-wrapper"]}>
-                    <div className={style["episode-stat"]}><div className={style["icon-eye"]} /> {props.item.views}</div>
-                    <div className={style["episode-stat"]}><div className={style["icon-comment"]} /> 0</div>
+                    <div className={style["episode-stat"]}>
+                        <div className={style["icon-eye"]} /> {props.item.views}
+                    </div>
+                    <div className={style["episode-stat"]}>
+                        <div className={style["icon-comment"]} /> 0
+                    </div>
                 </div>
                 <div className={style["episode-buttons"]}>
-                    <a href={`/episodes/${props.item.id}`} className={style["episode-button"]}><Text id="anime.episode.play" /></a>
-                    <div onClick={() => {
-                        if(props.item === undefined) { return; }
-                        const e = document.createElement("a");
-                        e.setAttribute("href", `${episodeLocationToURL(props.parent.location)}/${props.item.anime}/${props.item.pos}/ep_low.mp4`);
-                        e.setAttribute("download", `${props.parent.title.replace(/[^a-zA-Z0-9 ]/g, "").replace(" ", "_")}_${String(props.item.pos).padStart(3, "0")}_1080p`);
-                        e.setAttribute("target", "_blank");
-                        e.click();
-                        e.remove();
-                    }} className={style["episode-button"]}><Text id="anime.episode.download" /></div>
+                    <a href={`/episodes/${props.item.id}`} className={style["episode-button"]}>
+                        <Text id="anime.episode.play" />
+                    </a>
+                    <div
+                        onClick={() => {
+                            if (props.item === undefined) {
+                                return;
+                            }
+                            
+                            const e = document.createElement("a");
+                            e.setAttribute("href", `${episodeLocationToURL(props.parent.location)}/${props.item.anime}/${props.item.pos}/ep_low.mp4`);
+                            e.setAttribute("download", `${props.parent.title.replace(/[^a-zA-Z0-9 ]/g, "").replace(" ", "_")}_${String(props.item.pos).padStart(3, "0")}_1080p`);
+                            e.setAttribute("target", "_blank");
+                            e.click();
+                            e.remove();
+                        }}
+                        className={style["episode-button"]}>
+                        <Text id="anime.episode.download" />
+                    </div>
                 </div>
             </div>
         </div>

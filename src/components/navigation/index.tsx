@@ -22,7 +22,7 @@ const Navigation: FunctionalComponent<NavigationConnectedProps> = (props: Naviga
             navigationButtons.push(<NavigationButton i={i} filterData={props.filterData} />);
         }
     }
-    
+
     return <div className={style.navigation}>{navigationButtons}</div>;
 };
 

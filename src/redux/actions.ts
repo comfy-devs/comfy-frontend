@@ -183,7 +183,7 @@ export function login(username: string, password: string): ReduxAction {
 export function loginToken(): ReduxAction {
     return {
         type: "LOGIN_TOKEN",
-        data: { },
+        data: {},
     };
 }
 export function loginSuccess(session: Session): ReduxAction {

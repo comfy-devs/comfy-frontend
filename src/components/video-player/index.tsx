@@ -40,8 +40,8 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
     }
 
     keyCallback(e: KeyboardEvent) {
-        if(this.video !== null) {
-            switch(e.key) {
+        if (this.video !== null) {
+            switch (e.key) {
                 case "k":
                 case "K":
                 case " ":
@@ -93,7 +93,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
 
                 case "f":
                 case "F":
-                    if(document.fullscreenElement === null) {
+                    if (document.fullscreenElement === null) {
                         this.video.requestFullscreen();
                     } else {
                         document.exitFullscreen();
@@ -134,12 +134,28 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                         this.forceUpdate();
                     }}>
                     <source src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/${episodePresetToFile(this.props.playerData.preset)}`} type="video/mp4" />
-                    {!this.props.playerData.subs ? null : <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/subs_en.vtt`} default />}
+                    {!this.props.playerData.subs ? null : (
+                        <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/subs_en.vtt`} default />
+                    )}
                 </video>
-                <VideoPlayerControls dimensions={this.props.dimensions} playerData={this.props.playerData} video={this.video} timelineTooltip={this.timelineTooltip} item={this.props.item} parent={this.props.parent} segments={this.props.segments} preferences={this.props.preferences} actions={this.props.actions} />
+                <VideoPlayerControls
+                    dimensions={this.props.dimensions}
+                    playerData={this.props.playerData}
+                    video={this.video}
+                    timelineTooltip={this.timelineTooltip}
+                    item={this.props.item}
+                    parent={this.props.parent}
+                    segments={this.props.segments}
+                    preferences={this.props.preferences}
+                    actions={this.props.actions}
+                />
                 <div ref={this.setTimelineTooltipRef} className={style["episode-timeline-tooltip"]} />
-                {!this.props.playerData.opNotification || currentSegment.item === null || currentSegment.item.type !== SegmentType.OP ? null : <VideoPlayerNotification type={VideoPlayerNotificationType.OP} segment={currentSegment} video={this.video} actions={this.props.actions} />}
-                {!this.props.playerData.edNotification || currentSegment.item === null || currentSegment.item.type !== SegmentType.ED ? null : <VideoPlayerNotification type={VideoPlayerNotificationType.ED} segment={currentSegment} video={this.video} actions={this.props.actions} />}
+                {!this.props.playerData.opNotification || currentSegment.item === null || currentSegment.item.type !== SegmentType.OP ? null : (
+                    <VideoPlayerNotification type={VideoPlayerNotificationType.OP} segment={currentSegment} video={this.video} actions={this.props.actions} />
+                )}
+                {!this.props.playerData.edNotification || currentSegment.item === null || currentSegment.item.type !== SegmentType.ED ? null : (
+                    <VideoPlayerNotification type={VideoPlayerNotificationType.ED} segment={currentSegment} video={this.video} actions={this.props.actions} />
+                )}
             </div>
         );
     }
