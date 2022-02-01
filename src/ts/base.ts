@@ -1,6 +1,6 @@
 /* Types */
 import { Anime, Episode, Group, Preferences, Segment, Session, Stats, User } from "./api";
-import { ConnectedActions } from "./redux";
+import { ConnectedActions } from "../redux/actions";
 
 /* Types */
 export type AppConnectedProps = {

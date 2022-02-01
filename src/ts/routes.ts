@@ -1,7 +1,7 @@
 /* Types */
 import { Anime, Episode, Group, Preferences, Segment, User } from "./api";
 import { AuthData, Dimensions, FilterData, PlayerData } from "./base";
-import { ConnectedActions } from "./redux";
+import { ConnectedActions } from "../redux/actions";
 
 /* Types */
 export type HomeConnectedProps = {

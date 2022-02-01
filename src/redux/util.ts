@@ -18,6 +18,17 @@ export const INITIAL: ReduxState = {
     filterData: { page: 0, searchTerm: "", genres: null, year: null, type: null, status: null, sort: FilterSort.TITLE, tags: null, items: 50, group: FilterGroup.NO },
     authData: { username: "", password: "", password2: "", result: AuthResult.NONE }
 };
+
+export function mapState(state: ReduxState | undefined): ReduxState {
+    return state === undefined ? INITIAL : state;
+}
+
+export function mapDispatch(actions: Record<string, any>): any {
+    return (dispatch: any) => ({
+        actions: { ...bindActionCreators(actions, dispatch) },
+    });
+}
+
 export enum ResourceType {
     USER = "user",
     ANIME = "anime",
@@ -25,20 +36,6 @@ export enum ResourceType {
     SEGMENT = "segment",
     GROUP = "group",
     UNKNOWN = "unknown",
-}
-
-export function mapState(state: ReduxState | undefined): ReduxState {
-    if (state === undefined) {
-        return INITIAL;
-    }
-
-    return state;
-}
-
-export function mapDispatch(actions: Record<string, any>): any {
-    return (dispatch: any) => ({
-        actions: { ...bindActionCreators(actions, dispatch) },
-    });
 }
 
 export function cacheResource(state: ReduxState, resource: any, resourceType: ResourceType): ReduxState {
@@ -73,6 +70,14 @@ export function cacheResource(state: ReduxState, resource: any, resourceType: Re
             return { ...state, groups };
         }
     }
+
+    return state;
+}
+
+export function cacheResources(state: ReduxState, resources: any[], resourceType: ResourceType): ReduxState {
+    resources.forEach(resource => {
+        state = cacheResource(state, resource, resourceType);
+    });
 
     return state;
 }

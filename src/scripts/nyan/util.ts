@@ -1,6 +1,3 @@
-/* Types */
-import { Segment } from "../../ts/api";
-
 export function secondsToString(time: number) {
     if(time < 0) { return "??"; }
     let timeString = "";

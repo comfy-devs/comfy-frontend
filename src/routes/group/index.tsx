@@ -38,9 +38,9 @@ const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteC
                     {animes.map((e, i) => {
                         if(e.season !== null) {
                             return <AnimeCard key={i} item={e} alt extra={<Text id="group.season" fields={{ number: e.season + 1 }} />} />;
-                        } else {
-                            return <AnimeCard key={i} item={e} alt extra={<Text id={`enum.animeType.${e.type}`} />} />;
                         }
+
+                        return <AnimeCard key={i} item={e} alt extra={<Text id={`enum.animeType.${e.type}`} />} />;
                     })}
                 </div>
             </div>

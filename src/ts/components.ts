@@ -1,7 +1,7 @@
 /* Types */
-import { Anime, Episode, Group, Preferences, Segment, Session, Stats, User } from "./api";
+import { Anime, Episode, Group, Preferences, Segment, Stats, User } from "./api";
 import { FilterType, AnimeGenre, Dimensions, FilterData, PlayerData, VideoPlayerNotificationType } from "./base";
-import { ConnectedActions } from "./redux";
+import { ConnectedActions } from "../redux/actions";
 import { SegmentData } from "../scripts/nyan/functions";
 
 /* Types */

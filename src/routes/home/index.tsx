@@ -1,6 +1,5 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
-import { Text, withText } from "preact-i18n";
 import { HomeConnectedProps } from "../../ts/routes";
 import { AnimeStatus } from "../../ts/base";
 /* Redux */
