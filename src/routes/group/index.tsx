@@ -22,8 +22,9 @@ const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteC
         return null;
     }
     const animes = Array.from(props.animes.values()).filter(e => { return e.group === group.id; }).sort((a, b) => {
-        if(a.season === null || b.season === null) { return 0; }
-        return a.season - b.season;
+        if(a.season === null) { return 1; }
+        if(b.season === null) { return -1; }
+        return (a.season !== b.season || a.timestamp === null || b.timestamp === null) ? a.season - b.season : a.timestamp - b.timestamp;
     });
 
     return (
@@ -35,8 +36,11 @@ const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteC
                 </div>
                 <div className={style["group-previews"]}>
                     {animes.map((e, i) => {
-                        if(e.season === null) { return; }
-                        return <AnimeCard key={i} item={e} alt extra={<Text id="group.anime.season" fields={{ number: e.season + 1 }} />} />;
+                        if(e.season !== null) {
+                            return <AnimeCard key={i} item={e} alt extra={<Text id="group.season" fields={{ number: e.season + 1 }} />} />;
+                        } else {
+                            return <AnimeCard key={i} item={e} alt extra={<Text id={`enum.animeType.${e.type}`} />} />;
+                        }
                     })}
                 </div>
             </div>
