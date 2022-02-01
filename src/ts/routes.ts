@@ -13,6 +13,7 @@ export type HomeConnectedProps = {
     random: number;
 
     actions: ConnectedActions;
+    dictionary: any;
 };
 
 export type AllConnectedProps = {
@@ -22,6 +23,7 @@ export type AllConnectedProps = {
     filterData: FilterData;
     
     actions: ConnectedActions;
+    dictionary: Record<string, any>;
 };
 
 export type GenresConnectedProps = {
@@ -67,10 +69,12 @@ export type LoginConnectedProps = {
     authData: AuthData;
 
     actions: ConnectedActions;
+    dictionary: Record<string, any>;
 };
 
 export type RegisterConnectedProps = {
     authData: AuthData;
 
     actions: ConnectedActions;
+    dictionary: Record<string, any>;
 };

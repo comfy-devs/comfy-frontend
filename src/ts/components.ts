@@ -53,7 +53,7 @@ export type VideoPlayerControlsConnectedProps = {
 export type AnimeCardConnectedProps = {
     item?: Anime;
     alt?: boolean;
-    extra?: string;
+    extra?: JSX.Element;
 };
 
 export type GroupCardConnectedProps = {
@@ -72,7 +72,7 @@ export type EpisodeSmallCardConnectedProps = Record<string, never>;
 
 export type FilterConnectedProps = {
     type: FilterType;
-    value: string;
+    value: number | null;
     
     filterData: FilterData;
     actions: ConnectedActions;

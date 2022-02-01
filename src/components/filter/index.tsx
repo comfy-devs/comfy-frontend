@@ -56,7 +56,7 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
         <button className={style["filter-wrapper"]}>
             <div className={style.filter}>
                 <div className={style["filter-title"]}><Text id={`enum.filterType.${props.type}`} />: </div>
-                <div className={style["filter-value"]}>{props.value}</div>
+                <div className={style["filter-value"]}>{filterValueToDisplayName(props.type, props.value)}</div>
             </div>
             <div className={style["filter-items-wrapper"]}>
                 {splitArray(filterButtons, 15).map((e: HTMLElement, i: number) => {

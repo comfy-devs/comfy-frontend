@@ -29,16 +29,16 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
     return (
         <div className="route">
             <div className={style["topic-group"]}>
-                <Topic title={<Text id="home.airing" />} icon="airing" small={false} items={airingSet} />
+                <Topic title={props.dictionary.home === undefined ? "" : props.dictionary.home.airing} icon="airing" small={false} items={airingSet} />
             </div>
             <div className={style["topics-separator"]} />
             <div className={style["topic-group"]}>
-                <Topic title={<Text id="home.soon" />} icon="soon" small={true} extra={1} items={soonSet} />
-                <Topic title={<Text id="home.latest" />} icon="latest" small={true} extra={0} items={latestSet} />
+                <Topic title={props.dictionary.home === undefined ? "" : props.dictionary.home.soon} icon="soon" small={true} extra={1} items={soonSet} />
+                <Topic title={props.dictionary.home === undefined ? "" : props.dictionary.home.latest} icon="latest" small={true} extra={0} items={latestSet} />
             </div>
             <div className={style["topics-separator"]} />
             <div className={style["topic-group"]}>
-                <Topic title={<Text id="home.random" />} icon="random" small={false} items={randomSet} />
+                <Topic title={props.dictionary.home === undefined ? "" : props.dictionary.home.random} icon="random" small={false} items={randomSet} />
             </div>
             <div className={style["topics-separator"]} />
         </div>

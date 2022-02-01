@@ -1,5 +1,6 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { Text } from "preact-i18n";
 import { VideoPlayerNotificationConnectedProps } from "../../ts/components";
 import { VideoPlayerNotificationType } from "../../ts/base";
 /* Styles */

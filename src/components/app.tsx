@@ -92,12 +92,12 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
                         <Header user={user} />
                         <SubHeader />
                         <Routes>
-                            <Route path="/" element={<Home dimensions={props.dimensions} users={props.users} animes={props.animes} groups={props.groups} episodes={props.episodes} random={props.random} actions={props.actions} />} />
-                            <Route path="/all" element={<All dimensions={props.dimensions} animes={props.animes} groups={props.groups} filterData={props.filterData} actions={props.actions} />} />
+                            <Route path="/" element={<Home dimensions={props.dimensions} users={props.users} animes={props.animes} groups={props.groups} episodes={props.episodes} random={props.random} actions={props.actions} dictionary={localization} />} />
+                            <Route path="/all" element={<All dimensions={props.dimensions} animes={props.animes} groups={props.groups} filterData={props.filterData} actions={props.actions} dictionary={localization} />} />
                             <Route path="/settings" element={<Settings preferences={props.preferences} user={user} actions={props.actions} />} />
                             <Route path="/download" element={<Download />} />
-                            <Route path="/login" element={<Login authData={props.authData} actions={props.actions} />} />
-                            <Route path="/register" element={<Register authData={props.authData} actions={props.actions} />} />
+                            <Route path="/login" element={<Login authData={props.authData} actions={props.actions} dictionary={localization} />} />
+                            <Route path="/register" element={<Register authData={props.authData} actions={props.actions} dictionary={localization} />} />
                             <Route path="/animes/:id" element={<Anime animes={props.animes} episodes={props.episodes} actions={props.actions} />} />
                             <Route path="/groups/:id" element={<Group dimensions={props.dimensions} animes={props.animes} groups={props.groups} actions={props.actions} />} />
                             <Route path="/episodes/:id" element={<Episode dimensions={props.dimensions} playerData={props.playerData} animes={props.animes} episodes={props.episodes} segments={props.segments} preferences={props.preferences} actions={props.actions} />} />

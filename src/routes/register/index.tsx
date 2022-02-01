@@ -18,9 +18,9 @@ const Register: FunctionalComponent<RegisterConnectedProps> = (props: RegisterCo
                 <div className={style["auth-form"]}>
                     <div className={style["auth-title"]}><Text id="register.title" /></div>
                     <Localizer>
-                        <input name="username" placeholder={<Text id="register.username.placeholder" />} type="text" className={style["auth-input"]} onChange={(e) => { props.actions.setAuthUsername(e.currentTarget.value); }} value={props.authData.username} />
-                        <input name="password" placeholder={<Text id="register.password.placeholder" />} type="password" className={style["auth-input"]} onChange={(e) => { props.actions.setAuthPassword(e.currentTarget.value); }} value={props.authData.password} />
-                        <input name="password_2" placeholder={<Text id="register.password_2.placeholder" />} type="password" className={style["auth-input"]} onChange={(e) => { props.actions.setAuthPassword2(e.currentTarget.value); }} value={props.authData.password2} />
+                        <input name="username" placeholder={props.dictionary.register === undefined ? "" : props.dictionary.register.username.placeholder} type="text" className={style["auth-input"]} onChange={(e) => { props.actions.setAuthUsername(e.currentTarget.value); }} value={props.authData.username} />
+                        <input name="password" placeholder={props.dictionary.register === undefined ? "" : props.dictionary.register.password.placeholder} type="password" className={style["auth-input"]} onChange={(e) => { props.actions.setAuthPassword(e.currentTarget.value); }} value={props.authData.password} />
+                        <input name="password_2" placeholder={props.dictionary.register === undefined ? "" : props.dictionary.register.password_2.placeholder} type="password" className={style["auth-input"]} onChange={(e) => { props.actions.setAuthPassword2(e.currentTarget.value); }} value={props.authData.password2} />
                     </Localizer>
                     <div className={style["auth-button"]} onClick={() => {
                         if(props.authData.username.length < 3) {

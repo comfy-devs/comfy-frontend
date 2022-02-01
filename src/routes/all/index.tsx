@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { Text, Localizer } from "preact-i18n";
 import { AllConnectedProps } from "../../ts/routes";
 import { FilterGroup, FilterSort, FilterType } from "../../ts/base";
-import { filterValueToDisplayName } from "../../scripts/nyan/functions";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
@@ -46,12 +45,12 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
     });
 
     const filterItems = [
-        <Filter key={0} type={FilterType.GENRES} value={filterValueToDisplayName(FilterType.GENRES, props.filterData.genres)} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={1} type={FilterType.YEAR} value={filterValueToDisplayName(FilterType.YEAR, props.filterData.year)} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={2} type={FilterType.TYPE} value={filterValueToDisplayName(FilterType.TYPE, props.filterData.type)} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={3} type={FilterType.STATUS} value={filterValueToDisplayName(FilterType.STATUS, props.filterData.status)} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={4} type={FilterType.SORT} value={filterValueToDisplayName(FilterType.SORT, props.filterData.sort)} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={5} type={FilterType.TAGS} value={filterValueToDisplayName(FilterType.TAGS, props.filterData.tags)} filterData={props.filterData} actions={props.actions} />
+        <Filter key={0} type={FilterType.GENRES} value={props.filterData.genres} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={1} type={FilterType.YEAR} value={props.filterData.year} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={2} type={FilterType.TYPE} value={props.filterData.type} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={3} type={FilterType.STATUS} value={props.filterData.status} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={4} type={FilterType.SORT} value={props.filterData.sort} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={5} type={FilterType.TAGS} value={props.filterData.tags} filterData={props.filterData} actions={props.actions} />
     ];
 
     let previews: any[] = [];
@@ -85,7 +84,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                     <div className={style["all-filters-chunk-wrapper"]}>
                         <Localizer>
                             <input
-                                placeholder={<Text id="all.search" />}
+                                placeholder={props.dictionary.all === undefined ? "" : props.dictionary.all.search}
                                 className={style["all-filter-search"]}
                                 onChange={(e) => {
                                     props.actions.setFilterSearchTerm(e.currentTarget.value);
@@ -94,8 +93,8 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                             />
                         </Localizer>
                         <div className={style["all-filters-chunk"]}>
-                            <Filter type={FilterType.ITEMS} value={filterValueToDisplayName(FilterType.ITEMS, props.filterData.items)} filterData={props.filterData} actions={props.actions} />
-                            <Filter type={FilterType.GROUP} value={filterValueToDisplayName(FilterType.GROUP, props.filterData.group)} filterData={props.filterData} actions={props.actions} />
+                            <Filter type={FilterType.ITEMS} value={props.filterData.items} filterData={props.filterData} actions={props.actions} />
+                            <Filter type={FilterType.GROUP} value={props.filterData.group} filterData={props.filterData} actions={props.actions} />
                         </div>
                     </div>
                 </div>
