@@ -13,6 +13,16 @@ const Download: FunctionalComponent = () => {
         {
             name: "Android",
             type: "android",
+            details: `> Video player improvements
+                - Improved UI with rewinding/seeking buttons
+                - Better and animated fading
+                > Minor bug fixes`,
+            version: "beta-3",
+            link: "https://files.catbox.moe/u7c0m7.apk"
+        },
+        {
+            name: "Android",
+            type: "android",
             details: `> Catching up to web version
                 - Home screen previews
                 - Segments in video player

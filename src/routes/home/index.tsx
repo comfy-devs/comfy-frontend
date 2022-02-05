@@ -22,7 +22,7 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
         if (a.timestamp === null || b.timestamp === null) {
             return 0;
         }
-        return b.timestamp - a.timestamp;
+        return a.timestamp - b.timestamp;
     });
     const latestSet = animes
         .filter((e) => {
