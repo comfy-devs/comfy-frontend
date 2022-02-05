@@ -50,6 +50,13 @@ export type VideoPlayerControlsConnectedProps = {
     actions: ConnectedActions;
 };
 
+export type VideoPlayerControlsDevConnectedProps = {
+    item: Episode;
+    segments: Segment[];
+    setSegments: any;
+    video: HTMLVideoElement | null;
+};
+
 export type AnimeCardConnectedProps = {
     item?: Anime;
     alt?: boolean;

@@ -1,23 +1,21 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
+import { useState } from "react";
 import { VideoPlayerControlsConnectedProps } from "../../ts/components";
 import { AnimeTag, EpisodePreset, SegmentType } from "../../ts/base";
-import { Segment } from "../../ts/api";
 import { secondsToString } from "../../scripts/nyan/util";
 import { findSegmentForTimestamp } from "../../scripts/nyan/functions";
 /* Styles */
 import style from "./style.scss";
-import { useState } from "react";
+/* Components */
+import VideoPlayerControlsDev from "../video-player-controls-dev";
 
 const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps> = (props: VideoPlayerControlsConnectedProps) => {
-    const _devSegments: Segment[] = [];
-    const [devSegments, setDevSegments] = useState(_devSegments);
-    const [devSegmentType, setDevSegmentType] = useState(SegmentType.EPISODE);
+    const [segments, setSegments] = useState(props.segments);
     if (props.video === null) {
         return null;
     }
-    const segments = props.segments.concat(devSegments);
     let presets = Object.keys(EpisodePreset)
         .filter((e) => {
             return (props.parent.presets & parseInt(e, 10)) === parseInt(e, 10);
@@ -84,59 +82,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                         </div>
                     </div>
                     {props.preferences.developer === false ? null : (
-                        <div
-                            className={style["video-controls-button"]}
-                            onClick={() => {
-                                if (props.video === null) {
-                                    return;
-                                }
-
-                                const devSegment = {
-                                    id: `${props.item.id}-${devSegments.length}`,
-                                    pos: devSegments.length,
-                                    episode: props.item.id,
-                                    type: devSegmentType,
-                                    length:
-                                        Math.round(props.video.currentTime) -
-                                        devSegments.reduce((acc, curr) => {
-                                            return acc + curr.length;
-                                        }, 0),
-                                };
-                                setDevSegments([...devSegments, devSegment]);
-                            }}
-                            onContextMenu={(e) => {
-                                switch (devSegmentType) {
-                                    case SegmentType.OP:
-                                        setDevSegmentType(SegmentType.EPISODE);
-                                        break;
-
-                                    case SegmentType.EPISODE:
-                                        setDevSegmentType(SegmentType.ED);
-                                        break;
-
-                                    case SegmentType.ED:
-                                        setDevSegmentType(SegmentType.OP);
-                                        break;
-                                }
-
-                                e.preventDefault();
-                            }}>
-                            <div className={style[`icon-segment-${devSegmentType}`]} />
-                            <div className={style.tooltip}>Mark segment end ({<Text id={`enum.segmentType.${devSegmentType}`} />})</div>
-                        </div>
-                    )}
-                    {props.preferences.developer === false ? null : (
-                        <div
-                            className={style["video-controls-button"]}
-                            onClick={() => {
-                                const queries = devSegments.map((e) => {
-                                    return `INSERT INTO segments (id, pos, episode, type, length) VALUES ("${e.id}", ${e.pos}, "${e.episode}", ${e.type}, ${e.length});`;
-                                });
-                                navigator.clipboard.writeText(queries.join("\n"));
-                            }}>
-                            <div className={style[`icon-copy`]} />
-                            <div className={style.tooltip}>Copy segments query</div>
-                        </div>
+                        <VideoPlayerControlsDev item={props.item} segments={segments} setSegments={setSegments} video={props.video} />
                     )}
                     <div
                         className={style["video-controls-timeline"]}
@@ -164,7 +110,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
 
                             const segment = findSegmentForTimestamp(segments, value * props.video.duration);
                             props.timelineTooltip.innerText = `${secondsToString(Math.round(props.video.duration * value))} ${
-                                segment.item === null || segment.item.type === SegmentType.EPISODE ? "" : `(${(<Text id={`enum.segmentType.${segment.item.type}`} />)})`
+                                segment.item === null || segment.item.type === SegmentType.EPISODE ? "" : `(${segment.item.type === SegmentType.OP ? "OP" : "ED"})`
                             }`;
                         }}
                         onMouseLeave={() => {
