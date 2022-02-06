@@ -17,6 +17,12 @@ import Navigation from "../../components/navigation";
 import Filter from "../../components/filter";
 
 const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) => {
+    /* API calls */
+    useEffect(() => {
+        props.actions.fetchAllAnimes();
+        props.actions.fetchAllGroups();
+    }, [true]);
+
     /* Default filters */
     useEffect(() => {
         props.actions.setFilterStatus(null);

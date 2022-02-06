@@ -36,8 +36,6 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
 
     /* API calls */
     useEffect(() => {
-        props.actions.fetchAllAnimes();
-        props.actions.fetchAllGroups();
         props.actions.fetchStats();
         props.actions.fetchPreferences();
         props.actions.loginToken();

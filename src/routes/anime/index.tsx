@@ -23,10 +23,9 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
         if (id === undefined) {
             return;
         }
-        if (anime !== undefined) {
-            props.actions.fetchAnimeEpisodes(id);
-        }
-    }, [anime !== undefined]);
+        props.actions.fetchAnime(id);
+        props.actions.fetchAnimeEpisodes(id);
+    }, [true]);
 
     if (anime === undefined) {
         return null;

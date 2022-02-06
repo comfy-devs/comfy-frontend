@@ -1,5 +1,6 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Text } from "preact-i18n";
 import { GroupRouteConnectedProps } from "../../ts/routes";
@@ -14,10 +15,17 @@ import AnimeCard from "../../components/anime-card";
 
 const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteConnectedProps) => {
     const { id } = useParams();
-    if (id === undefined) {
-        return null;
-    }
-    const group = props.groups.get(id);
+    const group = id === undefined ? undefined : props.groups.get(id);
+
+    /* API calls */
+    useEffect(() => {
+        if (id === undefined) {
+            return;
+        }
+        props.actions.fetchGroup(id);
+        props.actions.fetchAllAnimes();
+    }, [true]);
+    
     if (group === undefined) {
         return null;
     }

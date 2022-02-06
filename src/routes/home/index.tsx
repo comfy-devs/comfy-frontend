@@ -1,5 +1,6 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { useEffect } from "react";
 import { HomeConnectedProps } from "../../ts/routes";
 import { AnimeStatus } from "../../ts/base";
 /* Redux */
@@ -12,6 +13,11 @@ import style from "./style.scss";
 import Topic from "../../components/topic";
 
 const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps) => {
+    /* API calls */
+    useEffect(() => {
+        props.actions.fetchAllAnimes();
+    }, [true]);
+
     /* Get sets to preview */
     const animes = Array.from(props.animes.values());
     const randomSet = animes.length < 1 ? [] : [animes[props.random % animes.length]];
