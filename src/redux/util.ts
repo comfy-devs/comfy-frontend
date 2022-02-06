@@ -7,9 +7,10 @@ export const INITIAL: ReduxState = {
     dimensions: { w: 0, h: 0 },
     users: new Map(),
     animes: new Map(),
-    episodes: new Map(),
-    segments: new Map(),
     groups: new Map(),
+    episodes: new Map(),
+    encodes: new Map(),
+    segments: new Map(),
     stats: { size: 0, ammount: 0 },
     random: Math.floor(Math.random() * 1000000),
     preferences: { theme: PreferencesTheme.DARK, lang: "en", developer: false },
@@ -33,6 +34,7 @@ export enum ResourceType {
     USER = "user",
     ANIME = "anime",
     EPISODE = "episode",
+    ENCODE = "encode",
     SEGMENT = "segment",
     GROUP = "group",
     UNKNOWN = "unknown",
@@ -56,6 +58,12 @@ export function cacheResource(state: ReduxState, resource: any, resourceType: Re
             const episodes = new Map(state.episodes);
             episodes.set(resource.id, resource);
             return { ...state, episodes };
+        }
+
+        case ResourceType.ENCODE: {
+            const encodes = new Map(state.encodes);
+            encodes.set(resource.id, resource);
+            return { ...state, encodes };
         }
 
         case ResourceType.SEGMENT: {

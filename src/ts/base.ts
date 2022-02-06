@@ -1,5 +1,5 @@
 /* Types */
-import { Anime, Episode, Group, Preferences, Segment, Session, Stats, User } from "./api";
+import { Anime, Encode, Episode, Group, Preferences, Segment, Session, Stats, User } from "./api";
 import { ConnectedActions } from "../redux/actions";
 
 /* Types */
@@ -10,6 +10,7 @@ export type AppConnectedProps = {
     animes: Map<string, Anime>;
     groups: Map<string, Group>;
     episodes: Map<string, Episode>;
+    encodes: Map<string, Encode>;
     segments: Map<string, Segment>;
     stats: Stats;
     random: number;

@@ -1,5 +1,5 @@
 /* Types */
-import { Anime, Episode, Group, Segment, Session, Stats, User } from "../ts/api";
+import { Anime, Encode, Episode, Group, Segment, Session, Stats, User } from "../ts/api";
 import { AnimeGenre, AnimeStatus, AnimeTag, AnimeType, AuthResult, EpisodePreset, FilterGroup, FilterSort, PreferencesTheme } from "../ts/base";
 import { ReduxAction } from "../ts/redux";
 
@@ -116,6 +116,19 @@ export function fetchAllEpisodesSuccess(episodes: Episode[]): ReduxAction {
     return {
         type: "FETCH_ALL_EPISODES_SUCCESS",
         data: episodes,
+    };
+}
+
+export function fetchEpisodeEncodes(id: string): ReduxAction {
+    return {
+        type: "FETCH_EPISODE_ENCODES",
+        data: id,
+    };
+}
+export function fetchEpisodeEncodesSuccess(encodes: Encode[]): ReduxAction {
+    return {
+        type: "FETCH_EPISODE_ENCODES_SUCCESS",
+        data: encodes,
     };
 }
 
@@ -389,6 +402,9 @@ export type ConnectedActions = {
     fetchEpisode(id: string): ReduxAction;
     fetchAllEpisodes(): ReduxAction;
     fetchEpisodeSegments(id: string): ReduxAction;
+    fetchEpisodeEncodes(id: string): ReduxAction;
+    fetchEncode(id: string): ReduxAction;
+    fetchAllEncodes(): ReduxAction;
     fetchSegment(id: string): ReduxAction;
     fetchAllSegments(): ReduxAction;
     fetchStats(): ReduxAction;

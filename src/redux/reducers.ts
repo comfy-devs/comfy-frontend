@@ -125,6 +125,18 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return cacheResources(state, action.data, ResourceType.SEGMENT);
     },
 
+    FETCH_EPISODE_ENCODES_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+        return cacheResources(state, action.data, ResourceType.ENCODE);
+    },
+
+    FETCH_ENCODE_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+        return cacheResource(state, action.data, ResourceType.ENCODE);
+    },
+
+    FETCH_ALL_ENCODES_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+        return cacheResources(state, action.data, ResourceType.ENCODE);
+    },
+
     FETCH_SEGMENT_SUCCESS: (state: ReduxState, action: ReduxAction) => {
         return cacheResource(state, action.data, ResourceType.SEGMENT);
     },

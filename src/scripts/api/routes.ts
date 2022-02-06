@@ -1,5 +1,5 @@
 /* Types */
-import { Anime, APIResponse, Episode, Group, Segment, Session, Stats, User } from "../../ts/api";
+import { Anime, APIResponse, Encode, Episode, Group, Segment, Session, Stats, User } from "../../ts/api";
 import { get, fetchResource, fetchAllResources, post } from "./api";
 
 export async function fetchUser(id: string): Promise<User | undefined> {
@@ -37,6 +37,23 @@ export async function fetchEpisode(id: string): Promise<Episode | undefined> {
 
 export async function fetchAllEpisodes(): Promise<Episode[]> {
     return await fetchAllResources("episodes");
+}
+
+export async function fetchEncode(id: string): Promise<Encode | undefined> {
+    return await fetchResource("encodes", id);
+}
+
+export async function fetchAllEncodes(): Promise<Encode[]> {
+    return await fetchAllResources("encodes");
+}
+
+export async function fetchEpisodeEncodes(id: string): Promise<Encode[]> {
+    const response: APIResponse = await get({ path: `/episodes/encodes/fetch?id=${id}` });
+    if (response.status !== 200) {
+        return [];
+    }
+
+    return response.body;
 }
 
 export async function fetchSegment(id: string): Promise<Segment | undefined> {

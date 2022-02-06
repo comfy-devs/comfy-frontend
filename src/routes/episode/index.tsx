@@ -25,6 +25,7 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
         if (episode === undefined) {
             props.actions.fetchEpisode(id);
             props.actions.fetchEpisodeSegments(id);
+            props.actions.fetchEpisodeEncodes(id);
         } else {
             props.actions.fetchAnimeEpisodes(episode.anime);
         }

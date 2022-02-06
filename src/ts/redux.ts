@@ -1,4 +1,4 @@
-import { Anime, Episode, Group, Preferences, Segment, Stats, User } from "./api";
+import { Anime, Encode, Episode, Group, Preferences, Segment, Stats, User } from "./api";
 import { AuthData, Dimensions, FilterData, PlayerData } from "./base";
 
 /* Base Types */
@@ -11,9 +11,10 @@ export type ReduxAction = {
 export type ReduxState = {
     dimensions: Dimensions;
     users: Map<string, User>;
-    episodes: Map<string, Episode>;
     animes: Map<string, Anime>;
     groups: Map<string, Group>;
+    episodes: Map<string, Episode>;
+    encodes: Map<string, Encode>;
     segments: Map<string, Segment>;
     stats: Stats;
     random: number;

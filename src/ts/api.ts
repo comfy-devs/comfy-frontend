@@ -69,6 +69,16 @@ export type Episode = {
     views: number;
 };
 
+export type Encode = {
+    id: string;
+    episode: string;
+
+    videoBitrate: number;
+    audioBitrate: number;
+    size: number;
+    duration: number;
+};
+
 export type Segment = {
     id: string;
     pos: number;
