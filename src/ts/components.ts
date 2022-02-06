@@ -86,6 +86,7 @@ export type FilterConnectedProps = {
 };
 
 export type TopicConnectedProps = {
+    dimensions: Dimensions;
     title: string;
     icon?: string;
     small?: boolean;

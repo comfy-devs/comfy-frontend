@@ -39,11 +39,7 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
         });
     const episodeElements = [];
     for (let i = 0; i < anime.episodes; i++) {
-        if (episodes[i] !== undefined) {
-            episodeElements.push(<EpisodeCard key={i} parent={anime} item={episodes[i]} i={i} disabled={false} />);
-        } else {
-            episodeElements.push(<EpisodeCard key={i} parent={anime} item={episodes[i]} i={i} disabled={false} />);
-        }
+        episodeElements.push(<EpisodeCard key={i} parent={anime} item={episodes[i]} i={i} disabled={false} />);
     }
 
     const synopsis =

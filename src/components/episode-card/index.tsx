@@ -10,12 +10,13 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
     if (props.item === undefined) {
         return (
             <a className={style.episode}>
-                <div className={style["episode-title-wrapper"]}>
-                    <div className={style["episode-title"]}>
-                        <Text id="anime.episode.missing" />
+                <div className={style["episode-data-wrapper"]}>
+                    <div className={style["episode-title-wrapper"]}>
+                        <div className={style["episode-title"]}>
+                            <Text id="anime.episode.missing" />
+                        </div>
                     </div>
                 </div>
-                <div alt="episode-thumbnail" className={style["episode-thumbnail"]} />
             </a>
         );
     }
