@@ -32,6 +32,11 @@ export enum PreferencesTheme {
     LIGHT,
 }
 
+export enum PreferencesTorrent {
+    OFF,
+    ON,
+}
+
 export enum AuthResult {
     NONE,
     WAITING,
@@ -51,12 +56,21 @@ export type AuthData = {
 };
 
 export type PlayerData = {
+    state: PlayerState;
     theater: boolean;
     subs: boolean;
     preset: EpisodePreset;
+    overrideUrl?: string;
     opNotification: boolean;
     edNotification: boolean;
 };
+
+export enum PlayerState {
+    WAITING,
+    TORRENT_NO_PEERS,
+    TORRENT_LOADING,
+    DONE,
+}
 
 export enum VideoPlayerNotificationType {
     OP,

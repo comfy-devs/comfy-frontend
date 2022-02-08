@@ -63,6 +63,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
     /* Preferences */
     useEffect(() => {
         localStorage.setItem("theme", props.preferences.theme.toString());
+        localStorage.setItem("torrent", props.preferences.torrent.toString());
         localStorage.setItem("lang", props.preferences.lang);
         localStorage.setItem("developer", props.preferences.developer.toString());
     }, [props.preferences]);

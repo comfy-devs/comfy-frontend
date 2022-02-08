@@ -9,7 +9,7 @@ import style from "./style.scss";
 
 const VideoPlayerControlsDev: FunctionalComponent<VideoPlayerControlsDevConnectedProps> = (props: VideoPlayerControlsDevConnectedProps) => {
     const [segmentType, setSegmentType] = useState(SegmentType.EPISODE);
-    
+
     return (
         <div className={style["video-controls-dev"]}>
             <div

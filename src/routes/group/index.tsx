@@ -25,7 +25,7 @@ const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteC
         props.actions.fetchGroup(id);
         props.actions.fetchAllAnimes();
     }, [true]);
-    
+
     if (group === undefined) {
         return null;
     }

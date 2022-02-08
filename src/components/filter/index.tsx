@@ -14,7 +14,7 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
     if (props.type !== FilterType.SORT && props.type !== FilterType.ITEMS && props.type !== FilterType.GROUP) {
         filterValues.unshift(null);
     }
-    
+
     const filterButtons = filterValues.map((e, i) => {
         return (
             <div

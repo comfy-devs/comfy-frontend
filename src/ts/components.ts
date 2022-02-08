@@ -1,6 +1,6 @@
 /* Types */
 import { Anime, Episode, Group, Preferences, Segment, Stats, User } from "./api";
-import { FilterType, AnimeGenre, Dimensions, FilterData, PlayerData, VideoPlayerNotificationType } from "./base";
+import { FilterType, AnimeGenre, Dimensions, FilterData, PlayerData, VideoPlayerNotificationType, PlayerState } from "./base";
 import { ConnectedActions } from "../redux/actions";
 import { SegmentData } from "../scripts/nyan/functions";
 
@@ -29,11 +29,24 @@ export type VideoPlayerConnectedProps = {
     actions: ConnectedActions;
 };
 
+export type VideoPlayerOverlayConnectedProps = {
+    state: PlayerState;
+};
+
 export type VideoPlayerNotificationConnectedProps = {
     type: VideoPlayerNotificationType;
     segment: SegmentData;
     video: HTMLVideoElement | null;
 
+    actions: ConnectedActions;
+};
+
+export type VideoPlayerTorrentWrapperConnectedProps = {
+    item: Episode;
+    parent: Anime;
+    video: HTMLVideoElement | null;
+
+    playerData: PlayerData;
     actions: ConnectedActions;
 };
 

@@ -81,9 +81,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             <Text id="video.volume" fields={{ volume: Math.round(props.video.volume * 100) }} />
                         </div>
                     </div>
-                    {props.preferences.developer === false ? null : (
-                        <VideoPlayerControlsDev item={props.item} segments={segments} setSegments={setSegments} video={props.video} />
-                    )}
+                    {props.preferences.developer === false ? null : <VideoPlayerControlsDev item={props.item} segments={segments} setSegments={setSegments} video={props.video} />}
                     <div
                         className={style["video-controls-timeline"]}
                         onClick={(e) => {

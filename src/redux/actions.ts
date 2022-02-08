@@ -1,6 +1,6 @@
 /* Types */
 import { Anime, Encode, Episode, Group, Segment, Session, Stats, User } from "../ts/api";
-import { AnimeGenre, AnimeStatus, AnimeTag, AnimeType, AuthResult, EpisodePreset, FilterGroup, FilterSort, PreferencesTheme } from "../ts/base";
+import { AnimeGenre, AnimeStatus, AnimeTag, AnimeType, AuthResult, EpisodePreset, FilterGroup, FilterSort, PlayerState, PreferencesTheme, PreferencesTorrent } from "../ts/base";
 import { ReduxAction } from "../ts/redux";
 
 /* App */
@@ -234,6 +234,13 @@ export function setPreferencesTheme(theme: PreferencesTheme): ReduxAction {
     };
 }
 
+export function setPreferencesTorrent(torrent: PreferencesTorrent): ReduxAction {
+    return {
+        type: "SET_PREFERENCES_TORRENT",
+        data: torrent,
+    };
+}
+
 /* Notifications */
 export function pushSubscribe(url: string, key: string, auth: string): ReduxAction {
     return {
@@ -326,6 +333,13 @@ export function setFilterGroup(group: FilterGroup): ReduxAction {
 }
 
 /* Video Player */
+export function setPlayerState(state: PlayerState): ReduxAction {
+    return {
+        type: "SET_PLAYER_STATE",
+        data: state,
+    };
+}
+
 export function setPlayerTheater(theater: boolean): ReduxAction {
     return {
         type: "SET_PLAYER_THEATER",
@@ -344,6 +358,13 @@ export function setPlayerPreset(preset: EpisodePreset): ReduxAction {
     return {
         type: "SET_PLAYER_PRESET",
         data: preset,
+    };
+}
+
+export function setPlayerOverrideUrl(url?: string): ReduxAction {
+    return {
+        type: "SET_PLAYER_OVERRIDE_URL",
+        data: url,
     };
 }
 
@@ -416,6 +437,7 @@ export type ConnectedActions = {
 
     fetchPreferences(): ReduxAction;
     setPreferencesTheme(theme: PreferencesTheme): ReduxAction;
+    setPreferencesTorrent(torrent: PreferencesTorrent): ReduxAction;
 
     setFilterSearchTerm(searchTerm: string): ReduxAction;
     setFilterGenres(genres: AnimeGenre | null): ReduxAction;
@@ -427,9 +449,11 @@ export type ConnectedActions = {
     setFilterItems(items: number): ReduxAction;
     setFilterGroup(group: FilterGroup): ReduxAction;
 
+    setPlayerState(state: PlayerState): ReduxAction;
     setPlayerTheater(theater: boolean): ReduxAction;
     setPlayerSubs(subs: boolean): ReduxAction;
     setPlayerPreset(preset: EpisodePreset): ReduxAction;
+    setPlayerOverrideUrl(url?: string): ReduxAction;
     setPlayerOpNotification(opNotifaction: boolean): ReduxAction;
     setPlayerEdNotification(edNotifaction: boolean): ReduxAction;
 

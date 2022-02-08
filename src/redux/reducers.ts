@@ -59,6 +59,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         if (theme !== null) {
             preferences.theme = parseInt(theme, 10);
         }
+        const torrent = localStorage.getItem("torrent");
+        if (torrent !== null) {
+            preferences.torrent = parseInt(torrent, 10);
+        }
         const lang = localStorage.getItem("lang");
         if (lang !== null) {
             preferences.lang = lang;
@@ -80,12 +84,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
     },
 
     PUSH_SUBSCRIBE_SUCCESS: (state: ReduxState) => {
-        console.log("subscribed owo");
         return state;
     },
 
     PUSH_UNSUBSCRIBE_SUCCESS: (state: ReduxState) => {
-        console.log("unsubscribed awa");
         return state;
     },
 
@@ -153,6 +155,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, preferences: { ...state.preferences, theme: action.data } };
     },
 
+    SET_PREFERENCES_TORRENT: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, preferences: { ...state.preferences, torrent: action.data } };
+    },
+
     SET_FILTER_SEARCH_TERM: (state: ReduxState, action: ReduxAction) => {
         return { ...state, filterData: { ...state.filterData, searchTerm: action.data } };
     },
@@ -189,6 +195,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, filterData: { ...state.filterData, group: action.data } };
     },
 
+    SET_PLAYER_STATE: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, state: action.data } };
+    },
+
     SET_PLAYER_THEATER: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, theater: action.data } };
     },
@@ -199,6 +209,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     SET_PLAYER_PRESET: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, preset: action.data } };
+    },
+
+    SET_PLAYER_OVERRIDE_URL: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, overrideUrl: action.data } };
     },
 
     SET_PLAYER_OP_NOTIFICATION: (state: ReduxState, action: ReduxAction) => {

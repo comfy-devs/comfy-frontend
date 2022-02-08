@@ -1,10 +1,14 @@
+/* Node Imports */
 import { getFiles, setupPrecaching, setupRouting } from "preact-cli/sw/";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
+import fileResponse from "./assets/webtorrent/worker";
 
+/* Static caching */
 const files = getFiles();
 setupPrecaching(files);
 
+/* API caching */
 registerRoute(
     ({ url }) => {
         return (
@@ -18,14 +22,27 @@ registerRoute(
 );
 setupRouting();
 
+/* Push notifications */
 addEventListener("push", (e) => {
     if (!e.data) {
         return;
     }
-    
+
     const options = {
         body: e.data.text(),
         icon: "/favicon.ico",
     };
     e.waitUntil(self.registration.showNotification("Nyan Anime", options));
+});
+
+/* Webtorrent */
+self.addEventListener("install", () => {
+    self.skipWaiting();
+});
+self.addEventListener("fetch", (event) => {
+    const res = fileResponse(event);
+    if (res) event.respondWith(res);
+});
+self.addEventListener("activate", (evt) => {
+    evt.waitUntil(self.clients.claim());
 });

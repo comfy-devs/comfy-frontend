@@ -18,7 +18,7 @@ const Download: FunctionalComponent = () => {
                 - Better and animated fading
                 > Minor bug fixes`,
             version: "beta-3",
-            link: "https://files.catbox.moe/u7c0m7.apk"
+            link: "https://files.catbox.moe/u7c0m7.apk",
         },
         {
             name: "Android",

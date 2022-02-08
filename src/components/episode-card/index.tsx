@@ -55,7 +55,7 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
                             if (props.item === undefined) {
                                 return;
                             }
-                            
+
                             const e = document.createElement("a");
                             e.setAttribute("href", `${episodeLocationToURL(props.parent.location)}/${props.item.anime}/${props.item.pos}/ep_low.mp4`);
                             e.setAttribute("download", `${props.parent.title.replace(/[^a-zA-Z0-9 ]/g, "").replace(" ", "_")}_${String(props.item.pos).padStart(3, "0")}_1080p`);
