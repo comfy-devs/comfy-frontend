@@ -18,6 +18,7 @@ import Home from "../routes/home";
 import All from "../routes/all";
 import Settings from "../routes/settings";
 import Download from "../routes/download";
+import Status from "../routes/status";
 import Login from "../routes/login";
 import Register from "../routes/register";
 import Anime from "../routes/anime";
@@ -126,6 +127,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
                             />
                             <Route path="/settings" element={<Settings preferences={props.preferences} user={user} actions={props.actions} />} />
                             <Route path="/download" element={<Download />} />
+                            <Route path="/status" element={<Status />} />
                             <Route path="/login" element={<Login authData={props.authData} actions={props.actions} dictionary={localization} />} />
                             <Route path="/register" element={<Register authData={props.authData} actions={props.actions} dictionary={localization} />} />
                             <Route path="/animes/:id" element={<Anime animes={props.animes} episodes={props.episodes} preferences={props.preferences} actions={props.actions} />} />

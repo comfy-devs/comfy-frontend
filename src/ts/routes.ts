@@ -41,6 +41,8 @@ export type SettingsConnectedProps = {
     actions: ConnectedActions;
 };
 
+export type StatusConnectedProps = Record<never, never>;
+
 export type AnimeConnectedProps = {
     animes: Map<string, Anime>;
     episodes: Map<string, Episode>;
