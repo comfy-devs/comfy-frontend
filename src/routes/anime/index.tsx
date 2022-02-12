@@ -39,7 +39,7 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
         });
     const episodeElements = [];
     for (let i = 0; i < anime.episodes; i++) {
-        episodeElements.push(<EpisodeCard key={i} parent={anime} item={episodes[i]} i={i} disabled={false} />);
+        episodeElements.push(<EpisodeCard key={i} parent={anime} item={episodes[i]} i={i} disabled={false} preferences={props.preferences} />);
     }
 
     const synopsis =

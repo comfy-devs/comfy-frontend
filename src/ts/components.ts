@@ -74,6 +74,7 @@ export type AnimeCardConnectedProps = {
     item?: Anime;
     alt?: boolean;
     extra?: JSX.Element;
+    preferences: Preferences;
 };
 
 export type GroupCardConnectedProps = {
@@ -86,6 +87,7 @@ export type EpisodeCardConnectedProps = {
     parent: Anime;
     i: number;
     disabled?: boolean;
+    preferences: Preferences;
 };
 
 export type EpisodeSmallCardConnectedProps = Record<string, never>;
@@ -105,6 +107,7 @@ export type TopicConnectedProps = {
     small?: boolean;
     extra?: number;
     items: Anime[];
+    preferences: Preferences;
 };
 
 export type NavigationConnectedProps = {

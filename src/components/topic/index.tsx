@@ -44,10 +44,10 @@ const Topic: FunctionalComponent<TopicConnectedProps> = (props: TopicConnectedPr
             </div>
             <Slider {...sliderSettings} className={style["topic-previews"]} ref={sliderRef}>
                 {props.items.length < 1 ? (
-                    <AnimeCard />
+                    <AnimeCard preferences={props.preferences} />
                 ) : (
                     props.items.map((e, i) => {
-                        return <AnimeCard key={i} item={e} extra={topicExtraToDisplayName(e, props.extra)} />;
+                        return <AnimeCard key={i} item={e} extra={topicExtraToDisplayName(e, props.extra)} preferences={props.preferences} />;
                     })
                 )}
             </Slider>

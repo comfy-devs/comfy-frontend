@@ -90,12 +90,13 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                         );
                     }
                 } else {
-                    return <AnimeCard key={i} item={e} alt />;
+                    return <AnimeCard key={i} item={e} alt preferences={props.preferences} />;
                 }
             });
     } else {
-        previews = animes.map((e, i) => {
-            return <AnimeCard key={i} item={e} alt />;
+        const start = props.filterData.page * props.filterData.items;
+        previews = animes.slice(start, start + props.filterData.items).map((e, i) => {
+            return <AnimeCard key={i} item={e} alt preferences={props.preferences} />;
         });
     }
 

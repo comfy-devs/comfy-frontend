@@ -241,6 +241,13 @@ export function setPreferencesTorrent(torrent: PreferencesTorrent): ReduxAction 
     };
 }
 
+export function setPreferencesBlur(blur: boolean): ReduxAction {
+    return {
+        type: "SET_PREFERENCES_BLUR",
+        data: blur,
+    };
+}
+
 /* Notifications */
 export function pushSubscribe(url: string, key: string, auth: string): ReduxAction {
     return {
@@ -438,6 +445,7 @@ export type ConnectedActions = {
     fetchPreferences(): ReduxAction;
     setPreferencesTheme(theme: PreferencesTheme): ReduxAction;
     setPreferencesTorrent(torrent: PreferencesTorrent): ReduxAction;
+    setPreferencesBlur(blur: boolean): ReduxAction;
 
     setFilterSearchTerm(searchTerm: string): ReduxAction;
     setFilterGenres(genres: AnimeGenre | null): ReduxAction;

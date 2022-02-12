@@ -13,7 +13,7 @@ export const INITIAL: ReduxState = {
     segments: new Map(),
     stats: { size: 0, ammount: 0 },
     random: Math.floor(Math.random() * 1000000),
-    preferences: { theme: PreferencesTheme.DARK, torrent: PreferencesTorrent.OFF, lang: "en", developer: false },
+    preferences: { theme: PreferencesTheme.DARK, torrent: PreferencesTorrent.OFF, lang: "en", developer: false, blur: true },
 
     playerData: { state: PlayerState.WAITING, theater: false, subs: true, preset: EpisodePreset.HIGH, opNotification: true, edNotification: true },
     filterData: { page: 0, searchTerm: "", genres: null, year: null, type: null, status: null, sort: FilterSort.TITLE, tags: null, items: 50, group: FilterGroup.NO },

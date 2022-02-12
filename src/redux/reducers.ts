@@ -71,6 +71,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         if (developer !== null) {
             preferences.developer = developer === "true";
         }
+        const blur = localStorage.getItem("blur");
+        if (blur !== null) {
+            preferences.blur = blur === "true";
+        }
 
         return { ...state, preferences };
     },
@@ -157,6 +161,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     SET_PREFERENCES_TORRENT: (state: ReduxState, action: ReduxAction) => {
         return { ...state, preferences: { ...state.preferences, torrent: action.data } };
+    },
+
+    SET_PREFERENCES_BLUR: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, preferences: { ...state.preferences, blur: action.data } };
     },
 
     SET_FILTER_SEARCH_TERM: (state: ReduxState, action: ReduxAction) => {

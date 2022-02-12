@@ -71,6 +71,15 @@ const Settings: FunctionalComponent<SettingsConnectedProps> = (props: SettingsCo
                         <Text id="settings.torrent" fields={{ torrent: <Text id={`enum.preferencesTorrent.${props.preferences.torrent}`} /> }} />
                     </div>
                 </div>
+                <div
+                    className={style["settings-button"]}
+                    onClick={() => {
+                        props.actions.setPreferencesBlur(!props.preferences.blur);
+                    }}>
+                    <div className={style["settings-button-title"]}>
+                        <Text id="settings.blur" fields={{ blur: <Text id={`enum.preferencesBlur.${props.preferences.blur}`} /> }} />
+                    </div>
+                </div>
             </div>
         </div>
     );

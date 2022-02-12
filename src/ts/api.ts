@@ -22,6 +22,7 @@ export type Preferences = {
     torrent: PreferencesTorrent;
     lang: string;
     developer: boolean;
+    blur: boolean;
 };
 
 export type Session = {
