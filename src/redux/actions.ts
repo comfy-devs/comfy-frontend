@@ -1,6 +1,6 @@
 /* Types */
 import { Anime, Encode, Episode, Group, Segment, Session, Stats, User } from "../ts/api";
-import { AnimeGenre, AnimeStatus, AnimeTag, AnimeType, AuthResult, FilterGroup, FilterSort, PreferencesTheme, PreferencesTorrent } from "../ts/base";
+import { AnimeGenre, AnimeStatus, AnimeTag, AnimeType, AuthResult, FilterGroup, FilterSort, PlayerState, PreferencesTheme, PreferencesTorrent } from "../ts/base";
 import { ReduxAction } from "../ts/redux";
 
 /* App */
