@@ -115,11 +115,14 @@ export type TopicConnectedProps = {
 };
 
 export type NavigationConnectedProps = {
-    filterData: FilterData;
+    items: number;
+    page: number;
+    limit: number;
+    actions: ConnectedActions;
 };
 
 export type NavigationButtonConnectedProps = {
     i: number;
-
-    filterData: FilterData;
+    page: number;
+    actions: ConnectedActions;
 };

@@ -7,19 +7,19 @@ import style from "./style.scss";
 import NavigationButton from "../navigation-button";
 
 const Navigation: FunctionalComponent<NavigationConnectedProps> = (props: NavigationConnectedProps) => {
-    const totalPages = 1;
-    let navigationStart = props.filterData.page - 2;
-    if (props.filterData.page > totalPages - 4) {
+    const totalPages = Math.ceil(props.items / props.limit);
+    let navigationStart = props.page - 2;
+    if (props.page > totalPages - 4) {
         navigationStart = totalPages - 5;
     }
-    let navigationEnd = props.filterData.page + 2;
+    let navigationEnd = props.page + 2;
     if (navigationEnd < 4) {
         navigationEnd = 4;
     }
     const navigationButtons = [];
     for (let i = navigationStart; i <= navigationEnd; i++) {
         if (i >= 0 && i < totalPages) {
-            navigationButtons.push(<NavigationButton i={i} filterData={props.filterData} />);
+            navigationButtons.push(<NavigationButton i={i} page={props.page} actions={props.actions} />);
         }
     }
 

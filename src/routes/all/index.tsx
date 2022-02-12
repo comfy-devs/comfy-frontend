@@ -131,7 +131,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                 </div>
                 <div className={style["all-previews"]}>{previews}</div>
             </div>
-            <Navigation filterData={props.filterData} />
+            <Navigation items={animes.length} page={props.filterData.page} limit={props.filterData.items} actions={props.actions} />
         </div>
     );
 };

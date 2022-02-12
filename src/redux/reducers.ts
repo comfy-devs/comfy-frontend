@@ -207,6 +207,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, playerData: { ...state.playerData, state: action.data } };
     },
 
+    SET_FILTER_PAGE: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, filterData: { ...state.filterData, page: action.data } };
+    },
+
     SET_PLAYER_THEATER: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, theater: action.data } };
     },

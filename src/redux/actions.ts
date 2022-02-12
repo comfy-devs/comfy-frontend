@@ -339,6 +339,13 @@ export function setFilterGroup(group: FilterGroup): ReduxAction {
     };
 }
 
+export function setFilterPage(page: number): ReduxAction {
+    return {
+        type: "SET_FILTER_PAGE",
+        data: page,
+    };
+}
+
 /* Video Player */
 export function setPlayerState(state: PlayerState): ReduxAction {
     return {
@@ -456,6 +463,7 @@ export type ConnectedActions = {
     setFilterTags(tags: AnimeTag | null): ReduxAction;
     setFilterItems(items: number): ReduxAction;
     setFilterGroup(group: FilterGroup): ReduxAction;
+    setFilterPage(page: number): ReduxAction;
 
     setPlayerState(state: PlayerState): ReduxAction;
     setPlayerTheater(theater: boolean): ReduxAction;
