@@ -39,12 +39,31 @@ const Download: FunctionalComponent = () => {
             link: "https://files.catbox.moe/93qsr2.apk",
         },
     ];
+    const androidVersions = versions.filter((e) => {
+        return e.type === "android";
+    });
+    const latestAndroid = androidVersions.sort()[0];
 
     return (
         <div className={"route"}>
             <div className={style.download}>
                 <div className={style["download-title"]}>
                     <Text id="download.title" />
+                </div>
+                <div className={style["download-item"]}>
+                    <div className={style["download-item-row"]}>
+                        <div className={style[`icon-android`]} />
+                        Android <span className={style["download-item-row-version"]}>[{latestAndroid.version}]</span>
+                        <a href={latestAndroid.link} download={`nyananime-${latestAndroid.version}`} className={style["download-item-row-link"]}>
+                            (<Text id="download.link" />)
+                        </a>
+                    </div>
+                    <div className={style["download-item-row"]}>
+                        <div className={style["download-item-row-details"]}>Latest Android version</div>
+                    </div>
+                </div>
+                <div className={style["download-title"]}>
+                    <Text id="download.versions" />
                 </div>
                 {versions.map((e, i) => {
                     return (

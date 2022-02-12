@@ -1,6 +1,6 @@
 /* Redux */
 import { bindActionCreators } from "redux";
-import { AuthResult, EpisodePreset, FilterGroup, FilterSort, PlayerState, PreferencesTheme, PreferencesTorrent } from "../ts/base";
+import { AuthResult, FilterGroup, FilterSort, PlayerState, PreferencesTheme, PreferencesTorrent } from "../ts/base";
 import { ReduxState } from "../ts/redux";
 
 export const INITIAL: ReduxState = {
@@ -15,7 +15,7 @@ export const INITIAL: ReduxState = {
     random: Math.floor(Math.random() * 1000000),
     preferences: { theme: PreferencesTheme.DARK, torrent: PreferencesTorrent.OFF, lang: "en", developer: false, blur: true },
 
-    playerData: { state: PlayerState.WAITING, theater: false, subs: true, preset: EpisodePreset.HIGH, opNotification: true, edNotification: true },
+    playerData: { state: PlayerState.WAITING, theater: false, subs: true, opNotification: true, edNotification: true },
     filterData: { page: 0, searchTerm: "", genres: null, year: null, type: null, status: null, sort: FilterSort.TITLE, tags: null, items: 50, group: FilterGroup.NO },
     authData: { username: "", password: "", password2: "", result: AuthResult.NONE },
 };

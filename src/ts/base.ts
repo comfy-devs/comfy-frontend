@@ -59,7 +59,6 @@ export type PlayerData = {
     state: PlayerState;
     theater: boolean;
     subs: boolean;
-    preset: EpisodePreset;
     overrideUrl?: string;
     opNotification: boolean;
     edNotification: boolean;
@@ -153,13 +152,6 @@ export enum AnimeTag {
 export enum AnimeRating {
     PG,
     R,
-}
-
-export enum EpisodePreset {
-    LOW = 1,
-    MEDIUM = 2,
-    HIGH = 4,
-    VP9 = 8,
 }
 
 export enum EpisodeLocation {

@@ -1,6 +1,6 @@
 /* Types */
 import { Anime, Encode, Episode, Group, Segment, Session, Stats, User } from "../ts/api";
-import { AnimeGenre, AnimeStatus, AnimeTag, AnimeType, AuthResult, EpisodePreset, FilterGroup, FilterSort, PlayerState, PreferencesTheme, PreferencesTorrent } from "../ts/base";
+import { AnimeGenre, AnimeStatus, AnimeTag, AnimeType, AuthResult, FilterGroup, FilterSort, PreferencesTheme, PreferencesTorrent } from "../ts/base";
 import { ReduxAction } from "../ts/redux";
 
 /* App */
@@ -368,13 +368,6 @@ export function setPlayerSubs(subs: boolean): ReduxAction {
     };
 }
 
-export function setPlayerPreset(preset: EpisodePreset): ReduxAction {
-    return {
-        type: "SET_PLAYER_PRESET",
-        data: preset,
-    };
-}
-
 export function setPlayerOverrideUrl(url?: string): ReduxAction {
     return {
         type: "SET_PLAYER_OVERRIDE_URL",
@@ -468,7 +461,6 @@ export type ConnectedActions = {
     setPlayerState(state: PlayerState): ReduxAction;
     setPlayerTheater(theater: boolean): ReduxAction;
     setPlayerSubs(subs: boolean): ReduxAction;
-    setPlayerPreset(preset: EpisodePreset): ReduxAction;
     setPlayerOverrideUrl(url?: string): ReduxAction;
     setPlayerOpNotification(opNotifaction: boolean): ReduxAction;
     setPlayerEdNotification(edNotifaction: boolean): ReduxAction;

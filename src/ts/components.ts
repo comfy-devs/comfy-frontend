@@ -54,6 +54,15 @@ export type VideoPlayerTorrentWrapperConnectedProps = {
     actions: ConnectedActions;
 };
 
+export type VideoPlayerHlsWrapperConnectedProps = {
+    item: Episode;
+    parent: Anime;
+    video: HTMLVideoElement | null;
+
+    playerData: PlayerData;
+    actions: ConnectedActions;
+};
+
 export type VideoPlayerControlsConnectedProps = {
     dimensions: Dimensions;
     item: Episode;

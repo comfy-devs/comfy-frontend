@@ -2,7 +2,7 @@
 import { h, Component } from "preact";
 import { VideoPlayerConnectedProps } from "../../ts/components";
 import { PlayerState, PreferencesTorrent, SegmentType, VideoPlayerNotificationType } from "../../ts/base";
-import { episodeLocationToURL, episodePresetToFile } from "../../scripts/nyan/constants";
+import { episodeLocationToURL } from "../../scripts/nyan/constants";
 import { findSegmentForTimestamp } from "../../scripts/nyan/functions";
 /* Styles */
 import style from "./style.scss";
@@ -11,6 +11,7 @@ import VideoPlayerControls from "../video-player-controls";
 import VideoPlayerOverlay from "../video-player-overlay";
 import VideoPlayerNotification from "../video-player-notification";
 import VideoPlayerTorrentWrapper from "../video-player-torrent-wrapper";
+import VideoPlayerHlsWrapper from "../video-player-hls-wrapper";
 
 class VideoPlayer extends Component<VideoPlayerConnectedProps> {
     video: HTMLVideoElement | null = null;
@@ -114,11 +115,11 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
 
     render() {
         const currentSegment = this.video === null ? { end: 0, item: null } : findSegmentForTimestamp(this.props.segments, this.video.currentTime);
-        let videoUrl = `${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/${episodePresetToFile(this.props.playerData.preset)}`;
+        let videoUrl = `${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/${this.props.parent.version === 0 ? "ep_high.mp4" : "episode_x264.mp4"}`;
         if (this.props.playerData.overrideUrl !== undefined) {
             videoUrl = this.props.playerData.overrideUrl;
         }
-        const subtitlesUrl = `${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/subs_en.vtt`;
+        const subtitlesUrl = `${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/${this.props.parent.version === 0 ? "subs_en.vtt" : "subs/eng.vtt"}`;
 
         return (
             <div className={style["episode-video-wrapper"]} data={this.props.playerData.theater ? "true" : "false"}>
@@ -168,9 +169,10 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     <VideoPlayerNotification type={VideoPlayerNotificationType.ED} segment={currentSegment} video={this.video} actions={this.props.actions} />
                 )}
                 <VideoPlayerOverlay state={this.props.playerData.state} />
-                {this.props.preferences.torrent === PreferencesTorrent.OFF ? null : (
+                {this.props.parent.version === 0 || this.props.preferences.torrent === PreferencesTorrent.OFF || this.video === null ? null : (
                     <VideoPlayerTorrentWrapper item={this.props.item} parent={this.props.parent} video={this.video} actions={this.props.actions} playerData={this.props.playerData} />
                 )}
+                {this.props.parent.version === 0 || this.video === null ? null : <VideoPlayerHlsWrapper item={this.props.item} parent={this.props.parent} video={this.video} actions={this.props.actions} playerData={this.props.playerData} />}
             </div>
         );
     }

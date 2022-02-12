@@ -3,7 +3,7 @@ import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
 import { useState } from "react";
 import { VideoPlayerControlsConnectedProps } from "../../ts/components";
-import { AnimeTag, EpisodePreset, SegmentType } from "../../ts/base";
+import { AnimeTag, SegmentType } from "../../ts/base";
 import { secondsToString } from "../../scripts/nyan/util";
 import { findSegmentForTimestamp } from "../../scripts/nyan/functions";
 /* Styles */
@@ -16,17 +16,6 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
     if (props.video === null) {
         return null;
     }
-    let presets = Object.keys(EpisodePreset)
-        .filter((e) => {
-            return (props.parent.presets & parseInt(e, 10)) === parseInt(e, 10);
-        })
-        .map((e) => {
-            return parseInt(e, 10);
-        });
-    presets = presets.filter((e) => {
-        return props.video === null || e !== EpisodePreset.VP9 || props.video.canPlayType('video/webm; codecs="vp9, vorbis"') === "probably";
-    });
-    const presetIndex = presets.indexOf(props.playerData.preset);
 
     return (
         <div className={style["video-controls-wrapper"]}>
@@ -148,28 +137,16 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             <Text id="video.noDub" />
                         </div>
                     </div>
-                    <div
-                        className={style["video-controls-button"]}
-                        onClick={() => {
-                            if (presets.length > presetIndex + 1) {
-                                props.actions.setPlayerPreset(presets[presetIndex + 1]);
-                            } else {
-                                props.actions.setPlayerPreset(presets[0]);
-                            }
-                        }}>
-                        <div className={style["icon-quality"]} data={"false"} />
-                        <div className={style.tooltip}>
-                            <Text id="video.quality" fields={{ quality: <Text id={`enum.episodePreset.${props.playerData.preset}`} />, number: presetIndex + 1, count: presets.length }} />
+                    {props.dimensions.w < 500 ? null : (
+                        <div
+                            className={style["video-controls-button"]}
+                            onClick={() => {
+                                props.actions.setPlayerTheater(!props.playerData.theater);
+                            }}>
+                            <div className={style["icon-theater"]} data={props.playerData.theater ? "true" : "false"} />
+                            <div className={style.tooltip}>{props.playerData.theater ? <Text id="video.hideTheater.tooltip" /> : <Text id="video.showTheater.tooltip" />}</div>
                         </div>
-                    </div>
-                    <div
-                        className={style["video-controls-button"]}
-                        onClick={() => {
-                            props.actions.setPlayerTheater(!props.playerData.theater);
-                        }}>
-                        <div className={style["icon-theater"]} data={props.playerData.theater ? "true" : "false"} />
-                        <div className={style.tooltip}>{props.playerData.theater ? <Text id="video.hideTheater.tooltip" /> : <Text id="video.showTheater.tooltip" />}</div>
-                    </div>
+                    )}
                     <div
                         className={style["video-controls-button"]}
                         onClick={() => {

@@ -1,5 +1,5 @@
 /* Types */
-import { AnimeGenre, AnimeRating, AnimeStatus, AnimeTag, AnimeType, EpisodeLocation, EpisodePreset, PreferencesTheme, PreferencesTorrent, SegmentType } from "./base";
+import { AnimeGenre, AnimeRating, AnimeStatus, AnimeTag, AnimeType, EpisodeLocation, PreferencesTheme, PreferencesTorrent, SegmentType } from "./base";
 
 /* Base Types */
 export type APIGetRequest = {
@@ -51,10 +51,10 @@ export type Anime = {
     genres: AnimeGenre;
     tags: AnimeTag;
     rating: AnimeRating;
-    presets: EpisodePreset;
     location: EpisodeLocation;
     timestamp: number | null;
     magnet: string | null;
+    version: number;
 };
 
 export type Group = {
