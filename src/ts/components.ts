@@ -9,6 +9,10 @@ export type HeaderConnectedProps = {
     user?: User;
 };
 
+export type SubHeaderConnectedProps = {
+    dimensions: Dimensions;
+};
+
 export type FooterConnectedProps = {
     stats: Stats;
 };

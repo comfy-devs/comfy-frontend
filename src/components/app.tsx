@@ -103,7 +103,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
                 <BrowserRouter>
                     <div className="route-container">
                         <Header user={user} />
-                        <SubHeader />
+                        <SubHeader dimensions={props.dimensions} />
                         <Routes>
                             <Route
                                 path="/"
