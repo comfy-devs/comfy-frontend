@@ -6,7 +6,12 @@ import style from "./style.scss";
 
 const NavigationButton: FunctionalComponent<NavigationButtonConnectedProps> = (props: NavigationButtonConnectedProps) => {
     return (
-        <div className={style["navigation-button"]} data={props.i === props.filterData.page ? "true" : "false"}>
+        <div
+            className={style["navigation-button"]}
+            data={props.i === props.page ? "true" : "false"}
+            onClick={() => {
+                props.actions.setFilterPage(props.i);
+            }}>
             {props.i + 1}
         </div>
     );

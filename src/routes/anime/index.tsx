@@ -39,7 +39,7 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
         });
     const episodeElements = [];
     for (let i = 0; i < anime.episodes; i++) {
-        episodeElements.push(<EpisodeCard key={i} parent={anime} item={episodes[i]} i={i} disabled={false} />);
+        episodeElements.push(<EpisodeCard key={i} parent={anime} item={episodes[i]} i={i} disabled={false} preferences={props.preferences} />);
     }
 
     const synopsis =
@@ -89,11 +89,18 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
         <div className="route">
             <div className={style["anime-overview"]}>
                 <div className={style["anime-overview-title-wrapper"]}>
-                    <div className={style["anime-overview-favourite"]}>
+                    <div className={style["anime-overview-favourite"]} data={props.user === undefined ? "not-logged-in" : (props.user.favourites.includes(anime.id) ? "true" : "false")} onClick={() => {
+                        if(props.user === undefined) { return; }
+                        if(props.user.favourites.includes(anime.id)) {
+                            props.actions.unfavourite(anime.id);
+                        } else {
+                            props.actions.favourite(anime.id);
+                        }
+                    }}>
                         <div className={style["anime-overview-favourite-tooltip"]}>
-                            <Text id="anime.favourite.tooltip" />
+                            <Text id={`anime.favourite.tooltip.${props.user === undefined ? "notLoggedIn" : props.user.favourites.includes(anime.id) ? "true" : "false"}`} />
                         </div>
-                        <div className={style["icon-star"]} />
+                        <div className={style["icon-star"]} data={props.user === undefined || !props.user.favourites.includes(anime.id) ? "gray" : "red"} />
                     </div>
                     <div className={style["anime-overview-title"]}>{anime.title}</div>
                 </div>

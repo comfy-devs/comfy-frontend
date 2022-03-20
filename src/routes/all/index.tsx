@@ -26,7 +26,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
     /* Default filters */
     useEffect(() => {
         props.actions.setFilterStatus(null);
-        props.actions.setFilterSort(FilterSort.TITLE);
+        props.actions.setFilterSort(FilterSort.TITLE_ASC);
     }, [true]);
 
     /* Filter through animes */
@@ -49,13 +49,22 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
     });
     animes.sort((a, b) => {
         switch (props.filterData.sort) {
-            case FilterSort.TITLE:
+            case FilterSort.TITLE_ASC:
                 return a.title.localeCompare(b.title);
 
-            case FilterSort.RELEASE:
-                return 1;
+            case FilterSort.TITLE_DESC:
+                return b.title.localeCompare(a.title);
 
-            case FilterSort.FAVOURITES:
+            case FilterSort.RELEASE_ASC:
+                return (b.timestamp ?? 0) - (a.timestamp ?? 0);
+
+            case FilterSort.RELEASE_DESC:
+                return (a.timestamp ?? 0) - (b.timestamp ?? 0);
+
+            case FilterSort.FAVOURITES_ASC:
+                return b.favourites - a.favourites;
+
+            case FilterSort.FAVOURITES_DESC:
                 return a.favourites - b.favourites;
         }
     });
@@ -90,12 +99,13 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                         );
                     }
                 } else {
-                    return <AnimeCard key={i} item={e} alt />;
+                    return <AnimeCard key={i} item={e} alt preferences={props.preferences} />;
                 }
             });
     } else {
-        previews = animes.map((e, i) => {
-            return <AnimeCard key={i} item={e} alt />;
+        const start = props.filterData.page * props.filterData.items;
+        previews = animes.slice(start, start + props.filterData.items).map((e, i) => {
+            return <AnimeCard key={i} item={e} alt preferences={props.preferences} />;
         });
     }
 
@@ -130,7 +140,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                 </div>
                 <div className={style["all-previews"]}>{previews}</div>
             </div>
-            <Navigation filterData={props.filterData} />
+            <Navigation items={animes.length} page={props.filterData.page} limit={props.filterData.items} actions={props.actions} />
         </div>
     );
 };

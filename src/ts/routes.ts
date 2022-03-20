@@ -11,6 +11,8 @@ export type HomeConnectedProps = {
     episodes: Map<string, Episode>;
     groups: Map<string, Group>;
     random: number;
+    preferences: Preferences;
+    user?: User;
 
     actions: ConnectedActions;
     dictionary: any;
@@ -21,6 +23,7 @@ export type AllConnectedProps = {
     animes: Map<string, Anime>;
     groups: Map<string, Group>;
     filterData: FilterData;
+    preferences: Preferences;
 
     actions: ConnectedActions;
     dictionary: Record<string, any>;
@@ -39,9 +42,13 @@ export type SettingsConnectedProps = {
     actions: ConnectedActions;
 };
 
+export type StatusConnectedProps = Record<never, never>;
+
 export type AnimeConnectedProps = {
     animes: Map<string, Anime>;
     episodes: Map<string, Episode>;
+    preferences: Preferences;
+    user?: User;
 
     actions: ConnectedActions;
 };
@@ -61,6 +68,7 @@ export type GroupRouteConnectedProps = {
     dimensions: Dimensions;
     animes: Map<string, Anime>;
     groups: Map<string, Group>;
+    preferences: Preferences;
 
     actions: ConnectedActions;
 };

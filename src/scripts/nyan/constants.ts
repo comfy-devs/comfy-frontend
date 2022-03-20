@@ -1,5 +1,5 @@
 /* Types */
-import { FilterType, AnimeGenre, AnimeStatus, AnimeTag, AnimeType, FilterSort, FilterGroup, EpisodeLocation, EpisodePreset } from "../../ts/base";
+import { FilterType, AnimeGenre, AnimeStatus, AnimeTag, AnimeType, FilterSort, FilterGroup, EpisodeLocation } from "../../ts/base";
 
 export function filterTypeToValues(type: FilterType) {
     const map: Record<number, number[]> = {
@@ -57,14 +57,4 @@ const episodeLocationMap: Record<number, string> = {
 };
 export function episodeLocationToURL(location: EpisodeLocation) {
     return episodeLocationMap[location];
-}
-
-const episodePresetFileMap: Record<number, string> = {
-    [EpisodePreset.LOW]: "ep_low.mp4",
-    [EpisodePreset.MEDIUM]: "ep_med.mp4",
-    [EpisodePreset.HIGH]: "ep_high.mp4",
-    [EpisodePreset.VP9]: "ep_vp9.webm",
-};
-export function episodePresetToFile(preset: EpisodePreset) {
-    return episodePresetFileMap[preset];
 }

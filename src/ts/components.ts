@@ -1,12 +1,16 @@
 /* Types */
 import { Anime, Episode, Group, Preferences, Segment, Stats, User } from "./api";
-import { FilterType, AnimeGenre, Dimensions, FilterData, PlayerData, VideoPlayerNotificationType } from "./base";
+import { FilterType, AnimeGenre, Dimensions, FilterData, PlayerData, VideoPlayerNotificationType, PlayerState } from "./base";
 import { ConnectedActions } from "../redux/actions";
 import { SegmentData } from "../scripts/nyan/functions";
 
 /* Types */
 export type HeaderConnectedProps = {
     user?: User;
+};
+
+export type SubHeaderConnectedProps = {
+    dimensions: Dimensions;
 };
 
 export type FooterConnectedProps = {
@@ -29,11 +33,33 @@ export type VideoPlayerConnectedProps = {
     actions: ConnectedActions;
 };
 
+export type VideoPlayerOverlayConnectedProps = {
+    state: PlayerState;
+};
+
 export type VideoPlayerNotificationConnectedProps = {
     type: VideoPlayerNotificationType;
     segment: SegmentData;
     video: HTMLVideoElement | null;
 
+    actions: ConnectedActions;
+};
+
+export type VideoPlayerTorrentWrapperConnectedProps = {
+    item: Episode;
+    parent: Anime;
+    video: HTMLVideoElement | null;
+
+    playerData: PlayerData;
+    actions: ConnectedActions;
+};
+
+export type VideoPlayerHlsWrapperConnectedProps = {
+    item: Episode;
+    parent: Anime;
+    video: HTMLVideoElement | null;
+
+    playerData: PlayerData;
     actions: ConnectedActions;
 };
 
@@ -61,6 +87,7 @@ export type AnimeCardConnectedProps = {
     item?: Anime;
     alt?: boolean;
     extra?: JSX.Element;
+    preferences: Preferences;
 };
 
 export type GroupCardConnectedProps = {
@@ -73,6 +100,7 @@ export type EpisodeCardConnectedProps = {
     parent: Anime;
     i: number;
     disabled?: boolean;
+    preferences: Preferences;
 };
 
 export type EpisodeSmallCardConnectedProps = Record<string, never>;
@@ -92,14 +120,18 @@ export type TopicConnectedProps = {
     small?: boolean;
     extra?: number;
     items: Anime[];
+    preferences: Preferences;
 };
 
 export type NavigationConnectedProps = {
-    filterData: FilterData;
+    items: number;
+    page: number;
+    limit: number;
+    actions: ConnectedActions;
 };
 
 export type NavigationButtonConnectedProps = {
     i: number;
-
-    filterData: FilterData;
+    page: number;
+    actions: ConnectedActions;
 };

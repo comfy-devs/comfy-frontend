@@ -14,7 +14,7 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
     if (props.type !== FilterType.SORT && props.type !== FilterType.ITEMS && props.type !== FilterType.GROUP) {
         filterValues.unshift(null);
     }
-    
+
     const filterButtons = filterValues.map((e, i) => {
         return (
             <div
@@ -39,7 +39,7 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
                             return;
 
                         case FilterType.SORT:
-                            props.actions.setFilterSort(e !== null ? e : FilterSort.TITLE);
+                            props.actions.setFilterSort(e !== null ? e : FilterSort.TITLE_ASC);
                             return;
 
                         case FilterType.TAGS:

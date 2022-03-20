@@ -1,5 +1,5 @@
 /* Types */
-import { AnimeGenre, AnimeRating, AnimeStatus, AnimeTag, AnimeType, EpisodeLocation, EpisodePreset, PreferencesTheme, SegmentType } from "./base";
+import { AnimeGenre, AnimeRating, AnimeStatus, AnimeTag, AnimeType, EpisodeLocation, PreferencesTheme, PreferencesTorrent, SegmentType } from "./base";
 
 /* Base Types */
 export type APIGetRequest = {
@@ -19,8 +19,10 @@ export type APIResponse = {
 /* Types */
 export type Preferences = {
     theme: PreferencesTheme;
+    torrent: PreferencesTorrent;
     lang: string;
     developer: boolean;
+    blur: boolean;
 };
 
 export type Session = {
@@ -32,6 +34,7 @@ export type User = {
     id: string;
     username: string;
     pushEnabled: boolean;
+    favourites: string[];
 };
 
 export type Anime = {
@@ -49,9 +52,10 @@ export type Anime = {
     genres: AnimeGenre;
     tags: AnimeTag;
     rating: AnimeRating;
-    presets: EpisodePreset;
     location: EpisodeLocation;
     timestamp: number | null;
+    magnet: string | null;
+    version: number;
 };
 
 export type Group = {

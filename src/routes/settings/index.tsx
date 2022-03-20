@@ -2,7 +2,7 @@
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
 import { SettingsConnectedProps } from "../../ts/routes";
-import { PreferencesTheme } from "../../ts/base";
+import { PreferencesTheme, PreferencesTorrent } from "../../ts/base";
 import { setupNotifications } from "../../scripts/nyan/notifications";
 /* Redux */
 import { connect } from "react-redux";
@@ -60,6 +60,24 @@ const Settings: FunctionalComponent<SettingsConnectedProps> = (props: SettingsCo
                                     ),
                             }}
                         />
+                    </div>
+                </div>
+                <div
+                    className={style["settings-button"]}
+                    onClick={() => {
+                        props.actions.setPreferencesTorrent(props.preferences.torrent === PreferencesTorrent.OFF ? PreferencesTorrent.ON : PreferencesTorrent.OFF);
+                    }}>
+                    <div className={style["settings-button-title"]}>
+                        <Text id="settings.torrent" fields={{ torrent: <Text id={`enum.preferencesTorrent.${props.preferences.torrent}`} /> }} />
+                    </div>
+                </div>
+                <div
+                    className={style["settings-button"]}
+                    onClick={() => {
+                        props.actions.setPreferencesBlur(!props.preferences.blur);
+                    }}>
+                    <div className={style["settings-button-title"]}>
+                        <Text id="settings.blur" fields={{ blur: <Text id={`enum.preferencesBlur.${props.preferences.blur}`} /> }} />
                     </div>
                 </div>
             </div>

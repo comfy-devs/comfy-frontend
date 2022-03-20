@@ -18,6 +18,7 @@ import Home from "../routes/home";
 import All from "../routes/all";
 import Settings from "../routes/settings";
 import Download from "../routes/download";
+import Status from "../routes/status";
 import Login from "../routes/login";
 import Register from "../routes/register";
 import Anime from "../routes/anime";
@@ -63,8 +64,10 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
     /* Preferences */
     useEffect(() => {
         localStorage.setItem("theme", props.preferences.theme.toString());
+        localStorage.setItem("torrent", props.preferences.torrent.toString());
         localStorage.setItem("lang", props.preferences.lang);
         localStorage.setItem("developer", props.preferences.developer.toString());
+        localStorage.setItem("blur", props.preferences.blur.toString());
     }, [props.preferences]);
 
     /* Themes */
@@ -100,21 +103,36 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
                 <BrowserRouter>
                     <div className="route-container">
                         <Header user={user} />
-                        <SubHeader />
+                        <SubHeader dimensions={props.dimensions} />
                         <Routes>
                             <Route
                                 path="/"
                                 element={
-                                    <Home dimensions={props.dimensions} users={props.users} animes={props.animes} groups={props.groups} episodes={props.episodes} random={props.random} actions={props.actions} dictionary={localization} />
+                                    <Home
+                                        dimensions={props.dimensions}
+                                        users={props.users}
+                                        animes={props.animes}
+                                        groups={props.groups}
+                                        episodes={props.episodes}
+                                        random={props.random}
+                                        actions={props.actions}
+                                        dictionary={localization}
+                                        preferences={props.preferences}
+                                        user={user}
+                                    />
                                 }
                             />
-                            <Route path="/all" element={<All dimensions={props.dimensions} animes={props.animes} groups={props.groups} filterData={props.filterData} actions={props.actions} dictionary={localization} />} />
+                            <Route
+                                path="/all"
+                                element={<All dimensions={props.dimensions} animes={props.animes} groups={props.groups} filterData={props.filterData} preferences={props.preferences} actions={props.actions} dictionary={localization} />}
+                            />
                             <Route path="/settings" element={<Settings preferences={props.preferences} user={user} actions={props.actions} />} />
                             <Route path="/download" element={<Download />} />
+                            <Route path="/status" element={<Status />} />
                             <Route path="/login" element={<Login authData={props.authData} actions={props.actions} dictionary={localization} />} />
                             <Route path="/register" element={<Register authData={props.authData} actions={props.actions} dictionary={localization} />} />
-                            <Route path="/animes/:id" element={<Anime animes={props.animes} episodes={props.episodes} actions={props.actions} />} />
-                            <Route path="/groups/:id" element={<Group dimensions={props.dimensions} animes={props.animes} groups={props.groups} actions={props.actions} />} />
+                            <Route path="/animes/:id" element={<Anime animes={props.animes} episodes={props.episodes} preferences={props.preferences} user={user} actions={props.actions} />} />
+                            <Route path="/groups/:id" element={<Group dimensions={props.dimensions} animes={props.animes} groups={props.groups} preferences={props.preferences} actions={props.actions} />} />
                             <Route
                                 path="/episodes/:id"
                                 element={

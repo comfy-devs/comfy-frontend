@@ -1,6 +1,6 @@
 /* Types */
 import { Anime, Encode, Episode, Group, Segment, Session, Stats, User } from "../ts/api";
-import { AnimeGenre, AnimeStatus, AnimeTag, AnimeType, AuthResult, EpisodePreset, FilterGroup, FilterSort, PreferencesTheme } from "../ts/base";
+import { AnimeGenre, AnimeStatus, AnimeTag, AnimeType, AuthResult, FilterGroup, FilterSort, PlayerState, PreferencesTheme, PreferencesTorrent } from "../ts/base";
 import { ReduxAction } from "../ts/redux";
 
 /* App */
@@ -234,6 +234,20 @@ export function setPreferencesTheme(theme: PreferencesTheme): ReduxAction {
     };
 }
 
+export function setPreferencesTorrent(torrent: PreferencesTorrent): ReduxAction {
+    return {
+        type: "SET_PREFERENCES_TORRENT",
+        data: torrent,
+    };
+}
+
+export function setPreferencesBlur(blur: boolean): ReduxAction {
+    return {
+        type: "SET_PREFERENCES_BLUR",
+        data: blur,
+    };
+}
+
 /* Notifications */
 export function pushSubscribe(url: string, key: string, auth: string): ReduxAction {
     return {
@@ -258,6 +272,33 @@ export function pushUnsubscribeSuccess(): ReduxAction {
     return {
         type: "PUSH_UNSUBSCRIBE_SUCCESS",
         data: {},
+    };
+}
+
+/* Favourites */
+export function favourite(id: string): ReduxAction {
+    return {
+        type: "FAVOURITE",
+        data: id,
+    };
+}
+export function favouriteSuccess(user: User | undefined): ReduxAction {
+    return {
+        type: "FAVOURITE_SUCCESS",
+        data: user,
+    };
+}
+
+export function unfavourite(id: string): ReduxAction {
+    return {
+        type: "UNFAVOURITE",
+        data: id,
+    };
+}
+export function unfavouriteSuccess(user: User | undefined): ReduxAction {
+    return {
+        type: "UNFAVOURITE_SUCCESS",
+        data: user,
     };
 }
 
@@ -325,7 +366,21 @@ export function setFilterGroup(group: FilterGroup): ReduxAction {
     };
 }
 
+export function setFilterPage(page: number): ReduxAction {
+    return {
+        type: "SET_FILTER_PAGE",
+        data: page,
+    };
+}
+
 /* Video Player */
+export function setPlayerState(state: PlayerState): ReduxAction {
+    return {
+        type: "SET_PLAYER_STATE",
+        data: state,
+    };
+}
+
 export function setPlayerTheater(theater: boolean): ReduxAction {
     return {
         type: "SET_PLAYER_THEATER",
@@ -340,10 +395,10 @@ export function setPlayerSubs(subs: boolean): ReduxAction {
     };
 }
 
-export function setPlayerPreset(preset: EpisodePreset): ReduxAction {
+export function setPlayerOverrideUrl(url?: string): ReduxAction {
     return {
-        type: "SET_PLAYER_PRESET",
-        data: preset,
+        type: "SET_PLAYER_OVERRIDE_URL",
+        data: url,
     };
 }
 
@@ -413,9 +468,13 @@ export type ConnectedActions = {
     register(username: string, password: string): ReduxAction;
     pushSubscribe(url: string, key: string, auth: string): ReduxAction;
     pushUnsubscribe(): ReduxAction;
+    favourite(id: string): ReduxAction;
+    unfavourite(id: string): ReduxAction;
 
     fetchPreferences(): ReduxAction;
     setPreferencesTheme(theme: PreferencesTheme): ReduxAction;
+    setPreferencesTorrent(torrent: PreferencesTorrent): ReduxAction;
+    setPreferencesBlur(blur: boolean): ReduxAction;
 
     setFilterSearchTerm(searchTerm: string): ReduxAction;
     setFilterGenres(genres: AnimeGenre | null): ReduxAction;
@@ -426,10 +485,12 @@ export type ConnectedActions = {
     setFilterTags(tags: AnimeTag | null): ReduxAction;
     setFilterItems(items: number): ReduxAction;
     setFilterGroup(group: FilterGroup): ReduxAction;
+    setFilterPage(page: number): ReduxAction;
 
+    setPlayerState(state: PlayerState): ReduxAction;
     setPlayerTheater(theater: boolean): ReduxAction;
     setPlayerSubs(subs: boolean): ReduxAction;
-    setPlayerPreset(preset: EpisodePreset): ReduxAction;
+    setPlayerOverrideUrl(url?: string): ReduxAction;
     setPlayerOpNotification(opNotifaction: boolean): ReduxAction;
     setPlayerEdNotification(edNotifaction: boolean): ReduxAction;
 

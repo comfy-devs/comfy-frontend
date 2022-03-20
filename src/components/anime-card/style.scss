@@ -60,6 +60,9 @@
 	object-fit: cover;
 	color: var(--color-primary-light-a);
 }
+.anime-thumbnail[data="blur"] {
+	filter: blur(5px);
+}
 
 .anime-extra-wrapper {
 	position: absolute;

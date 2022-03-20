@@ -6,6 +6,7 @@ import { ReduxAction, ReduxState } from "../ts/redux";
 /* Redux */
 import { cacheResource, cacheResources, INITIAL, ResourceType } from "./util";
 import {
+    favouriteSuccess,
     fetchAllAnimesSuccess,
     fetchAllEpisodesSuccess,
     fetchAllGroupsSuccess,
@@ -23,11 +24,13 @@ import {
     pushUnsubscribeSuccess,
     registerSuccess,
     setAuthResult,
+    unfavouriteSuccess,
 } from "./actions";
 // eslint-disable-next-line no-duplicate-imports
 import { fetchUser as fetchUserAction, login as loginAction } from "./actions";
 /* API */
 import {
+    favourite,
     fetchAllAnimes,
     fetchAllEpisodes,
     fetchAllGroups,
@@ -45,6 +48,7 @@ import {
     pushSubscribe,
     pushUnsubscribe,
     register,
+    unfavourite,
 } from "../scripts/api/routes";
 
 const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> = {
@@ -59,6 +63,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         if (theme !== null) {
             preferences.theme = parseInt(theme, 10);
         }
+        const torrent = localStorage.getItem("torrent");
+        if (torrent !== null) {
+            preferences.torrent = parseInt(torrent, 10);
+        }
         const lang = localStorage.getItem("lang");
         if (lang !== null) {
             preferences.lang = lang;
@@ -66,6 +74,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         const developer = localStorage.getItem("developer");
         if (developer !== null) {
             preferences.developer = developer === "true";
+        }
+        const blur = localStorage.getItem("blur");
+        if (blur !== null) {
+            preferences.blur = blur === "true";
         }
 
         return { ...state, preferences };
@@ -80,13 +92,21 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
     },
 
     PUSH_SUBSCRIBE_SUCCESS: (state: ReduxState) => {
-        console.log("subscribed owo");
         return state;
     },
 
     PUSH_UNSUBSCRIBE_SUCCESS: (state: ReduxState) => {
-        console.log("unsubscribed awa");
         return state;
+    },
+
+    FAVOURITE_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+        if(action.data === undefined) { return state; }
+        return cacheResource(state, action.data, ResourceType.USER);
+    },
+
+    UNFAVOURITE_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+        if(action.data === undefined) { return state; }
+        return cacheResource(state, action.data, ResourceType.USER);
     },
 
     FETCH_USER_SUCCESS: (state: ReduxState, action: ReduxAction) => {
@@ -153,6 +173,14 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, preferences: { ...state.preferences, theme: action.data } };
     },
 
+    SET_PREFERENCES_TORRENT: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, preferences: { ...state.preferences, torrent: action.data } };
+    },
+
+    SET_PREFERENCES_BLUR: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, preferences: { ...state.preferences, blur: action.data } };
+    },
+
     SET_FILTER_SEARCH_TERM: (state: ReduxState, action: ReduxAction) => {
         return { ...state, filterData: { ...state.filterData, searchTerm: action.data } };
     },
@@ -189,6 +217,14 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, filterData: { ...state.filterData, group: action.data } };
     },
 
+    SET_PLAYER_STATE: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, state: action.data } };
+    },
+
+    SET_FILTER_PAGE: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, filterData: { ...state.filterData, page: action.data } };
+    },
+
     SET_PLAYER_THEATER: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, theater: action.data } };
     },
@@ -199,6 +235,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     SET_PLAYER_PRESET: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, preset: action.data } };
+    },
+
+    SET_PLAYER_OVERRIDE_URL: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, overrideUrl: action.data } };
     },
 
     SET_PLAYER_OP_NOTIFICATION: (state: ReduxState, action: ReduxAction) => {
@@ -234,6 +274,7 @@ const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState:
         }
 
         dispatch(loginSuccess(session));
+        window.location.replace("/");
     },
 
     LOGIN_TOKEN: async (dispatch: Dispatch<ReduxAction>): Promise<void> => {
@@ -269,6 +310,16 @@ const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState:
         if (result === 200) {
             dispatch(pushUnsubscribeSuccess());
         }
+    },
+
+    FAVOURITE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        const user = await favourite(action.data);
+        dispatch(favouriteSuccess(user));
+    },
+
+    UNFAVOURITE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        const user = await unfavourite(action.data);
+        dispatch(unfavouriteSuccess(user));
     },
 
     FETCH_USER: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {

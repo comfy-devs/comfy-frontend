@@ -1,8 +1,9 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
-import { episodeLocationToURL } from "../../scripts/nyan/constants";
 import { EpisodeCardConnectedProps } from "../../ts/components";
+import { AnimeRating } from "../../ts/base";
+import { episodeLocationToURL } from "../../scripts/nyan/constants";
 /* Styles */
 import style from "./style.scss";
 
@@ -24,7 +25,12 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
     return (
         <div className={style.episode}>
             <div className={style["episode-thumbnail-wrapper"]}>
-                <img alt="episode-thumbnail" src={`https://image.nyananime.xyz/${props.item.anime}/${props.item.pos}/thumbnail.webp`} className={style["episode-thumbnail"]} />
+                <img
+                    alt="episode-thumbnail"
+                    src={`https://image.nyananime.xyz/${props.item.anime}/${props.item.pos}/thumbnail.webp`}
+                    className={style["episode-thumbnail"]}
+                    data={props.parent.rating !== AnimeRating.R || !props.preferences.blur ? undefined : "blur"}
+                />
                 {props.disabled === false ? (
                     <a href={`/episodes/${props.item.id}`} className={style["episode-overlay"]}>
                         <div className={style["icon-play"]} />
@@ -55,7 +61,7 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
                             if (props.item === undefined) {
                                 return;
                             }
-                            
+
                             const e = document.createElement("a");
                             e.setAttribute("href", `${episodeLocationToURL(props.parent.location)}/${props.item.anime}/${props.item.pos}/ep_low.mp4`);
                             e.setAttribute("download", `${props.parent.title.replace(/[^a-zA-Z0-9 ]/g, "").replace(" ", "_")}_${String(props.item.pos).padStart(3, "0")}_1080p`);

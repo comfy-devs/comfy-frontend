@@ -32,6 +32,11 @@ export enum PreferencesTheme {
     LIGHT,
 }
 
+export enum PreferencesTorrent {
+    OFF,
+    ON,
+}
+
 export enum AuthResult {
     NONE,
     WAITING,
@@ -51,12 +56,20 @@ export type AuthData = {
 };
 
 export type PlayerData = {
+    state: PlayerState;
     theater: boolean;
     subs: boolean;
-    preset: EpisodePreset;
+    overrideUrl?: string;
     opNotification: boolean;
     edNotification: boolean;
 };
+
+export enum PlayerState {
+    WAITING,
+    TORRENT_NO_PEERS,
+    TORRENT_LOADING,
+    DONE,
+}
 
 export enum VideoPlayerNotificationType {
     OP,
@@ -87,9 +100,12 @@ export enum FilterType {
     GROUP,
 }
 export enum FilterSort {
-    TITLE,
-    RELEASE,
-    FAVOURITES,
+    TITLE_ASC,
+    TITLE_DESC,
+    RELEASE_ASC,
+    RELEASE_DESC,
+    FAVOURITES_ASC,
+    FAVOURITES_DESC
 }
 export enum FilterGroup {
     YES,
@@ -139,13 +155,6 @@ export enum AnimeTag {
 export enum AnimeRating {
     PG,
     R,
-}
-
-export enum EpisodePreset {
-    LOW = 1,
-    MEDIUM = 2,
-    HIGH = 4,
-    VP9 = 8,
 }
 
 export enum EpisodeLocation {

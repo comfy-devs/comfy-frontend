@@ -14,11 +14,21 @@ const Download: FunctionalComponent = () => {
             name: "Android",
             type: "android",
             details: `> Video player improvements
+                - Seekbar now works
+                > Added settings screen
+                > Added support for new HLS releases`,
+            version: "beta-4",
+            link: "https://files.catbox.moe/ju93k5.apk",
+        },
+        {
+            name: "Android",
+            type: "android",
+            details: `> Video player improvements
                 - Improved UI with rewinding/seeking buttons
                 - Better and animated fading
                 > Minor bug fixes`,
             version: "beta-3",
-            link: "https://files.catbox.moe/u7c0m7.apk"
+            link: "https://files.catbox.moe/u7c0m7.apk",
         },
         {
             name: "Android",
@@ -39,12 +49,31 @@ const Download: FunctionalComponent = () => {
             link: "https://files.catbox.moe/93qsr2.apk",
         },
     ];
+    const androidVersions = versions.filter((e) => {
+        return e.type === "android";
+    });
+    const latestAndroid = androidVersions.sort()[0];
 
     return (
         <div className={"route"}>
             <div className={style.download}>
                 <div className={style["download-title"]}>
                     <Text id="download.title" />
+                </div>
+                <div className={style["download-item"]}>
+                    <div className={style["download-item-row"]}>
+                        <div className={style[`icon-android`]} />
+                        Android <span className={style["download-item-row-version"]}>[{latestAndroid.version}]</span>
+                        <a href={latestAndroid.link} download={`nyananime-${latestAndroid.version}`} className={style["download-item-row-link"]}>
+                            (<Text id="download.link" />)
+                        </a>
+                    </div>
+                    <div className={style["download-item-row"]}>
+                        <div className={style["download-item-row-details"]}>Latest Android version</div>
+                    </div>
+                </div>
+                <div className={style["download-title"]}>
+                    <Text id="download.versions" />
                 </div>
                 {versions.map((e, i) => {
                     return (
