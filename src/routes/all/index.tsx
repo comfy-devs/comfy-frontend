@@ -26,7 +26,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
     /* Default filters */
     useEffect(() => {
         props.actions.setFilterStatus(null);
-        props.actions.setFilterSort(FilterSort.TITLE);
+        props.actions.setFilterSort(FilterSort.TITLE_ASC);
     }, [true]);
 
     /* Filter through animes */
@@ -49,13 +49,22 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
     });
     animes.sort((a, b) => {
         switch (props.filterData.sort) {
-            case FilterSort.TITLE:
+            case FilterSort.TITLE_ASC:
                 return a.title.localeCompare(b.title);
 
-            case FilterSort.RELEASE:
-                return 1;
+            case FilterSort.TITLE_DESC:
+                return b.title.localeCompare(a.title);
 
-            case FilterSort.FAVOURITES:
+            case FilterSort.RELEASE_ASC:
+                return (b.timestamp ?? 0) - (a.timestamp ?? 0);
+
+            case FilterSort.RELEASE_DESC:
+                return (a.timestamp ?? 0) - (b.timestamp ?? 0);
+
+            case FilterSort.FAVOURITES_ASC:
+                return b.favourites - a.favourites;
+
+            case FilterSort.FAVOURITES_DESC:
                 return a.favourites - b.favourites;
         }
     });

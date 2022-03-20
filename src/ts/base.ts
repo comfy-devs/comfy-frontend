@@ -100,9 +100,12 @@ export enum FilterType {
     GROUP,
 }
 export enum FilterSort {
-    TITLE,
-    RELEASE,
-    FAVOURITES,
+    TITLE_ASC,
+    TITLE_DESC,
+    RELEASE_ASC,
+    RELEASE_DESC,
+    FAVOURITES_ASC,
+    FAVOURITES_DESC
 }
 export enum FilterGroup {
     YES,

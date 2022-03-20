@@ -39,7 +39,7 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
                             return;
 
                         case FilterType.SORT:
-                            props.actions.setFilterSort(e !== null ? e : FilterSort.TITLE);
+                            props.actions.setFilterSort(e !== null ? e : FilterSort.TITLE_ASC);
                             return;
 
                         case FilterType.TAGS:

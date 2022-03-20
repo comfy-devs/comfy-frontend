@@ -16,7 +16,7 @@ export const INITIAL: ReduxState = {
     preferences: { theme: PreferencesTheme.DARK, torrent: PreferencesTorrent.OFF, lang: "en", developer: false, blur: true },
 
     playerData: { state: PlayerState.WAITING, theater: false, subs: true, opNotification: true, edNotification: true },
-    filterData: { page: 0, searchTerm: "", genres: null, year: null, type: null, status: null, sort: FilterSort.TITLE, tags: null, items: 50, group: FilterGroup.NO },
+    filterData: { page: 0, searchTerm: "", genres: null, year: null, type: null, status: null, sort: FilterSort.TITLE_ASC, tags: null, items: 100, group: FilterGroup.NO },
     authData: { username: "", password: "", password2: "", result: AuthResult.NONE },
 };
 
