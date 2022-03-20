@@ -14,6 +14,16 @@ const Download: FunctionalComponent = () => {
             name: "Android",
             type: "android",
             details: `> Video player improvements
+                - Seekbar now works
+                > Added settings screen
+                > Added support for new HLS releases`,
+            version: "beta-4",
+            link: "https://files.catbox.moe/ju93k5.apk",
+        },
+        {
+            name: "Android",
+            type: "android",
+            details: `> Video player improvements
                 - Improved UI with rewinding/seeking buttons
                 - Better and animated fading
                 > Minor bug fixes`,
