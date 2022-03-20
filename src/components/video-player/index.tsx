@@ -119,7 +119,6 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
         if (this.props.playerData.overrideUrl !== undefined) {
             videoUrl = this.props.playerData.overrideUrl;
         }
-        const subtitlesUrl = `${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/${this.props.parent.version === 0 ? "subs_en.vtt" : "subs/eng.vtt"}`;
 
         return (
             <div className={style["episode-video-wrapper"]} data={this.props.playerData.theater ? "true" : "false"}>
@@ -147,8 +146,8 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     onLoadedData={() => {
                         this.props.actions.setPlayerState(PlayerState.DONE);
                     }}>
-                    <source src={videoUrl} />
-                    {!this.props.playerData.subs ? null : <track label="English" kind="subtitles" srcLang="en" src={subtitlesUrl} default />}
+                    {this.props.parent.version === 0 ? <source src={videoUrl} /> : null}
+                    {this.props.parent.version === 0 || !this.props.playerData.subs ? null : <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/subs_en.vtt`} default />}
                 </video>
                 <VideoPlayerControls
                     dimensions={this.props.dimensions}
