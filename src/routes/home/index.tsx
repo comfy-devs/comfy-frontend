@@ -20,7 +20,9 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
 
     /* Get sets to preview */
     const animes = Array.from(props.animes.values());
-    const randomSet = animes.length < 1 ? [] : [animes[props.random % animes.length]];
+    const favouritesSet = props.user === undefined ? [] : animes.filter((e) => {
+        return props.user?.favourites.includes(e.id);
+    });
     const airingSet = animes.filter((e) => {
         return e.status === AnimeStatus.AIRING;
     });
@@ -40,9 +42,15 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
             }
             return b.timestamp - a.timestamp;
         });
+    const randomSet = animes.length < 1 ? [] : [animes[props.random % animes.length]];
 
     return (
         <div className="route">
+            {props.user !== undefined ?
+                <div className={style["topic-group"]}>
+                    <Topic dimensions={props.dimensions} title={props.dictionary.home === undefined ? "" : props.dictionary.home.favourites} icon="favourites" small={false} items={favouritesSet} preferences={props.preferences} />
+                </div> : undefined
+            }
             <div className={style["topic-group"]}>
                 <Topic dimensions={props.dimensions} title={props.dictionary.home === undefined ? "" : props.dictionary.home.airing} icon="airing" small={false} items={airingSet} preferences={props.preferences} />
             </div>

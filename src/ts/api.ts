@@ -34,6 +34,7 @@ export type User = {
     id: string;
     username: string;
     pushEnabled: boolean;
+    favourites: string[];
 };
 
 export type Anime = {

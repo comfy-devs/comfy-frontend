@@ -12,6 +12,7 @@ export type HomeConnectedProps = {
     groups: Map<string, Group>;
     random: number;
     preferences: Preferences;
+    user?: User;
 
     actions: ConnectedActions;
     dictionary: any;
@@ -47,6 +48,7 @@ export type AnimeConnectedProps = {
     animes: Map<string, Anime>;
     episodes: Map<string, Episode>;
     preferences: Preferences;
+    user?: User;
 
     actions: ConnectedActions;
 };

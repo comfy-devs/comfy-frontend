@@ -118,6 +118,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
                                         actions={props.actions}
                                         dictionary={localization}
                                         preferences={props.preferences}
+                                        user={user}
                                     />
                                 }
                             />
@@ -130,7 +131,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
                             <Route path="/status" element={<Status />} />
                             <Route path="/login" element={<Login authData={props.authData} actions={props.actions} dictionary={localization} />} />
                             <Route path="/register" element={<Register authData={props.authData} actions={props.actions} dictionary={localization} />} />
-                            <Route path="/animes/:id" element={<Anime animes={props.animes} episodes={props.episodes} preferences={props.preferences} actions={props.actions} />} />
+                            <Route path="/animes/:id" element={<Anime animes={props.animes} episodes={props.episodes} preferences={props.preferences} user={user} actions={props.actions} />} />
                             <Route path="/groups/:id" element={<Group dimensions={props.dimensions} animes={props.animes} groups={props.groups} preferences={props.preferences} actions={props.actions} />} />
                             <Route
                                 path="/episodes/:id"

@@ -41,6 +41,10 @@
 	margin-right: 10px;
 	cursor: pointer;
 }
+.anime-overview-favourite[data="not-logged-in"] {
+	filter: grayscale(1);
+	cursor: default;
+}
 .anime-overview-favourite-tooltip {
 	position: absolute;
 	@extend %align-center;
@@ -162,5 +166,10 @@
 	height: 24px;
 	width: 24px;
 	transform: scale(0.75);
+}
+.icon-star[data="red"] {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z' fill='rgba(248, 29, 44, 1)'/%3E%3C/svg%3E");
+}
+.icon-star[data="gray"] {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z' fill='rgba(72, 72, 72, 1)'/%3E%3C/svg%3E");
 }

@@ -275,6 +275,33 @@ export function pushUnsubscribeSuccess(): ReduxAction {
     };
 }
 
+/* Favourites */
+export function favourite(id: string): ReduxAction {
+    return {
+        type: "FAVOURITE",
+        data: id,
+    };
+}
+export function favouriteSuccess(user: User | undefined): ReduxAction {
+    return {
+        type: "FAVOURITE_SUCCESS",
+        data: user,
+    };
+}
+
+export function unfavourite(id: string): ReduxAction {
+    return {
+        type: "UNFAVOURITE",
+        data: id,
+    };
+}
+export function unfavouriteSuccess(user: User | undefined): ReduxAction {
+    return {
+        type: "UNFAVOURITE_SUCCESS",
+        data: user,
+    };
+}
+
 /* Filters */
 export function setFilterSearchTerm(searchTerm: string): ReduxAction {
     return {
@@ -441,6 +468,8 @@ export type ConnectedActions = {
     register(username: string, password: string): ReduxAction;
     pushSubscribe(url: string, key: string, auth: string): ReduxAction;
     pushUnsubscribe(): ReduxAction;
+    favourite(id: string): ReduxAction;
+    unfavourite(id: string): ReduxAction;
 
     fetchPreferences(): ReduxAction;
     setPreferencesTheme(theme: PreferencesTheme): ReduxAction;

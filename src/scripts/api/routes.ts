@@ -113,3 +113,21 @@ export async function pushUnsubscribe(): Promise<number> {
     const response: APIResponse = await post({ path: "/notifications/unsubscribe", body: {} });
     return response.status;
 }
+
+export async function favourite(id: string): Promise<User | undefined> {
+    const response: APIResponse = await post({ path: `/animes/favourite?id=${id}`, body: {} });
+    if (response.status !== 200) {
+        return undefined;
+    }
+
+    return response.body;
+}
+
+export async function unfavourite(id: string): Promise<User | undefined> {
+    const response: APIResponse = await post({ path: `/animes/unfavourite?id=${id}`, body: {} });
+    if (response.status !== 200) {
+        return undefined;
+    }
+
+    return response.body;
+}

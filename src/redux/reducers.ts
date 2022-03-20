@@ -6,6 +6,7 @@ import { ReduxAction, ReduxState } from "../ts/redux";
 /* Redux */
 import { cacheResource, cacheResources, INITIAL, ResourceType } from "./util";
 import {
+    favouriteSuccess,
     fetchAllAnimesSuccess,
     fetchAllEpisodesSuccess,
     fetchAllGroupsSuccess,
@@ -23,11 +24,13 @@ import {
     pushUnsubscribeSuccess,
     registerSuccess,
     setAuthResult,
+    unfavouriteSuccess,
 } from "./actions";
 // eslint-disable-next-line no-duplicate-imports
 import { fetchUser as fetchUserAction, login as loginAction } from "./actions";
 /* API */
 import {
+    favourite,
     fetchAllAnimes,
     fetchAllEpisodes,
     fetchAllGroups,
@@ -45,6 +48,7 @@ import {
     pushSubscribe,
     pushUnsubscribe,
     register,
+    unfavourite,
 } from "../scripts/api/routes";
 
 const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> = {
@@ -93,6 +97,16 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     PUSH_UNSUBSCRIBE_SUCCESS: (state: ReduxState) => {
         return state;
+    },
+
+    FAVOURITE_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+        if(action.data === undefined) { return state; }
+        return cacheResource(state, action.data, ResourceType.USER);
+    },
+
+    UNFAVOURITE_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+        if(action.data === undefined) { return state; }
+        return cacheResource(state, action.data, ResourceType.USER);
     },
 
     FETCH_USER_SUCCESS: (state: ReduxState, action: ReduxAction) => {
@@ -260,6 +274,7 @@ const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState:
         }
 
         dispatch(loginSuccess(session));
+        window.location.replace("/");
     },
 
     LOGIN_TOKEN: async (dispatch: Dispatch<ReduxAction>): Promise<void> => {
@@ -295,6 +310,16 @@ const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState:
         if (result === 200) {
             dispatch(pushUnsubscribeSuccess());
         }
+    },
+
+    FAVOURITE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        const user = await favourite(action.data);
+        dispatch(favouriteSuccess(user));
+    },
+
+    UNFAVOURITE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        const user = await unfavourite(action.data);
+        dispatch(unfavouriteSuccess(user));
     },
 
     FETCH_USER: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
