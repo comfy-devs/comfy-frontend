@@ -147,7 +147,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                         this.props.actions.setPlayerState(PlayerState.DONE);
                     }}>
                     {this.props.parent.version === 0 ? <source src={videoUrl} /> : null}
-                    {this.props.parent.version === 0 || !this.props.playerData.subs ? null : <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/subs_en.vtt`} default />}
+                    {this.props.parent.version !== 0 || !this.props.playerData.subs ? null : <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/subs_en.vtt`} default />}
                 </video>
                 <VideoPlayerControls
                     dimensions={this.props.dimensions}
