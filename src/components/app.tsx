@@ -1,10 +1,9 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { IntlProvider } from "preact-i18n";
-import { AppConnectedProps, PreferencesTheme } from "../ts/base";
 /* Styles */
+import pageStyle from "../routes/style.scss";
 import * as dark from "../style/themes/dark";
 import * as light from "../style/themes/light";
 /* Redux */
@@ -14,16 +13,7 @@ import * as actions from "../redux/actions";
 /* Components */
 import Header from "./header";
 import SubHeader from "./sub-header";
-import Home from "../routes/home";
-import All from "../routes/all";
-import Settings from "../routes/settings";
-import Download from "../routes/download";
-import Status from "../routes/status";
-import Login from "../routes/login";
-import Register from "../routes/register";
-import Anime from "../routes/anime";
-import Group from "../routes/group";
-import Episode from "../routes/episode";
+import AppRouter from "./router";
 import Footer from "./footer";
 
 const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
@@ -35,7 +25,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
     const [ruleID, setRuleID] = useState(-1);
     const [localization, setLocalization] = useState({});
 
-    /* API calls */
+    // API calls
     useEffect(() => {
         props.actions.fetchStats();
         props.actions.fetchPreferences();
@@ -52,7 +42,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
         });
     }, [true]);
 
-    /* Localization */
+    // Localization
     useEffect(() => {
         const loadLocalization = async () => {
             const localizationReq = await fetch(`/assets/lang/${props.preferences.lang}.json`);
@@ -61,7 +51,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
         loadLocalization();
     }, [props.preferences.lang]);
 
-    /* Preferences */
+    // Preferences
     useEffect(() => {
         localStorage.setItem("theme", props.preferences.theme.toString());
         localStorage.setItem("torrent", props.preferences.torrent.toString());
@@ -70,7 +60,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
         localStorage.setItem("blur", props.preferences.blur.toString());
     }, [props.preferences]);
 
-    /* Themes */
+    // Themes
     useEffect(() => {
         const item = document.styleSheets.item(0);
         if (item === null) {
@@ -81,68 +71,28 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
         }
 
         switch (props.preferences.theme) {
-            case PreferencesTheme.DARK:
+            case "dark":
                 setRuleID(item.insertRule(dark.default));
                 break;
 
-            case PreferencesTheme.LIGHT:
+            case "light":
                 setRuleID(item.insertRule(light.default));
                 break;
         }
     }, [props.preferences.theme]);
 
-    /* Auth */
-    const user = props.session === undefined ? undefined : props.users.get(props.session.user);
+    // Misc
+    const user = props.session === null ? null : props.users.get(props.session.user) ?? null;
 
-    if (typeof window === "undefined") {
-        return <div />;
-    }
     return (
         <IntlProvider definition={localization}>
             <div id="app">
-                <BrowserRouter>
-                    <div className="route-container">
-                        <Header user={user} />
-                        <SubHeader dimensions={props.dimensions} />
-                        <Routes>
-                            <Route
-                                path="/"
-                                element={
-                                    <Home
-                                        dimensions={props.dimensions}
-                                        users={props.users}
-                                        animes={props.animes}
-                                        groups={props.groups}
-                                        episodes={props.episodes}
-                                        random={props.random}
-                                        actions={props.actions}
-                                        dictionary={localization}
-                                        preferences={props.preferences}
-                                        user={user}
-                                    />
-                                }
-                            />
-                            <Route
-                                path="/all"
-                                element={<All dimensions={props.dimensions} animes={props.animes} groups={props.groups} filterData={props.filterData} preferences={props.preferences} actions={props.actions} dictionary={localization} />}
-                            />
-                            <Route path="/settings" element={<Settings preferences={props.preferences} user={user} actions={props.actions} />} />
-                            <Route path="/download" element={<Download />} />
-                            <Route path="/status" element={<Status />} />
-                            <Route path="/login" element={<Login authData={props.authData} actions={props.actions} dictionary={localization} />} />
-                            <Route path="/register" element={<Register authData={props.authData} actions={props.actions} dictionary={localization} />} />
-                            <Route path="/animes/:id" element={<Anime animes={props.animes} episodes={props.episodes} preferences={props.preferences} user={user} actions={props.actions} />} />
-                            <Route path="/groups/:id" element={<Group dimensions={props.dimensions} animes={props.animes} groups={props.groups} preferences={props.preferences} actions={props.actions} />} />
-                            <Route
-                                path="/episodes/:id"
-                                element={
-                                    <Episode dimensions={props.dimensions} playerData={props.playerData} animes={props.animes} episodes={props.episodes} segments={props.segments} preferences={props.preferences} actions={props.actions} />
-                                }
-                            />
-                        </Routes>
-                        <Footer stats={props.stats} />
-                    </div>
-                </BrowserRouter>
+                <Header user={user} />
+                <SubHeader dimensions={props.dimensions} />
+                <div className={pageStyle.page}>
+                    <AppRouter {...props} dictionary={localization} user={user} />
+                    <Footer stats={props.stats} />
+                </div>
             </div>
         </IntlProvider>
     );

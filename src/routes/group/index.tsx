@@ -1,30 +1,25 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { Text } from "preact-i18n";
-import { GroupRouteConnectedProps } from "../../ts/routes";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
 import * as actions from "../../redux/actions";
 /* Styles */
+import baseStyle from "../style.scss";
 import style from "./style.scss";
 /* Components */
 import AnimeCard from "../../components/anime-card";
 
 const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteConnectedProps) => {
-    const { id } = useParams();
-    const group = id === undefined ? undefined : props.groups.get(id);
+    const group = props.groups.get(props.id);
 
     /* API calls */
     useEffect(() => {
-        if (id === undefined) {
-            return;
-        }
-        props.actions.fetchGroup(id);
+        props.actions.fetchGroup(props.id);
         props.actions.fetchAllAnimes();
-    }, [true]);
+    }, [props.actions, props.id]);
 
     if (group === undefined) {
         return null;
@@ -44,7 +39,7 @@ const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteC
         });
 
     return (
-        <div className={"route"}>
+        <div className={baseStyle["page-content"]}>
             <div className={style.group}>
                 <div className={style["group-title-wrapper"]}>
                     <div className={style["group-title"]}>{group.title}</div>

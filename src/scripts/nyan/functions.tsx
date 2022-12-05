@@ -1,28 +1,26 @@
 /* Types */
 import { h } from "preact";
 import { Text } from "preact-i18n";
-import { FilterType } from "../../ts/base";
-import { Anime, Segment } from "../../ts/api";
 import { secondsToStringHuman } from "./util";
 
-export function filterValueToDisplayName(type: FilterType, value: number | null) {
+const filterTypeMap: Record<FilterType, (value: number) => h.JSX.Element> = {
+    GENRES: (value: number) => <Text id={`enum.animeGenre.${value}`} />,
+    YEAR: (value: number) => <Text id="">{value.toString()}</Text>,
+    TYPE: (value: number) => <Text id={`enum.animeType.${value}`} />,
+    STATUS: (value: number) => <Text id={`enum.animeStatus.${value}`} />,
+    SORT: (value: number) => <Text id={`enum.filterSort.${value}`} />,
+    TAGS: (value: number) => <Text id={`enum.animeTag.${value}`} />,
+    ITEMS: (value: number) => <Text id="">{value.toString()}</Text>,
+    GROUP: (value: number) => <Text id={`enum.filterGroup.${value}`} />,
+};
+export function filterValueToDisplayName(type: FilterType, value: any) {
     if (value === null) {
-        if (type === FilterType.SORT) {
+        if (type === "SORT") {
             return <Text id="filter.default" />;
         }
         return <Text id="filter.any" />;
     }
-    const map: Record<number, h.JSX.Element> = {
-        [FilterType.GENRES]: <Text id={`enum.animeGenre.${value}`} />,
-        [FilterType.YEAR]: <Text id="">{value.toString()}</Text>,
-        [FilterType.TYPE]: <Text id={`enum.animeType.${value}`} />,
-        [FilterType.STATUS]: <Text id={`enum.animeStatus.${value}`} />,
-        [FilterType.SORT]: <Text id={`enum.filterSort.${value}`} />,
-        [FilterType.TAGS]: <Text id={`enum.animeTag.${value}`} />,
-        [FilterType.ITEMS]: <Text id="">{value.toString()}</Text>,
-        [FilterType.GROUP]: <Text id={`enum.filterGroup.${value}`} />,
-    };
-    return map[type];
+    return filterTypeMap[type](value);
 }
 
 export function topicExtraToDisplayName(item: Anime, extra?: number) {
@@ -43,10 +41,6 @@ export function topicExtraToDisplayName(item: Anime, extra?: number) {
     }
 }
 
-export type SegmentData = {
-    end: number;
-    item: Segment | null;
-};
 export function findSegmentForTimestamp(segments: Segment[], timestamp: number): SegmentData {
     const segmentData = segments.reduce(
         (acc: any, curr) => {

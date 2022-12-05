@@ -1,6 +1,5 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
-import { NavigationButtonConnectedProps } from "../../ts/components";
 /* Styles */
 import style from "./style.scss";
 

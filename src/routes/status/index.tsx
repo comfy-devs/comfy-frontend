@@ -1,17 +1,17 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
-import { StatusConnectedProps } from "../../ts/routes";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
 import * as actions from "../../redux/actions";
 /* Styles */
+import baseStyle from "../style.scss";
 import style from "./style.scss";
 
 const Status: FunctionalComponent<StatusConnectedProps> = (props: StatusConnectedProps) => {
     return (
-        <div className="route">
+        <div className={baseStyle["page-content"]}>
             <div className={style.status}>
                 <div className={style["status-title"]}>
                     <Text id="status.title" />

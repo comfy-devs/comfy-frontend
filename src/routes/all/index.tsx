@@ -2,13 +2,12 @@
 import { h, FunctionalComponent } from "preact";
 import { useEffect } from "react";
 import { Text, Localizer } from "preact-i18n";
-import { AllConnectedProps } from "../../ts/routes";
-import { FilterGroup, FilterSort, FilterType } from "../../ts/base";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
 import * as actions from "../../redux/actions";
 /* Styles */
+import baseStyle from "../style.scss";
 import style from "./style.scss";
 /* Components */
 import AnimeCard from "../../components/anime-card";
@@ -26,7 +25,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
     /* Default filters */
     useEffect(() => {
         props.actions.setFilterStatus(null);
-        props.actions.setFilterSort(FilterSort.TITLE_ASC);
+        props.actions.setFilterSort("TITLE_ASC");
     }, [true]);
 
     /* Filter through animes */
@@ -49,37 +48,37 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
     });
     animes.sort((a, b) => {
         switch (props.filterData.sort) {
-            case FilterSort.TITLE_ASC:
+            case "TITLE_ASC":
                 return a.title.localeCompare(b.title);
 
-            case FilterSort.TITLE_DESC:
+            case "TITLE_DESC":
                 return b.title.localeCompare(a.title);
 
-            case FilterSort.RELEASE_ASC:
+            case "RELEASE_ASC":
                 return (b.timestamp ?? 0) - (a.timestamp ?? 0);
 
-            case FilterSort.RELEASE_DESC:
+            case "RELEASE_DESC":
                 return (a.timestamp ?? 0) - (b.timestamp ?? 0);
 
-            case FilterSort.FAVOURITES_ASC:
+            case "FAVOURITES_ASC":
                 return b.favourites - a.favourites;
 
-            case FilterSort.FAVOURITES_DESC:
+            case "FAVOURITES_DESC":
                 return a.favourites - b.favourites;
         }
     });
 
     const filterItems = [
-        <Filter key={0} type={FilterType.GENRES} value={props.filterData.genres} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={1} type={FilterType.YEAR} value={props.filterData.year} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={2} type={FilterType.TYPE} value={props.filterData.type} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={3} type={FilterType.STATUS} value={props.filterData.status} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={4} type={FilterType.SORT} value={props.filterData.sort} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={5} type={FilterType.TAGS} value={props.filterData.tags} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={0} type={"GENRES"} value={props.filterData.genres} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={1} type={"YEAR"} value={props.filterData.year} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={2} type={"TYPE"} value={props.filterData.type} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={3} type={"STATUS"} value={props.filterData.status} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={4} type={"SORT"} value={props.filterData.sort} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={5} type={"TAGS"} value={props.filterData.tags} filterData={props.filterData} actions={props.actions} />,
     ];
 
     let previews: any[] = [];
-    if (props.filterData.group === FilterGroup.YES) {
+    if (props.filterData.group === "YES") {
         previews = animes
             .filter((e) => {
                 return e.group === null || e.season === 0;
@@ -110,7 +109,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
     }
 
     return (
-        <div className={"route"}>
+        <div className={baseStyle["page-content"]}>
             <div className={style.all}>
                 <div className={style["all-title"]}>
                     <Text id="all.title" fields={{ count: animes.length }} />
@@ -133,8 +132,8 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                             />
                         </Localizer>
                         <div className={style["all-filters-chunk"]}>
-                            <Filter type={FilterType.ITEMS} value={props.filterData.items} filterData={props.filterData} actions={props.actions} />
-                            <Filter type={FilterType.GROUP} value={props.filterData.group} filterData={props.filterData} actions={props.actions} />
+                            <Filter type={"ITEMS"} value={props.filterData.items} filterData={props.filterData} actions={props.actions} />
+                            <Filter type={"GROUP"} value={props.filterData.group} filterData={props.filterData} actions={props.actions} />
                         </div>
                     </div>
                 </div>

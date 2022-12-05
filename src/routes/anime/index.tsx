@@ -1,31 +1,26 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { useEffect } from "react";
-import { useParams } from "react-router";
 import { Text } from "preact-i18n";
-import { AnimeConnectedProps } from "../../ts/routes";
-import { AnimeGenre, AnimeTag } from "../../ts/base";
+import { AnimeGenreMapping, AnimeTagMapping } from "../../ts/common/const";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
 import * as actions from "../../redux/actions";
 /* Styles */
+import baseStyle from "../style.scss";
 import style from "./style.scss";
 /* Components */
 import EpisodeCard from "../../components/episode-card";
 
 const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedProps) => {
-    const { id } = useParams();
-    const anime = id === undefined ? undefined : props.animes.get(id);
+    const anime = props.animes.get(props.id);
 
     /* API calls */
     useEffect(() => {
-        if (id === undefined) {
-            return;
-        }
-        props.actions.fetchAnime(id);
-        props.actions.fetchAnimeEpisodes(id);
-    }, [true]);
+        props.actions.fetchAnime(props.id);
+        props.actions.fetchAnimeEpisodes(props.id);
+    }, [props.actions, props.id]);
 
     if (anime === undefined) {
         return null;
@@ -53,30 +48,24 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                       </div>
                   );
               });
-    const genres = Object.keys(AnimeGenre)
-        .filter((e) => {
-            return parseInt(e, 10) !== 0 && (anime.genres & parseInt(e, 10)) === parseInt(e, 10);
-        })
+    const genres = Object.values(AnimeGenreMapping)
         .map((e, i) => {
             return (
                 <div key={i} className={style["anime-overview-field"]}>
                     <span className={style["anime-overview-data-field-highlight"]}>
                         {i === 0 ? "" : ", "}
-                        {<Text id={`enum.animeGenre.${parseInt(e, 10)}`} />}
+                        {<Text id={`enum.animeGenre.${e}`} />}
                     </span>
                 </div>
             );
         });
-    const tags = Object.keys(AnimeTag)
-        .filter((e) => {
-            return parseInt(e, 10) !== 0 && (anime.tags & parseInt(e, 10)) === parseInt(e, 10);
-        })
+    const tags = Object.values(AnimeTagMapping)
         .map((e, i) => {
             return (
                 <div key={i} className={style["anime-overview-field"]}>
                     <span className={style["anime-overview-data-field-highlight"]}>
                         {i === 0 ? "" : ", "}
-                        {<Text id={`enum.animeTag.${parseInt(e, 10)}`} />}
+                        {<Text id={`enum.animeTag.${e}`} />}
                     </span>
                 </div>
             );
@@ -86,11 +75,11 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
     }, 0);
 
     return (
-        <div className="route">
+        <div className={baseStyle["page-content"]}>
             <div className={style["anime-overview"]}>
                 <div className={style["anime-overview-title-wrapper"]}>
-                    <div className={style["anime-overview-favourite"]} data={props.user === undefined ? "not-logged-in" : (props.user.favourites.includes(anime.id) ? "true" : "false")} onClick={() => {
-                        if(props.user === undefined) { return; }
+                    <div className={style["anime-overview-favourite"]} data={props.user === null ? "not-logged-in" : (props.user.favourites.includes(anime.id) ? "true" : "false")} onClick={() => {
+                        if(props.user === null) { return; }
                         if(props.user.favourites.includes(anime.id)) {
                             props.actions.unfavourite(anime.id);
                         } else {
@@ -98,9 +87,9 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                         }
                     }}>
                         <div className={style["anime-overview-favourite-tooltip"]}>
-                            <Text id={`anime.favourite.tooltip.${props.user === undefined ? "notLoggedIn" : props.user.favourites.includes(anime.id) ? "true" : "false"}`} />
+                            <Text id={`anime.favourite.tooltip.${props.user === null ? "notLoggedIn" : props.user.favourites.includes(anime.id) ? "true" : "false"}`} />
                         </div>
-                        <div className={style["icon-star"]} data={props.user === undefined || !props.user.favourites.includes(anime.id) ? "gray" : "red"} />
+                        <div className={style["icon-star"]} data={props.user === null || !props.user.favourites.includes(anime.id) ? "gray" : "red"} />
                     </div>
                     <div className={style["anime-overview-title"]}>{anime.title}</div>
                 </div>

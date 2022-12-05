@@ -1,8 +1,6 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
-import { EpisodeCardConnectedProps } from "../../ts/components";
-import { AnimeRating } from "../../ts/base";
 import { episodeLocationToURL } from "../../scripts/nyan/constants";
 /* Styles */
 import style from "./style.scss";

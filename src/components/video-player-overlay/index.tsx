@@ -1,13 +1,11 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
-import { VideoPlayerOverlayConnectedProps } from "../../ts/components";
-import { PlayerState } from "../../ts/base";
 /* Styles */
 import style from "./style.scss";
 
 const VideoPlayerOverlay: FunctionalComponent<VideoPlayerOverlayConnectedProps> = (props: VideoPlayerOverlayConnectedProps) => {
-    if (props.state === PlayerState.DONE) {
+    if (props.state === "DONE") {
         return null;
     }
 

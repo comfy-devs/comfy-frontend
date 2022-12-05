@@ -1,19 +1,18 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
-import { NavLink } from "react-router-dom";
+import { Link } from "preact-router";
 import { Text, Localizer } from "preact-i18n";
-import { AuthResult } from "../../ts/base";
-import { RegisterConnectedProps } from "../../ts/routes";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
 import * as actions from "../../redux/actions";
 /* Styles */
+import baseStyle from "../style.scss";
 import style from "./style.scss";
 
 const Register: FunctionalComponent<RegisterConnectedProps> = (props: RegisterConnectedProps) => {
     return (
-        <div className="route">
+        <div className={baseStyle["page-content"]}>
             <div className={style.auth}>
                 <div className={style["auth-form"]}>
                     <div className={style["auth-title"]}>
@@ -73,9 +72,9 @@ const Register: FunctionalComponent<RegisterConnectedProps> = (props: RegisterCo
                             <Text id="register.button" />
                         </div>
                     </div>
-                    <NavLink to="/login" className={style["auth-link"]}>
+                    <Link href="/login" className={style["auth-link"]}>
                         <Text id="register.existingAccount" />
-                    </NavLink>
+                    </Link>
                     <div className={style["auth-result-text"]}>{<Text id={`enum.authResult.${props.authData.result}`} />}</div>
                 </div>
             </div>

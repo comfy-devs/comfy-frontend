@@ -1,8 +1,6 @@
 /* Base */
 import { Component } from "preact";
 import WebTorrent from "webtorrent";
-import { PlayerState } from "../../ts/base";
-import { VideoPlayerTorrentWrapperConnectedProps } from "../../ts/components";
 
 class VideoPlayerTorrentWrapper extends Component<VideoPlayerTorrentWrapperConnectedProps> {
     client: WebTorrent.Instance;
@@ -21,7 +19,7 @@ class VideoPlayerTorrentWrapper extends Component<VideoPlayerTorrentWrapperConne
         this.client.loadWorker(navigator.serviceWorker.controller);
 
         if (props.parent.magnet === null) {
-            this.props.actions.setPlayerState(PlayerState.DONE);
+            this.props.actions.setPlayerState("DONE");
             return;
         }
 
@@ -41,7 +39,7 @@ class VideoPlayerTorrentWrapper extends Component<VideoPlayerTorrentWrapperConne
             console.log(e);
         });
         torrent.on("metadata", () => {
-            this.props.actions.setPlayerState(PlayerState.TORRENT_LOADING);
+            this.props.actions.setPlayerState("TORRENT_LOADING");
         });
         torrent.on("ready", () => {
             torrent.files
@@ -60,12 +58,12 @@ class VideoPlayerTorrentWrapper extends Component<VideoPlayerTorrentWrapperConne
                             return;
                         }
                         this.props.actions.setPlayerOverrideUrl(url);
-                        this.props.actions.setPlayerState(PlayerState.DONE);
+                        this.props.actions.setPlayerState("DONE");
                     });
                 });
         });
         torrent.on("noPeers", () => {
-            this.props.actions.setPlayerState(PlayerState.TORRENT_NO_PEERS);
+            this.props.actions.setPlayerState("TORRENT_NO_PEERS");
         });
     }
 

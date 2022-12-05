@@ -1,8 +1,7 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
-import { AnimeCardConnectedProps } from "../../ts/components";
-import { AnimeRating } from "../../ts/base";
+import { AnimeRatingMapping } from "../../ts/common/const";
 /* Styles */
 import style from "./style.scss";
 
@@ -33,7 +32,7 @@ const AnimeCard: FunctionalComponent<AnimeCardConnectedProps> = (props: AnimeCar
             onDragStart={(e) => {
                 e.preventDefault();
             }}>
-            <img alt="anime-thumbnail" src={`https://image.nyananime.xyz/${props.item.id}/poster.webp`} className={style["anime-thumbnail"]} data={props.item.rating !== AnimeRating.R || !props.preferences.blur ? undefined : "blur"} />
+            <img alt="anime-thumbnail" src={`https://image.nyananime.xyz/${props.item.id}/poster.webp`} className={style["anime-thumbnail"]} data={props.item.rating !== AnimeRatingMapping.R || !props.preferences.blur ? undefined : "blur"} />
             <div className={style["anime-title-wrapper"]}>
                 <div className={style["anime-title"]}>{title}</div>
                 <div className={style["anime-favourites-wrapper"]}>

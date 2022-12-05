@@ -1,501 +1,255 @@
-/* Types */
-import { Anime, Encode, Episode, Group, Segment, Session, Stats, User } from "../ts/api";
-import { AnimeGenre, AnimeStatus, AnimeTag, AnimeType, AuthResult, FilterGroup, FilterSort, PlayerState, PreferencesTheme, PreferencesTorrent } from "../ts/base";
-import { ReduxAction } from "../ts/redux";
+function getAction(type: string, data: any): ReduxAction {
+    return {
+        type, data
+    }
+}
 
 /* App */
 export function setDimensions(w: number, h: number): ReduxAction {
-    return {
-        type: "SET_DIMENSIONS",
-        data: { w, h },
-    };
+    return getAction("SET_DIMENSIONS", { w, h });
 }
 
 /* Users */
 export function fetchUser(id: string): ReduxAction {
-    return {
-        type: "FETCH_USER",
-        data: id,
-    };
+    return getAction("FETCH_USER", id);
 }
 export function fetchUserSuccess(user: User): ReduxAction {
-    return {
-        type: "FETCH_USER_SUCCESS",
-        data: user,
-    };
+    return getAction("FETCH_USER_SUCCESS", user);
 }
 
 /* Animes */
 export function fetchAnime(id: string): ReduxAction {
-    return {
-        type: "FETCH_ANIME",
-        data: id,
-    };
+    return getAction("FETCH_ANIME", id);
 }
 export function fetchAnimeSuccess(anime: Anime): ReduxAction {
-    return {
-        type: "FETCH_ANIME_SUCCESS",
-        data: anime,
-    };
+    return getAction("FETCH_ANIME_SUCCESS", anime);
 }
 
 export function fetchAllAnimes(): ReduxAction {
-    return {
-        type: "FETCH_ALL_ANIMES",
-        data: {},
-    };
+    return getAction("FETCH_ALL_ANIMES", {});
 }
 export function fetchAllAnimesSuccess(animes: Anime[]): ReduxAction {
-    return {
-        type: "FETCH_ALL_ANIMES_SUCCESS",
-        data: animes,
-    };
+    return getAction("FETCH_ALL_ANIMES_SUCCESS", animes);
 }
 
 export function fetchAnimeEpisodes(id: string): ReduxAction {
-    return {
-        type: "FETCH_ANIME_EPISODES",
-        data: id,
-    };
+    return getAction("FETCH_ANIME_EPISODES", id);
 }
 export function fetchAnimeEpisodesSuccess(episodes: Episode[]): ReduxAction {
-    return {
-        type: "FETCH_ANIME_EPISODES_SUCCESS",
-        data: episodes,
-    };
+    return getAction("FETCH_ANIME_EPISODES_SUCCESS", episodes);
 }
 
 /* Groups */
 export function fetchGroup(id: string): ReduxAction {
-    return {
-        type: "FETCH_GROUP",
-        data: id,
-    };
+    return getAction("FETCH_GROUP", id);
 }
 export function fetchGroupSuccess(group: Group): ReduxAction {
-    return {
-        type: "FETCH_GROUP_SUCCESS",
-        data: group,
-    };
+    return getAction("FETCH_GROUP_SUCCESS", group);
 }
 
 export function fetchAllGroups(): ReduxAction {
-    return {
-        type: "FETCH_ALL_GROUPS",
-        data: {},
-    };
+    return getAction("FETCH_ALL_GROUPS", {});
 }
 export function fetchAllGroupsSuccess(groups: Group[]): ReduxAction {
-    return {
-        type: "FETCH_ALL_GROUPS_SUCCESS",
-        data: groups,
-    };
+    return getAction("FETCH_ALL_GROUPS_SUCCESS", groups);
 }
 
 /* Episodes */
 export function fetchEpisode(id: string): ReduxAction {
-    return {
-        type: "FETCH_EPISODE",
-        data: id,
-    };
+    return getAction("FETCH_EPISODE", id);
 }
 export function fetchEpisodeSuccess(episode: Episode): ReduxAction {
-    return {
-        type: "FETCH_EPISODE_SUCCESS",
-        data: episode,
-    };
+    return getAction("FETCH_EPISODE_SUCCESS", episode);
 }
 
 export function fetchAllEpisodes(): ReduxAction {
-    return {
-        type: "FETCH_ALL_EPISODES",
-        data: {},
-    };
+    return getAction("FETCH_ALL_EPISODES", {});
 }
 export function fetchAllEpisodesSuccess(episodes: Episode[]): ReduxAction {
-    return {
-        type: "FETCH_ALL_EPISODES_SUCCESS",
-        data: episodes,
-    };
+    return getAction("FETCH_ALL_EPISODES_SUCCESS", episodes);
 }
 
 export function fetchEpisodeEncodes(id: string): ReduxAction {
-    return {
-        type: "FETCH_EPISODE_ENCODES",
-        data: id,
-    };
+    return getAction("FETCH_EPISODE_ENCODES", id);
 }
 export function fetchEpisodeEncodesSuccess(encodes: Encode[]): ReduxAction {
-    return {
-        type: "FETCH_EPISODE_ENCODES_SUCCESS",
-        data: encodes,
-    };
+    return getAction("FETCH_EPISODE_ENCODES_SUCCESS", encodes);
 }
 
 export function fetchEpisodeSegments(id: string): ReduxAction {
-    return {
-        type: "FETCH_EPISODE_SEGMENTS",
-        data: id,
-    };
+    return getAction("FETCH_EPISODE_SEGMENTS", id);
 }
 export function fetchEpisodeSegmentsSuccess(segments: Segment[]): ReduxAction {
-    return {
-        type: "FETCH_EPISODE_SEGMENTS_SUCCESS",
-        data: segments,
-    };
+    return getAction("FETCH_EPISODE_SEGMENTS_SUCCESS", segments);
 }
 
 /* Segments */
 export function fetchSegment(id: string): ReduxAction {
-    return {
-        type: "FETCH_SEGMENT",
-        data: id,
-    };
+    return getAction("FETCH_SEGMENT", id);
 }
 export function fetchSegmentSuccess(segment: Segment): ReduxAction {
-    return {
-        type: "FETCH_SEGMENT_SUCCESS",
-        data: segment,
-    };
+    return getAction("FETCH_SEGMENT_SUCCESS", segment);
 }
 
 export function fetchAllSegments(): ReduxAction {
-    return {
-        type: "FETCH_ALL_SEGMENTS",
-        data: {},
-    };
+    return getAction("FETCH_ALL_SEGMENTS", {});
 }
 export function fetchAllSegmentsSuccess(segments: Segment[]): ReduxAction {
-    return {
-        type: "FETCH_ALL_SEGMENTS_SUCCESS",
-        data: segments,
-    };
+    return getAction("FETCH_ALL_SEGMENTS_SUCCESS", segments);
 }
 
 /* Stats */
 export function fetchStats(): ReduxAction {
-    return {
-        type: "FETCH_STATS",
-        data: {},
-    };
+    return getAction("FETCH_STATS", {});
 }
 export function fetchStatsSuccess(stats: Stats): ReduxAction {
-    return {
-        type: "FETCH_STATS_SUCCESS",
-        data: stats,
-    };
+    return getAction("FETCH_STATS_SUCCESS", stats);
 }
 
 /* Authentication */
 export function login(username: string, password: string): ReduxAction {
-    return {
-        type: "LOGIN",
-        data: { username, password },
-    };
+    return getAction("LOGIN", { username, password });
 }
 export function loginToken(): ReduxAction {
-    return {
-        type: "LOGIN_TOKEN",
-        data: {},
-    };
+    return getAction("LOGIN_TOKEN", {});
 }
 export function loginSuccess(session: Session): ReduxAction {
-    return {
-        type: "LOGIN_SUCCESS",
-        data: session,
-    };
+    return getAction("LOGIN_SUCCESS", session);
 }
 
 export function register(username: string, password: string): ReduxAction {
-    return {
-        type: "REGISTER",
-        data: { username, password },
-    };
+    return getAction("REGISTER", { username, password });
 }
 export function registerSuccess(user: User): ReduxAction {
-    return {
-        type: "REGISTER_SUCCESS",
-        data: user,
-    };
+    return getAction("REGISTER_SUCCESS", user);
 }
 
 /* Preferences */
 export function fetchPreferences(): ReduxAction {
-    return {
-        type: "FETCH_PREFERENCES",
-        data: {},
-    };
+    return getAction("FETCH_PREFERENCES", {});
 }
 
 export function setPreferencesTheme(theme: PreferencesTheme): ReduxAction {
-    return {
-        type: "SET_PREFERENCES_THEME",
-        data: theme,
-    };
+    return getAction("SET_PREFERENCES_THEME", theme);
 }
 
 export function setPreferencesTorrent(torrent: PreferencesTorrent): ReduxAction {
-    return {
-        type: "SET_PREFERENCES_TORRENT",
-        data: torrent,
-    };
+    return getAction("SET_PREFERENCES_TORRENT", torrent);
 }
 
 export function setPreferencesBlur(blur: boolean): ReduxAction {
-    return {
-        type: "SET_PREFERENCES_BLUR",
-        data: blur,
-    };
+    return getAction("SET_PREFERENCES_BLUR", blur);
 }
 
 /* Notifications */
 export function pushSubscribe(url: string, key: string, auth: string): ReduxAction {
-    return {
-        type: "PUSH_SUBSCRIBE",
-        data: { url, key, auth },
-    };
+    return getAction("PUSH_SUBSCRIBE", { url, key, auth });
 }
 export function pushSubscribeSuccess(): ReduxAction {
-    return {
-        type: "PUSH_SUBSCRIBE_SUCCESS",
-        data: {},
-    };
+    return getAction("PUSH_SUBSCRIBE_SUCCESS", {});
 }
 
 export function pushUnsubscribe(): ReduxAction {
-    return {
-        type: "PUSH_UNSUBSCRIBE",
-        data: {},
-    };
+    return getAction("PUSH_UNSUBSCRIBE", {});
 }
 export function pushUnsubscribeSuccess(): ReduxAction {
-    return {
-        type: "PUSH_UNSUBSCRIBE_SUCCESS",
-        data: {},
-    };
+    return getAction("PUSH_UNSUBSCRIBE_SUCCESS", {});
 }
 
 /* Favourites */
 export function favourite(id: string): ReduxAction {
-    return {
-        type: "FAVOURITE",
-        data: id,
-    };
+    return getAction("FAVOURITE", id);
 }
 export function favouriteSuccess(user: User | undefined): ReduxAction {
-    return {
-        type: "FAVOURITE_SUCCESS",
-        data: user,
-    };
+    return getAction("FAVOURITE_SUCCESS", user);
 }
 
 export function unfavourite(id: string): ReduxAction {
-    return {
-        type: "UNFAVOURITE",
-        data: id,
-    };
+    return getAction("UNFAVOURITE", id);
 }
 export function unfavouriteSuccess(user: User | undefined): ReduxAction {
-    return {
-        type: "UNFAVOURITE_SUCCESS",
-        data: user,
-    };
+    return getAction("UNFAVOURITE_SUCCESS", user);
 }
 
 /* Filters */
 export function setFilterSearchTerm(searchTerm: string): ReduxAction {
-    return {
-        type: "SET_FILTER_SEARCH_TERM",
-        data: searchTerm,
-    };
+    return getAction("SET_FILTER_SEARCH_TERM", searchTerm);
 }
 
 export function setFilterGenres(genres: AnimeGenre | null): ReduxAction {
-    return {
-        type: "SET_FILTER_GENRES",
-        data: genres,
-    };
+    return getAction("SET_FILTER_GENRES", genres);
 }
 
 export function setFilterYear(year: number | null): ReduxAction {
-    return {
-        type: "SET_FILTER_YEAR",
-        data: year,
-    };
+    return getAction("SET_FILTER_YEAR", year);
 }
 
 export function setFilterType(type: AnimeType | null): ReduxAction {
-    return {
-        type: "SET_FILTER_TYPE",
-        data: type,
-    };
+    return getAction("SET_FILTER_TYPE", type);
 }
 
 export function setFilterStatus(status: AnimeStatus | null): ReduxAction {
-    return {
-        type: "SET_FILTER_STATUS",
-        data: status,
-    };
+    return getAction("SET_FILTER_STATUS", status);
 }
 
 export function setFilterSort(sort: FilterSort): ReduxAction {
-    return {
-        type: "SET_FILTER_SORT",
-        data: sort,
-    };
+    return getAction("SET_FILTER_SORT", sort);
 }
 
 export function setFilterTags(tags: AnimeTag | null): ReduxAction {
-    return {
-        type: "SET_FILTER_TAGS",
-        data: tags,
-    };
+    return getAction("SET_FILTER_TAGS", tags);
 }
 
 export function setFilterItems(items: number): ReduxAction {
-    return {
-        type: "SET_FILTER_ITEMS",
-        data: items,
-    };
+    return getAction("SET_FILTER_ITEMS", items);
 }
 
 export function setFilterGroup(group: FilterGroup): ReduxAction {
-    return {
-        type: "SET_FILTER_GROUP",
-        data: group,
-    };
+    return getAction("SET_FILTER_GROUP", group);
 }
 
 export function setFilterPage(page: number): ReduxAction {
-    return {
-        type: "SET_FILTER_PAGE",
-        data: page,
-    };
+    return getAction("SET_FILTER_PAGE", page);
 }
 
 /* Video Player */
 export function setPlayerState(state: PlayerState): ReduxAction {
-    return {
-        type: "SET_PLAYER_STATE",
-        data: state,
-    };
+    return getAction("SET_PLAYER_STATE", state);
 }
 
 export function setPlayerTheater(theater: boolean): ReduxAction {
-    return {
-        type: "SET_PLAYER_THEATER",
-        data: theater,
-    };
+    return getAction("SET_PLAYER_THEATER", theater);
 }
 
 export function setPlayerSubs(subs: boolean): ReduxAction {
-    return {
-        type: "SET_PLAYER_SUBS",
-        data: subs,
-    };
+    return getAction("SET_PLAYER_SUBS", subs);
 }
 
 export function setPlayerOverrideUrl(url?: string): ReduxAction {
-    return {
-        type: "SET_PLAYER_OVERRIDE_URL",
-        data: url,
-    };
+    return getAction("SET_PLAYER_OVERRIDE_URL", url);
 }
 
 export function setPlayerOpNotification(opNotifaction: boolean): ReduxAction {
-    return {
-        type: "SET_PLAYER_OP_NOTIFICATION",
-        data: opNotifaction,
-    };
+    return getAction("SET_PLAYER_OP_NOTIFICATION", opNotifaction);
 }
 
 export function setPlayerEdNotification(edNotifaction: boolean): ReduxAction {
-    return {
-        type: "SET_PLAYER_ED_NOTIFICATION",
-        data: edNotifaction,
-    };
+    return getAction("SET_PLAYER_ED_NOTIFICATION", edNotifaction);
 }
 
 /* Auth */
 export function setAuthUsername(username: string): ReduxAction {
-    return {
-        type: "SET_AUTH_USERNAME",
-        data: username,
-    };
+    return getAction("SET_AUTH_USERNAME", username);
 }
 
 export function setAuthPassword(password: string): ReduxAction {
-    return {
-        type: "SET_AUTH_PASSWORD",
-        data: password,
-    };
+    return getAction("SET_AUTH_PASSWORD", password);
 }
 
 export function setAuthPassword2(password: string): ReduxAction {
-    return {
-        type: "SET_AUTH_PASSWORD_2",
-        data: password,
-    };
+    return getAction("SET_AUTH_PASSWORD_2", password);
 }
 
 export function setAuthResult(result: AuthResult): ReduxAction {
-    return {
-        type: "SET_AUTH_RESULT",
-        data: result,
-    };
+    return getAction("SET_AUTH_RESULT", result);
 }
-
-export type ConnectedActions = {
-    setDimensions(w: number, h: number): ReduxAction;
-
-    fetchUser(id: string): ReduxAction;
-    fetchAnime(id: string): ReduxAction;
-    fetchAllAnimes(): ReduxAction;
-    fetchAnimeEpisodes(id: string): ReduxAction;
-    fetchGroup(id: string): ReduxAction;
-    fetchAllGroups(): ReduxAction;
-    fetchEpisode(id: string): ReduxAction;
-    fetchAllEpisodes(): ReduxAction;
-    fetchEpisodeSegments(id: string): ReduxAction;
-    fetchEpisodeEncodes(id: string): ReduxAction;
-    fetchEncode(id: string): ReduxAction;
-    fetchAllEncodes(): ReduxAction;
-    fetchSegment(id: string): ReduxAction;
-    fetchAllSegments(): ReduxAction;
-    fetchStats(): ReduxAction;
-    login(username: string, password: string): ReduxAction;
-    loginToken(): ReduxAction;
-    register(username: string, password: string): ReduxAction;
-    pushSubscribe(url: string, key: string, auth: string): ReduxAction;
-    pushUnsubscribe(): ReduxAction;
-    favourite(id: string): ReduxAction;
-    unfavourite(id: string): ReduxAction;
-
-    fetchPreferences(): ReduxAction;
-    setPreferencesTheme(theme: PreferencesTheme): ReduxAction;
-    setPreferencesTorrent(torrent: PreferencesTorrent): ReduxAction;
-    setPreferencesBlur(blur: boolean): ReduxAction;
-
-    setFilterSearchTerm(searchTerm: string): ReduxAction;
-    setFilterGenres(genres: AnimeGenre | null): ReduxAction;
-    setFilterYear(year: number | null): ReduxAction;
-    setFilterType(type: AnimeType | null): ReduxAction;
-    setFilterStatus(status: AnimeStatus | null): ReduxAction;
-    setFilterSort(sort: FilterSort): ReduxAction;
-    setFilterTags(tags: AnimeTag | null): ReduxAction;
-    setFilterItems(items: number): ReduxAction;
-    setFilterGroup(group: FilterGroup): ReduxAction;
-    setFilterPage(page: number): ReduxAction;
-
-    setPlayerState(state: PlayerState): ReduxAction;
-    setPlayerTheater(theater: boolean): ReduxAction;
-    setPlayerSubs(subs: boolean): ReduxAction;
-    setPlayerOverrideUrl(url?: string): ReduxAction;
-    setPlayerOpNotification(opNotifaction: boolean): ReduxAction;
-    setPlayerEdNotification(edNotifaction: boolean): ReduxAction;
-
-    setAuthUsername(username: string): ReduxAction;
-    setAuthPassword(password: string): ReduxAction;
-    setAuthPassword2(password: string): ReduxAction;
-    setAuthResult(result: AuthResult): ReduxAction;
-};

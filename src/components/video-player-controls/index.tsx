@@ -2,8 +2,6 @@
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
 import { useState } from "react";
-import { VideoPlayerControlsConnectedProps } from "../../ts/components";
-import { AnimeTag, SegmentType } from "../../ts/base";
 import { secondsToString } from "../../scripts/nyan/util";
 import { findSegmentForTimestamp } from "../../scripts/nyan/functions";
 /* Styles */

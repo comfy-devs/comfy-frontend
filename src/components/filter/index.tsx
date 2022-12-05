@@ -1,57 +1,58 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
-import { FilterConnectedProps } from "../../ts/components";
-import { FilterGroup, FilterSort, FilterType } from "../../ts/base";
 import { splitArray } from "../../scripts/nyan/util";
 import { filterTypeToValues } from "../../scripts/nyan/constants";
 import { filterValueToDisplayName } from "../../scripts/nyan/functions";
 /* Styles */
 import style from "./style.scss";
+import { useState } from "react";
 
 const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnectedProps) => {
-    const filterValues: (number | null)[] = filterTypeToValues(props.type);
-    if (props.type !== FilterType.SORT && props.type !== FilterType.ITEMS && props.type !== FilterType.GROUP) {
-        filterValues.unshift(null);
-    }
+    const [filterValues] = useState(() => {
+        const v = filterTypeToValues(props.type);
+        if (props.type !== "SORT" && props.type !== "ITEMS" && props.type !== "GROUP") {
+            v.unshift(null);
+        }
+        return v;
+    });
 
     const filterButtons = filterValues.map((e, i) => {
         return (
-            <div
-                key={i}
+            <div key={i}
                 className={style["filter-item"]}
                 onClick={() => {
                     switch (props.type) {
-                        case FilterType.GENRES:
+                        case "GENRES":
                             props.actions.setFilterGenres(e);
                             return;
 
-                        case FilterType.YEAR:
+                        case "YEAR":
                             props.actions.setFilterYear(e);
                             return;
 
-                        case FilterType.TYPE:
+                        case "TYPE":
                             props.actions.setFilterType(e);
                             return;
 
-                        case FilterType.STATUS:
+                        case "STATUS":
                             props.actions.setFilterStatus(e);
                             return;
 
-                        case FilterType.SORT:
-                            props.actions.setFilterSort(e !== null ? e : FilterSort.TITLE_ASC);
+                        case "SORT":
+                            props.actions.setFilterSort(e);
                             return;
 
-                        case FilterType.TAGS:
+                        case "TAGS":
                             props.actions.setFilterTags(e);
                             return;
 
-                        case FilterType.ITEMS:
-                            props.actions.setFilterItems(e !== null ? e : 50);
+                        case "ITEMS":
+                            props.actions.setFilterItems(e);
                             return;
 
-                        case FilterType.GROUP:
-                            props.actions.setFilterGroup(e !== null ? e : FilterGroup.NO);
+                        case "GROUP":
+                            props.actions.setFilterGroup(e);
                             return;
                     }
                 }}>
@@ -60,6 +61,7 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
         );
     });
 
+    console.log(props.type);
     return (
         <button className={style["filter-wrapper"]}>
             <div className={style.filter}>
@@ -69,7 +71,7 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
                 <div className={style["filter-value"]}>{filterValueToDisplayName(props.type, props.value)}</div>
             </div>
             <div className={style["filter-items-wrapper"]}>
-                {splitArray(filterButtons, 15).map((e: HTMLElement, i: number) => {
+                {splitArray(filterButtons, 15).map((e: h.JSX.Element, i: number) => {
                     return (
                         <div key={i} className={style["filter-items"]}>
                             {e}

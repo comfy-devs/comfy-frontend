@@ -1,55 +1,10 @@
 /* Redux */
 import { Dispatch } from "redux";
-/* Types */
-import { AuthResult } from "../ts/base";
-import { ReduxAction, ReduxState } from "../ts/redux";
 /* Redux */
-import { cacheResource, cacheResources, INITIAL, ResourceType } from "./util";
-import {
-    favouriteSuccess,
-    fetchAllAnimesSuccess,
-    fetchAllEpisodesSuccess,
-    fetchAllGroupsSuccess,
-    fetchAllSegmentsSuccess,
-    fetchAnimeEpisodesSuccess,
-    fetchAnimeSuccess,
-    fetchEpisodeSegmentsSuccess,
-    fetchEpisodeSuccess,
-    fetchGroupSuccess,
-    fetchSegmentSuccess,
-    fetchStatsSuccess,
-    fetchUserSuccess,
-    loginSuccess,
-    pushSubscribeSuccess,
-    pushUnsubscribeSuccess,
-    registerSuccess,
-    setAuthResult,
-    unfavouriteSuccess,
-} from "./actions";
-// eslint-disable-next-line no-duplicate-imports
-import { fetchUser as fetchUserAction, login as loginAction } from "./actions";
+import * as actions from "./actions";
+import { cacheResource, cacheResources, INITIAL, reducerFetch, reducerFetchMultiple, ResourceType } from "./util";
 /* API */
-import {
-    favourite,
-    fetchAllAnimes,
-    fetchAllEpisodes,
-    fetchAllGroups,
-    fetchAllSegments,
-    fetchAnime,
-    fetchAnimeEpisodes,
-    fetchEpisode,
-    fetchEpisodeSegments,
-    fetchGroup,
-    fetchSegment,
-    fetchStats,
-    fetchUser,
-    login,
-    loginToken,
-    pushSubscribe,
-    pushUnsubscribe,
-    register,
-    unfavourite,
-} from "../scripts/api/routes";
+import * as routes from "../scripts/api/routes";
 
 const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> = {
     SET_DIMENSIONS: (state: ReduxState, action: ReduxAction) => {
@@ -61,11 +16,11 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
         const theme = localStorage.getItem("theme");
         if (theme !== null) {
-            preferences.theme = parseInt(theme, 10);
+            preferences.theme = theme as "dark" | "light";
         }
         const torrent = localStorage.getItem("torrent");
         if (torrent !== null) {
-            preferences.torrent = parseInt(torrent, 10);
+            preferences.torrent = torrent === "true";
         }
         const lang = localStorage.getItem("lang");
         if (lang !== null) {
@@ -248,162 +203,94 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
     SET_PLAYER_ED_NOTIFICATION: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, edNotification: action.data } };
     },
-
-    SET_AUTH_USERNAME: (state: ReduxState, action: ReduxAction) => {
-        return { ...state, authData: { ...state.authData, username: action.data } };
-    },
-
-    SET_AUTH_PASSWORD: (state: ReduxState, action: ReduxAction) => {
-        return { ...state, authData: { ...state.authData, password: action.data } };
-    },
-
-    SET_AUTH_PASSWORD_2: (state: ReduxState, action: ReduxAction) => {
-        return { ...state, authData: { ...state.authData, password2: action.data } };
-    },
-
-    SET_AUTH_RESULT: (state: ReduxState, action: ReduxAction) => {
-        return { ...state, authData: { ...state.authData, result: action.data } };
-    },
 };
 const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction) => Promise<void>> = {
-    LOGIN: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const session = await login(action.data.username, action.data.password);
-        if (session === undefined) {
-            dispatch(setAuthResult(AuthResult.FAILED_LOGIN));
-            return;
-        }
-
-        dispatch(loginSuccess(session));
-        window.location.replace("/");
+    CREATE_USER: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetch(dispatch, action.data, routes.createUser, actions.createUserSuccess);
     },
 
-    LOGIN_TOKEN: async (dispatch: Dispatch<ReduxAction>): Promise<void> => {
-        const session = await loginToken();
+    FETCH_USER: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetch(dispatch, action.data, routes.fetchUser, actions.fetchUserSuccess);
+    },
+
+    CREATE_SESSION: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        const session = await routes.createSession(action.data.type, action.data.username, action.data.password);
         if (session === undefined) {
             return;
         }
-
-        dispatch(fetchUserAction(session.user));
-        dispatch(loginSuccess(session));
-    },
-
-    REGISTER: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const user = await register(action.data.username, action.data.password);
+        const user = await routes.fetchUser(session.user);
         if (user === undefined) {
-            dispatch(setAuthResult(AuthResult.FAILED_REGISTER));
             return;
         }
 
-        dispatch(loginAction(action.data.username, action.data.password));
-        dispatch(registerSuccess(user));
+        dispatch(actions.createSessionSuccess(session));
+        dispatch(actions.fetchUserSuccess(user));
+    },
+
+    FETCH_ANIME: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetch(dispatch, action.data, routes.fetchAnime, actions.fetchAnimeSuccess);
+    },
+
+    FETCH_ALL_ANIMES: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetchMultiple(dispatch, action.data, routes.fetchAllAnimes, actions.fetchAllAnimesSuccess);
+    },
+
+    FETCH_ANIME_EPISODES: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetchMultiple(dispatch, action.data, routes.fetchAnimeEpisodes, actions.fetchAnimeEpisodesSuccess);
+    },
+
+    FETCH_GROUP: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetch(dispatch, action.data, routes.fetchGroup, actions.fetchGroupSuccess);
+    },
+
+    FETCH_ALL_GROUPS: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetchMultiple(dispatch, action.data, routes.fetchAllGroups, actions.fetchAllGroupsSuccess);
+    },
+
+    FETCH_EPISODE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetch(dispatch, action.data, routes.fetchEpisodeSuccess, actions.fetchEpisodeSuccessSuccess);
+    },
+
+    FETCH_ALL_EPISODES: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetchMultiple(dispatch, action.data, routes.fetchAllEpisodes, actions.fetchAllEpisodesSuccess);
+    },
+
+    FETCH_SEGMENT: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetch(dispatch, action.data, routes.fetchSegment, actions.fetchSegmentSuccess);
+    },
+
+    FETCH_ALL_SEGMENTS: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetchMultiple(dispatch, action.data, routes.fetchAllSegments, actions.fetchAllSegmentsSuccess);
+    },
+
+    FETCH_EPISODE_SEGMENTS: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetchMultiple(dispatch, action.data, routes.fetchEpisodeSegments, actions.fetchEpisodeSegmentsSuccess);
+    },
+
+    FETCH_STATS: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetch(dispatch, action.data, routes.fetchStats, actions.fetchStatsSuccess);
     },
 
     PUSH_SUBSCRIBE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const result = await pushSubscribe(action.data.url, action.data.key, action.data.auth);
+        const result = await routes.pushSubscribe(action.data.url, action.data.key, action.data.auth);
         if (result === 200) {
-            dispatch(pushSubscribeSuccess());
+            dispatch(actions.pushSubscribeSuccess());
         }
     },
 
     PUSH_UNSUBSCRIBE: async (dispatch: Dispatch<ReduxAction>): Promise<void> => {
-        const result = await pushUnsubscribe();
+        const result = await routes.pushUnsubscribe();
         if (result === 200) {
-            dispatch(pushUnsubscribeSuccess());
+            dispatch(actions.pushUnsubscribeSuccess());
         }
     },
 
     FAVOURITE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const user = await favourite(action.data);
-        dispatch(favouriteSuccess(user));
+        await reducerFetch(dispatch, action.data, routes.favourite, actions.favouriteSuccess);
     },
 
     UNFAVOURITE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const user = await unfavourite(action.data);
-        dispatch(unfavouriteSuccess(user));
-    },
-
-    FETCH_USER: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const user = await fetchUser(action.data);
-        if (user === undefined) {
-            return;
-        }
-
-        dispatch(fetchUserSuccess(user));
-    },
-
-    FETCH_ANIME: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const anime = await fetchAnime(action.data);
-        if (anime === undefined) {
-            return;
-        }
-
-        dispatch(fetchAnimeSuccess(anime));
-    },
-
-    FETCH_ALL_ANIMES: async (dispatch: Dispatch<ReduxAction>): Promise<void> => {
-        const animes = await fetchAllAnimes();
-        dispatch(fetchAllAnimesSuccess(animes));
-    },
-
-    FETCH_ANIME_EPISODES: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const episodes = await fetchAnimeEpisodes(action.data);
-        dispatch(fetchAnimeEpisodesSuccess(episodes));
-    },
-
-    FETCH_GROUP: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const group = await fetchGroup(action.data);
-        if (group === undefined) {
-            return;
-        }
-
-        dispatch(fetchGroupSuccess(group));
-    },
-
-    FETCH_ALL_GROUPS: async (dispatch: Dispatch<ReduxAction>): Promise<void> => {
-        const groups = await fetchAllGroups();
-        dispatch(fetchAllGroupsSuccess(groups));
-    },
-
-    FETCH_EPISODE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const episode = await fetchEpisode(action.data);
-        if (episode === undefined) {
-            return;
-        }
-
-        dispatch(fetchEpisodeSuccess(episode));
-    },
-
-    FETCH_ALL_EPISODES: async (dispatch: Dispatch<ReduxAction>): Promise<void> => {
-        const episodes = await fetchAllEpisodes();
-        dispatch(fetchAllEpisodesSuccess(episodes));
-    },
-
-    FETCH_SEGMENT: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const segment = await fetchSegment(action.data);
-        if (segment === undefined) {
-            return;
-        }
-
-        dispatch(fetchSegmentSuccess(segment));
-    },
-
-    FETCH_ALL_SEGMENTS: async (dispatch: Dispatch<ReduxAction>): Promise<void> => {
-        const segments = await fetchAllSegments();
-        dispatch(fetchAllSegmentsSuccess(segments));
-    },
-
-    FETCH_EPISODE_SEGMENTS: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        const segments = await fetchEpisodeSegments(action.data);
-        dispatch(fetchEpisodeSegmentsSuccess(segments));
-    },
-
-    FETCH_STATS: async (dispatch: Dispatch<ReduxAction>): Promise<void> => {
-        const stats = await fetchStats();
-        if (stats === undefined) {
-            return;
-        }
-
-        dispatch(fetchStatsSuccess(stats));
+        await reducerFetch(dispatch, action.data, routes.unfavourite, actions.unfavouriteSuccess);
     },
 };
 

@@ -1,8 +1,7 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
-import { NavLink } from "react-router-dom";
+import { Link } from "preact-router";
 import { Text } from "preact-i18n";
-import { HeaderConnectedProps } from "../../ts/components";
 /* Styles */
 import style from "./style.scss";
 
@@ -19,14 +18,14 @@ const Header: FunctionalComponent<HeaderConnectedProps> = (props: HeaderConnecte
                 <a href="https://discord.gg/nVDpxcDsJR" className={style["icon-discord"]} target="_blank" rel="noreferrer" />
                 <a href="https://github.com/nyananime-devs" className={style["icon-github"]} target="_blank" rel="noreferrer" />
                 <div className={style["header-button"]}>
-                    {props.user === undefined ? (
-                        <NavLink to="/login" className={style["header-button-title"]}>
+                    {props.user === null ? (
+                        <Link href="/login" className={style["header-button-title"]}>
                             <Text id="general.login" />
-                        </NavLink>
+                        </Link>
                     ) : (
-                        <NavLink to="/account" className={style["header-button-title"]}>
+                        <Link href="/account" className={style["header-button-title"]}>
                             {props.user.username}
-                        </NavLink>
+                        </Link>
                     )}
                 </div>
             </div>

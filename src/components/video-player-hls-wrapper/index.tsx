@@ -1,7 +1,6 @@
 /* Base */
 import { Component } from "preact";
 import Hls from "hls.js";
-import { VideoPlayerHlsWrapperConnectedProps } from "../../ts/components";
 import { episodeLocationToURL } from "../../scripts/nyan/constants";
 
 class VideoPlayerHlsWrapper extends Component<VideoPlayerHlsWrapperConnectedProps> {

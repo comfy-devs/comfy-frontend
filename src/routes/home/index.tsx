@@ -1,13 +1,13 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { useEffect } from "react";
-import { HomeConnectedProps } from "../../ts/routes";
-import { AnimeStatus } from "../../ts/base";
+import { AnimeStatusMapping } from "../../ts/common/const";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
 import * as actions from "../../redux/actions";
 /* Styles */
+import baseStyle from "../style.scss";
 import style from "./style.scss";
 /* Components */
 import Topic from "../../components/topic";
@@ -24,7 +24,7 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
         return props.user?.favourites.includes(e.id);
     });
     const airingSet = animes.filter((e) => {
-        return e.status === AnimeStatus.AIRING;
+        return e.status === AnimeStatusMapping.AIRING;
     });
     const soonSet = airingSet.sort((a, b) => {
         if (a.timestamp === null || b.timestamp === null) {
@@ -45,7 +45,7 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
     const randomSet = animes.length < 1 ? [] : [animes[props.random % animes.length]];
 
     return (
-        <div className="route">
+        <div className={baseStyle["page-content"]}>
             {props.user !== undefined ?
                 <div className={style["topic-group"]}>
                     <Topic dimensions={props.dimensions} title={props.dictionary.home === undefined ? "" : props.dictionary.home.favourites} icon="favourites" small={false} items={favouritesSet} preferences={props.preferences} />

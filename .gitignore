@@ -1,8 +1,9 @@
 /* Builds */
-build/**/*
+build
 
 /* Node non-sense */
-node_modules/**/*
+node_modules
 
 /* Other */
+https
 size-plugin.json

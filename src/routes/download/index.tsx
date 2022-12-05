@@ -6,9 +6,10 @@ import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
 import * as actions from "../../redux/actions";
 /* Styles */
+import baseStyle from "../style.scss";
 import style from "./style.scss";
 
-const Download: FunctionalComponent = () => {
+const Download: FunctionalComponent<DownloadConnectedProps> = (props: DownloadConnectedProps) => {
     const versions = [
         {
             name: "Android",
@@ -55,7 +56,7 @@ const Download: FunctionalComponent = () => {
     const latestAndroid = androidVersions.sort()[0];
 
     return (
-        <div className={"route"}>
+        <div className={baseStyle["page-content"]}>
             <div className={style.download}>
                 <div className={style["download-title"]}>
                     <Text id="download.title" />

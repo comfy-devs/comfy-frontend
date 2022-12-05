@@ -1,7 +1,6 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
-import { FooterConnectedProps } from "../../ts/components";
 /* Styles */
 import style from "./style.scss";
 

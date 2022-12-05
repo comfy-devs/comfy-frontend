@@ -1,36 +1,31 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { Text } from "preact-i18n";
-import { EpisodeConnectedProps } from "../../ts/routes";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
 import * as actions from "../../redux/actions";
 /* Styles */
+import baseStyle from "../style.scss";
 import style from "./style.scss";
 /* Components */
 import VideoPlayer from "../../components/video-player";
 
 const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConnectedProps) => {
-    const { id } = useParams();
-    const episode = id === undefined ? undefined : props.episodes.get(id);
+    const episode = props.episodes.get(props.id);
 
     /* API calls */
     useEffect(() => {
-        if (id === undefined) {
-            return;
-        }
         if (episode === undefined) {
-            props.actions.fetchEpisode(id);
-            props.actions.fetchEpisodeSegments(id);
-            props.actions.fetchEpisodeEncodes(id);
+            props.actions.fetchEpisode(props.id);
+            props.actions.fetchEpisodeSegments(props.id);
+            props.actions.fetchEpisodeEncodes(props.id);
         } else {
             props.actions.fetchAnime(episode.anime);
             props.actions.fetchAnimeEpisodes(episode.anime);
         }
-    }, [episode === undefined]);
+    }, [episode, props.actions, props.id]);
 
     if (episode === undefined) {
         return null;
@@ -55,7 +50,7 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
         });
 
     return (
-        <div className={"route"}>
+        <div className={baseStyle["page-content"]}>
             <div className={style["episode-overview"]}>
                 <div className={style["episode-overview-title"]}>
                     <Text id="episode.number" fields={{ num: episode.pos + 1 }} />

@@ -1,43 +1,40 @@
-/* Types */
-import { Anime, Episode, Group, Preferences, Segment, Stats, User } from "./api";
-import { FilterType, AnimeGenre, Dimensions, FilterData, PlayerData, VideoPlayerNotificationType, PlayerState } from "./base";
-import { ConnectedActions } from "../redux/actions";
-import { SegmentData } from "../scripts/nyan/functions";
-
-/* Types */
-export type HeaderConnectedProps = {
-    user?: User;
+/* Base */
+type HeaderConnectedProps = {
+    user: User | null;
 };
-
-export type SubHeaderConnectedProps = {
+type SubHeaderConnectedProps = {
     dimensions: Dimensions;
 };
-
-export type FooterConnectedProps = {
+type FooterConnectedProps = {
     stats: Stats;
 };
 
-export type GenreConnectedProps = {
+/* Types */
+type GenreConnectedProps = {
     item: AnimeGenre;
     animes: Map<string, Anime>;
 };
 
-export type VideoPlayerConnectedProps = {
+type VideoPlayerConnectedProps = {
     dimensions: Dimensions;
     item: Episode;
     parent: Anime;
     segments: Segment[];
-    preferences: Preferences;
+    preferences: AppPreferences;
 
     playerData: PlayerData;
     actions: ConnectedActions;
 };
 
-export type VideoPlayerOverlayConnectedProps = {
+type VideoPlayerOverlayConnectedProps = {
     state: PlayerState;
 };
 
-export type VideoPlayerNotificationConnectedProps = {
+type SegmentData = {
+    end: number;
+    item: Segment | null;
+};
+type VideoPlayerNotificationConnectedProps = {
     type: VideoPlayerNotificationType;
     segment: SegmentData;
     video: HTMLVideoElement | null;
@@ -45,7 +42,7 @@ export type VideoPlayerNotificationConnectedProps = {
     actions: ConnectedActions;
 };
 
-export type VideoPlayerTorrentWrapperConnectedProps = {
+type VideoPlayerTorrentWrapperConnectedProps = {
     item: Episode;
     parent: Anime;
     video: HTMLVideoElement | null;
@@ -54,7 +51,7 @@ export type VideoPlayerTorrentWrapperConnectedProps = {
     actions: ConnectedActions;
 };
 
-export type VideoPlayerHlsWrapperConnectedProps = {
+type VideoPlayerHlsWrapperConnectedProps = {
     item: Episode;
     parent: Anime;
     video: HTMLVideoElement | null;
@@ -63,12 +60,12 @@ export type VideoPlayerHlsWrapperConnectedProps = {
     actions: ConnectedActions;
 };
 
-export type VideoPlayerControlsConnectedProps = {
+type VideoPlayerControlsConnectedProps = {
     dimensions: Dimensions;
     item: Episode;
     parent: Anime;
     segments: Segment[];
-    preferences: Preferences;
+    preferences: AppPreferences;
     video: HTMLVideoElement | null;
     timelineTooltip: HTMLElement | null;
 
@@ -76,61 +73,61 @@ export type VideoPlayerControlsConnectedProps = {
     actions: ConnectedActions;
 };
 
-export type VideoPlayerControlsDevConnectedProps = {
+type VideoPlayerControlsDevConnectedProps = {
     item: Episode;
     segments: Segment[];
     setSegments: any;
     video: HTMLVideoElement | null;
 };
 
-export type AnimeCardConnectedProps = {
+type AnimeCardConnectedProps = {
     item?: Anime;
     alt?: boolean;
     extra?: JSX.Element;
-    preferences: Preferences;
+    preferences: AppPreferences;
 };
 
-export type GroupCardConnectedProps = {
+type GroupCardConnectedProps = {
     item: Group;
     children: Anime[];
 };
 
-export type EpisodeCardConnectedProps = {
+type EpisodeCardConnectedProps = {
     item?: Episode;
     parent: Anime;
     i: number;
     disabled?: boolean;
-    preferences: Preferences;
+    preferences: AppPreferences;
 };
 
-export type EpisodeSmallCardConnectedProps = Record<string, never>;
+type EpisodeSmallCardConnectedProps = Record<string, never>;
 
-export type FilterConnectedProps = {
+type FilterConnectedProps = {
     type: FilterType;
-    value: number | null;
+    value: any | null;
 
     filterData: FilterData;
     actions: ConnectedActions;
 };
 
-export type TopicConnectedProps = {
+type TopicConnectedProps = {
     dimensions: Dimensions;
     title: string;
     icon?: string;
     small?: boolean;
     extra?: number;
     items: Anime[];
-    preferences: Preferences;
+    preferences: AppPreferences;
 };
 
-export type NavigationConnectedProps = {
+type NavigationConnectedProps = {
     items: number;
     page: number;
     limit: number;
     actions: ConnectedActions;
 };
 
-export type NavigationButtonConnectedProps = {
+type NavigationButtonConnectedProps = {
     i: number;
     page: number;
     actions: ConnectedActions;

@@ -1,24 +1,23 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
-import { SettingsConnectedProps } from "../../ts/routes";
-import { PreferencesTheme, PreferencesTorrent } from "../../ts/base";
 import { setupNotifications } from "../../scripts/nyan/notifications";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
 import * as actions from "../../redux/actions";
 /* Styles */
+import baseStyle from "../style.scss";
 import style from "./style.scss";
 
 const Settings: FunctionalComponent<SettingsConnectedProps> = (props: SettingsConnectedProps) => {
     return (
-        <div className={"route"}>
+        <div className={baseStyle["page-content"]}>
             <div className={style.settings}>
                 <div
                     className={style["settings-button"]}
                     onClick={() => {
-                        props.actions.setPreferencesTheme(props.preferences.theme === PreferencesTheme.DARK ? PreferencesTheme.LIGHT : PreferencesTheme.DARK);
+                        props.actions.setPreferencesTheme(props.preferences.theme === "dark" ? "light" : "dark");
                     }}>
                     <div className={style["settings-button-title"]}>
                         <Text id="settings.theme" fields={{ theme: <Text id={`enum.preferencesTheme.${props.preferences.theme}`} /> }} />
@@ -27,7 +26,7 @@ const Settings: FunctionalComponent<SettingsConnectedProps> = (props: SettingsCo
                 <div
                     className={style["settings-button"]}
                     onClick={async () => {
-                        if (props.user === undefined) {
+                        if (props.user === null) {
                             return;
                         }
                         if (Notification.permission === "default" || (Notification.permission === "granted" && !props.user.pushEnabled)) {
@@ -51,7 +50,7 @@ const Settings: FunctionalComponent<SettingsConnectedProps> = (props: SettingsCo
                             id="settings.notifications"
                             fields={{
                                 status:
-                                    props.user === undefined ? (
+                                    props.user === null ? (
                                         <Text id="enum.notificationPreference.notLoggedIn" />
                                     ) : !props.user.pushEnabled ? (
                                         <Text id="enum.notificationPreference.off" />
@@ -65,7 +64,7 @@ const Settings: FunctionalComponent<SettingsConnectedProps> = (props: SettingsCo
                 <div
                     className={style["settings-button"]}
                     onClick={() => {
-                        props.actions.setPreferencesTorrent(props.preferences.torrent === PreferencesTorrent.OFF ? PreferencesTorrent.ON : PreferencesTorrent.OFF);
+                        props.actions.setPreferencesTorrent(props.preferences.torrent === false);
                     }}>
                     <div className={style["settings-button-title"]}>
                         <Text id="settings.torrent" fields={{ torrent: <Text id={`enum.preferencesTorrent.${props.preferences.torrent}`} /> }} />

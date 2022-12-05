@@ -1,0 +1,33 @@
+/* Macros */
+%align-y {
+    display: flex;
+    align-items: center;
+}
+
+/* Content */
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 56px);
+    background-color: var(--color-primary);
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    grid-gap: 10px;
+}
+.page-content[data="no-padding"] {
+    padding: 0px;
+}
+
+.page-header {
+    @extend %align-y;
+    height: 32px;
+    grid-gap: 10px;
+}
+.page-title {
+    font-size: 30px;
+    color: var(--color-secondary-text);
+}

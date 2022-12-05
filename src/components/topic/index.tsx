@@ -1,6 +1,5 @@
 /* Base */
 import { h, FunctionalComponent, createRef } from "preact";
-import { TopicConnectedProps } from "../../ts/components";
 import { topicExtraToDisplayName } from "../../scripts/nyan/functions";
 /* Styles */
 import style from "./style.scss";

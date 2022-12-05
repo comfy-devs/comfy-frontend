@@ -2,8 +2,6 @@
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
 import { useState } from "react";
-import { VideoPlayerControlsDevConnectedProps } from "../../ts/components";
-import { SegmentType } from "../../ts/base";
 /* Styles */
 import style from "./style.scss";
 
