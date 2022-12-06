@@ -68,7 +68,7 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
                     <div className={style["episode-overview-episodes"]}>
                         {episodes.map((e, i) => {
                             return (
-                                <a key={i} href={`/episodes/${e.id}`} className={style["episode-overview-episodes-item"]} data={e.id === id ? "true" : "false"}>
+                                <a key={i} href={`/episodes/${e.id}`} className={style["episode-overview-episodes-item"]} data={e.id === props.id ? "true" : "false"}>
                                     {i + 1}
                                 </a>
                             );

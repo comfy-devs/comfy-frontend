@@ -38,20 +38,22 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, preferences };
     },
 
-    LOGIN_SUCCESS: (state: ReduxState, action: ReduxAction) => {
-        return { ...state, session: action.data };
-    },
-
-    REGISTER_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+    CREATE_USER_SUCCESS: (state: ReduxState, action: ReduxAction): ReduxState => {
+        location.href = "/overview";
         return cacheResource(state, action.data, ResourceType.USER);
     },
 
-    PUSH_SUBSCRIBE_SUCCESS: (state: ReduxState) => {
+    CREATE_SESSION_SUCCESS: (state: ReduxState, action: ReduxAction): ReduxState => {
+        return { ...state, session: action.data };
+    },
+
+    DELETE_SESSION: (state: ReduxState): ReduxState => {
+        routes.deleteSession();
         return state;
     },
 
-    PUSH_UNSUBSCRIBE_SUCCESS: (state: ReduxState) => {
-        return state;
+    FETCH_USER_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+        return cacheResource(state, action.data, ResourceType.USER);
     },
 
     FAVOURITE_SUCCESS: (state: ReduxState, action: ReduxAction) => {
@@ -61,10 +63,6 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     UNFAVOURITE_SUCCESS: (state: ReduxState, action: ReduxAction) => {
         if(action.data === undefined) { return state; }
-        return cacheResource(state, action.data, ResourceType.USER);
-    },
-
-    FETCH_USER_SUCCESS: (state: ReduxState, action: ReduxAction) => {
         return cacheResource(state, action.data, ResourceType.USER);
     },
 
@@ -122,6 +120,14 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     FETCH_STATS_SUCCESS: (state: ReduxState, action: ReduxAction) => {
         return { ...state, stats: action.data };
+    },
+
+    PUSH_SUBSCRIBE_SUCCESS: (state: ReduxState) => {
+        return state;
+    },
+
+    PUSH_UNSUBSCRIBE_SUCCESS: (state: ReduxState) => {
+        return state;
     },
 
     SET_PREFERENCES_THEME: (state: ReduxState, action: ReduxAction) => {
@@ -248,7 +254,7 @@ const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState:
     },
 
     FETCH_EPISODE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        await reducerFetch(dispatch, action.data, routes.fetchEpisodeSuccess, actions.fetchEpisodeSuccessSuccess);
+        await reducerFetch(dispatch, action.data, routes.fetchEpisode, actions.fetchEpisodeSuccess);
     },
 
     FETCH_ALL_EPISODES: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {

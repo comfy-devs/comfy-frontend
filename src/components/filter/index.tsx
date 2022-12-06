@@ -6,16 +6,17 @@ import { filterTypeToValues } from "../../scripts/nyan/constants";
 import { filterValueToDisplayName } from "../../scripts/nyan/functions";
 /* Styles */
 import style from "./style.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnectedProps) => {
-    const [filterValues] = useState(() => {
-        const v = filterTypeToValues(props.type);
+    const [filterValues, setFilterValues] = useState<any[]>([]);
+    useEffect(() => {
+        const v = filterTypeToValues(props.type).slice();
         if (props.type !== "SORT" && props.type !== "ITEMS" && props.type !== "GROUP") {
             v.unshift(null);
         }
-        return v;
-    });
+        setFilterValues(v);
+    }, [props.type]);
 
     const filterButtons = filterValues.map((e, i) => {
         return (
@@ -60,8 +61,7 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
             </div>
         );
     });
-
-    console.log(props.type);
+    
     return (
         <button className={style["filter-wrapper"]}>
             <div className={style.filter}>

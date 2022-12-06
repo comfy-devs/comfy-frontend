@@ -1,6 +1,7 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
+import { getImageEndpoint } from "../../scripts/api/api";
 /* Styles */
 import style from "./style.scss";
 
@@ -9,7 +10,7 @@ const GroupCard: FunctionalComponent<GroupCardConnectedProps> = (props: GroupCar
 
     return (
         <a href={`/groups/${props.item.id}`} className={style.group}>
-            <img alt="group-thumbnail" src={`https://image.nyananime.xyz/${props.item.id}/poster.webp`} className={style["group-thumbnail"]} />
+            <img alt="group-thumbnail" src={`${getImageEndpoint()}/${props.item.id}/poster.webp`} className={style["group-thumbnail"]} />
             <div className={style["group-title-wrapper"]}>
                 <div className={style["group-title"]}>{title}</div>
             </div>

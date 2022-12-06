@@ -10,6 +10,12 @@ export function setDimensions(w: number, h: number): ReduxAction {
 }
 
 /* Users */
+export function createUser(create: UserCreate): ReduxAction {
+    return getAction("CREATE_USER", create);
+}
+export function createUserSuccess(user: User): ReduxAction {
+    return getAction("CREATE_USER_SUCCESS", user);
+}
 export function fetchUser(id: string): ReduxAction {
     return getAction("FETCH_USER", id);
 }

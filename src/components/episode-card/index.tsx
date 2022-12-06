@@ -1,7 +1,9 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
+import { getImageEndpoint } from "../../scripts/api/api";
 import { episodeLocationToURL } from "../../scripts/nyan/constants";
+import { AnimeRatingMapping } from "../../ts/common/const";
 /* Styles */
 import style from "./style.scss";
 
@@ -25,9 +27,9 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
             <div className={style["episode-thumbnail-wrapper"]}>
                 <img
                     alt="episode-thumbnail"
-                    src={`https://image.nyananime.xyz/${props.item.anime}/${props.item.pos}/thumbnail.webp`}
+                    src={`${getImageEndpoint()}/${props.item.anime}/${props.item.pos}/thumbnail.webp`}
                     className={style["episode-thumbnail"]}
-                    data={props.parent.rating !== AnimeRating.R || !props.preferences.blur ? undefined : "blur"}
+                    data={props.parent.rating !== AnimeRatingMapping.R || !props.preferences.blur ? undefined : "blur"}
                 />
                 {props.disabled === false ? (
                     <a href={`/episodes/${props.item.id}`} className={style["episode-overlay"]}>

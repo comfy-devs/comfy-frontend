@@ -12,6 +12,7 @@ import baseStyle from "../style.scss";
 import style from "./style.scss";
 /* Components */
 import EpisodeCard from "../../components/episode-card";
+import { getImageEndpoint } from "../../scripts/api/api";
 
 const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedProps) => {
     const anime = props.animes.get(props.id);
@@ -49,9 +50,10 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                   );
               });
     const genres = Object.values(AnimeGenreMapping)
+        .filter(e => anime.genres & e)
         .map((e, i) => {
             return (
-                <div key={i} className={style["anime-overview-field"]}>
+                <div key={i} className={style["anime-overview-data-field"]}>
                     <span className={style["anime-overview-data-field-highlight"]}>
                         {i === 0 ? "" : ", "}
                         {<Text id={`enum.animeGenre.${e}`} />}
@@ -60,9 +62,10 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
             );
         });
     const tags = Object.values(AnimeTagMapping)
+        .filter(e => anime.tags & e)
         .map((e, i) => {
             return (
-                <div key={i} className={style["anime-overview-field"]}>
+                <div key={i} className={style["anime-overview-data-field"]}>
                     <span className={style["anime-overview-data-field-highlight"]}>
                         {i === 0 ? "" : ", "}
                         {<Text id={`enum.animeTag.${e}`} />}
@@ -94,7 +97,7 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                     <div className={style["anime-overview-title"]}>{anime.title}</div>
                 </div>
                 <div className={style["anime-overview-data-wrapper"]}>
-                    <img alt="anime-thumbnail" src={`https://image.nyananime.xyz/${anime.id}/poster.webp`} className={style["anime-overview-thumbnail"]} />
+                    <img alt="anime-thumbnail" src={`${getImageEndpoint()}/${anime.id}/poster.webp`} className={style["anime-overview-thumbnail"]} />
                     <div className={style["anime-overview-data"]}>
                         <div className={style["anime-overview-synopsis"]}>{synopsis === null ? <Text id="anime.noSynopsis" /> : synopsis}</div>
                         <div className={style["anime-overview-data-separator"]} />

@@ -16,7 +16,7 @@ export function filterTypeToValues(type: FilterType) {
 }
 
 const episodeLocationMap: Record<number, string> = {
-    [EpisodeLocationMapping.AKAGI]: "https://akagi.nyananime.xyz",
+    [EpisodeLocationMapping.AKAGI]: location.host === "nyananime.xyz" ? "https://akagi.nyananime.xyz" : "https://localhost:546",
     [EpisodeLocationMapping.KAGA]: "https://kaga.nyananime.xyz",
 };
 export function episodeLocationToURL(location: number) {

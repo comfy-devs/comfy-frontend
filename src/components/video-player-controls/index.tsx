@@ -8,6 +8,7 @@ import { findSegmentForTimestamp } from "../../scripts/nyan/functions";
 import style from "./style.scss";
 /* Components */
 import VideoPlayerControlsDev from "../video-player-controls-dev";
+import { AnimeTagMapping } from "../../ts/common/const";
 
 const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps> = (props: VideoPlayerControlsConnectedProps) => {
     const [segments, setSegments] = useState(props.segments);
@@ -119,9 +120,9 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                 <div className={style["video-controls-section-1"]}>
                     <div
                         className={style["video-controls-button"]}
-                        disabled={!((props.parent.tags & AnimeTag.SUBBED) === AnimeTag.SUBBED)}
+                        disabled={!((props.parent.tags & AnimeTagMapping.SUBBED) === AnimeTagMapping.SUBBED)}
                         onClick={() => {
-                            if (!((props.parent.tags & AnimeTag.SUBBED) === AnimeTag.SUBBED)) {
+                            if (!((props.parent.tags & AnimeTagMapping.SUBBED) === AnimeTagMapping.SUBBED)) {
                                 return;
                             }
                             props.actions.setPlayerSubs(!props.playerData.subs);

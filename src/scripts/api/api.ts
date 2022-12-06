@@ -1,6 +1,9 @@
 export const apiVersion = "/v1";
+export function getImageEndpoint() {
+    return location.host === "nyananime.xyz" ? "https://image.nyananime.xyz" : "https://localhost:545";
+}
 export function getApiEndpoint() {
-    return location.host === "api.nyananime.xyz" ? "https://api.nyananime.xyz" : "https://localhost:9101";
+    return location.host === "nyananime.xyz" ? "https://api.nyananime.xyz" : "https://localhost:9101";
 }
 
 export async function get(descriptor: APIGetRequest): Promise<APIResponse> {
