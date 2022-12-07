@@ -16,7 +16,7 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
     /* API calls */
     useEffect(() => {
         props.actions.fetchAllAnimes();
-    }, [true]);
+    }, [props.actions]);
 
     /* Get sets to preview */
     const animes = Array.from(props.animes.values());

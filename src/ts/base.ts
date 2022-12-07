@@ -20,11 +20,27 @@ type Dimensions = {
 type PlayerState = "WAITING" | "TORRENT_NO_PEERS" | "TORRENT_LOADING" | "DONE";
 type PlayerData = {
     state: PlayerState;
+    preset: EncodePreset;
     theater: boolean;
     subs: boolean;
-    overrideUrl?: string;
     opNotification: boolean;
     edNotification: boolean;
+    overlay: boolean;
+    bandwith: number;
+    manifest: PlayerManifest;
+    manifestLevel: number;
+};
+type PlayerManifest = {
+    levels: PlayerManifestLevel[];
+    subtitles: PlayerManifestTrack[];
+};
+type PlayerManifestLevel = {
+    codecs: string;
+    resolution: string;
+    bitrate: number;
+};
+type PlayerManifestTrack = {
+    name: string;
 };
 type VideoPlayerNotificationType = "OP" | "ED";
 

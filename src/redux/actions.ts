@@ -139,7 +139,7 @@ export function setPreferencesTheme(theme: PreferencesTheme): ReduxAction {
     return getAction("SET_PREFERENCES_THEME", theme);
 }
 
-export function setPreferencesTorrent(torrent: PreferencesTorrent): ReduxAction {
+export function setPreferencesTorrent(torrent: boolean): ReduxAction {
     return getAction("SET_PREFERENCES_TORRENT", torrent);
 }
 
@@ -222,40 +222,50 @@ export function setFilterPage(page: number): ReduxAction {
 export function setPlayerState(state: PlayerState): ReduxAction {
     return getAction("SET_PLAYER_STATE", state);
 }
-
+export function setPlayerPreset(preset: EncodePreset): ReduxAction {
+    return getAction("SET_PLAYER_PRESET", preset);
+}
 export function setPlayerTheater(theater: boolean): ReduxAction {
     return getAction("SET_PLAYER_THEATER", theater);
 }
-
 export function setPlayerSubs(subs: boolean): ReduxAction {
     return getAction("SET_PLAYER_SUBS", subs);
 }
-
 export function setPlayerOverrideUrl(url?: string): ReduxAction {
     return getAction("SET_PLAYER_OVERRIDE_URL", url);
 }
-
 export function setPlayerOpNotification(opNotifaction: boolean): ReduxAction {
     return getAction("SET_PLAYER_OP_NOTIFICATION", opNotifaction);
 }
-
 export function setPlayerEdNotification(edNotifaction: boolean): ReduxAction {
     return getAction("SET_PLAYER_ED_NOTIFICATION", edNotifaction);
+}
+export function setPlayerOverlay(overlay: boolean): ReduxAction {
+    return getAction("SET_PLAYER_OVERLAY", overlay);
+}
+export function setPlayerBandwith(bandwith: number): ReduxAction {
+    return getAction("SET_PLAYER_BANDWITH", bandwith);
+}
+export function setPlayerManifestLevels(levels: PlayerManifestLevel[]): ReduxAction {
+    return getAction("SET_PLAYER_MANIFEST_LEVELS", levels);
+}
+export function setPlayerManifestSubtitles(tracks: PlayerManifestTrack[]): ReduxAction {
+    return getAction("SET_PLAYER_MANIFEST_SUBTITLES", tracks);
+}
+export function setPlayerManifestLevel(level: number): ReduxAction {
+    return getAction("SET_PLAYER_MANIFEST_LEVEL", level);
 }
 
 /* Auth */
 export function setAuthUsername(username: string): ReduxAction {
     return getAction("SET_AUTH_USERNAME", username);
 }
-
 export function setAuthPassword(password: string): ReduxAction {
     return getAction("SET_AUTH_PASSWORD", password);
 }
-
 export function setAuthPassword2(password: string): ReduxAction {
     return getAction("SET_AUTH_PASSWORD_2", password);
 }
-
 export function setAuthResult(result: AuthResult): ReduxAction {
     return getAction("SET_AUTH_RESULT", result);
 }

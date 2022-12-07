@@ -22,3 +22,11 @@ const episodeLocationMap: Record<number, string> = {
 export function episodeLocationToURL(location: number) {
     return episodeLocationMap[location];
 }
+
+const fileNameMap: Record<EncodePreset, string> = {
+    X264: "episode_x264.mp4",
+    VP9: "episode_vp9.webm",
+};
+export function presetToFilename(preset: EncodePreset) {
+    return fileNameMap[preset];
+}

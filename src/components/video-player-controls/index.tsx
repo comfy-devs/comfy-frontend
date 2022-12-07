@@ -7,8 +7,9 @@ import { findSegmentForTimestamp } from "../../scripts/nyan/functions";
 /* Styles */
 import style from "./style.scss";
 /* Components */
+import VideoPlayerControlsOverlay from "../video-player-controls-overlay";
 import VideoPlayerControlsDev from "../video-player-controls-dev";
-import { AnimeTagMapping } from "../../ts/common/const";
+import { AnimeTagMapping, SegmentTypeMapping } from "../../ts/common/const";
 
 const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps> = (props: VideoPlayerControlsConnectedProps) => {
     const [segments, setSegments] = useState(props.segments);
@@ -18,6 +19,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
 
     return (
         <div className={style["video-controls-wrapper"]}>
+            {props.playerData.overlay ? <VideoPlayerControlsOverlay item={props.item} encode={props.encode} preferences={props.preferences} video={props.video} playerData={props.playerData} /> : null}
             <div className={style["video-controls"]}>
                 <div className={style["video-controls-bg"]} />
                 <div className={style["video-controls-section-0"]}>
@@ -96,7 +98,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
 
                             const segment = findSegmentForTimestamp(segments, value * props.video.duration);
                             props.timelineTooltip.innerText = `${secondsToString(Math.round(props.video.duration * value))} ${
-                                segment.item === null || segment.item.type === SegmentType.EPISODE ? "" : `(${segment.item.type === SegmentType.OP ? "OP" : "ED"})`
+                                segment.item === null || segment.item.type === SegmentTypeMapping.EPISODE ? "" : `(${segment.item.type === SegmentTypeMapping.OP ? "OP" : "ED"})`
                             }`;
                         }}
                         onMouseLeave={() => {

@@ -48,6 +48,11 @@ export const EpisodeLocationMapping: Record<EpisodeLocation, number> = {
     KAGA: 1
 }
 
+export const EncodePresetMapping: Record<EncodePreset, number> = {
+    X264: 0,
+    VP9: 1
+}
+
 export const SegmentTypeMapping: Record<SegmentType, number> = {
     OP: 0,
     EPISODE: 1,

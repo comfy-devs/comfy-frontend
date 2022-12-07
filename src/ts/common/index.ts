@@ -5,7 +5,6 @@ type AnimeGenre = "ACTION" | "ADVENTURE" | "COMEDY" | "DRAMA" | "ECCHI" | "FANTA
     "SLICE_OF_LIFE" | "SPORTS" | "SUPERNATURAL" | "THRILLER";
 type AnimeTag = "SUBBED" | "HARD_SUBBED" | "DUBBED";
 type AnimeRating = "PG" | "R";
-type EpisodeLocation = "AKAGI" | "KAGA";
 type Anime = {
     id: string;
     type: number;
@@ -32,6 +31,7 @@ type Group = {
     title: string;
 };
 
+type EpisodeLocation = "AKAGI" | "KAGA";
 type Episode = {
     id: string;
     pos: number;
@@ -40,13 +40,16 @@ type Episode = {
     views: number;
 };
 
+type EncodePreset = "X264" | "VP9";
 type Encode = {
     id: string;
     episode: string;
+    preset: number;
     videoBitrate: number;
     audioBitrate: number;
     size: number;
     duration: number;
+    vmaf: number | null;
 };
 
 type SegmentType = "OP" | "EPISODE" | "ED";

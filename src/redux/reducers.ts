@@ -198,16 +198,32 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, playerData: { ...state.playerData, preset: action.data } };
     },
 
-    SET_PLAYER_OVERRIDE_URL: (state: ReduxState, action: ReduxAction) => {
-        return { ...state, playerData: { ...state.playerData, overrideUrl: action.data } };
-    },
-
     SET_PLAYER_OP_NOTIFICATION: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, opNotification: action.data } };
     },
 
     SET_PLAYER_ED_NOTIFICATION: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, edNotification: action.data } };
+    },
+
+    SET_PLAYER_OVERLAY: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, overlay: action.data } };
+    },
+
+    SET_PLAYER_MANIFEST_LEVELS: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, manifest: { ...state.playerData.manifest, levels: action.data } } };
+    },
+
+    SET_PLAYER_MANIFEST_SUBTITLES: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, manifest: { ...state.playerData.manifest, subtitles: action.data } } };
+    },
+
+    SET_PLAYER_MANIFEST_LEVEL: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, manifestLevel: action.data } };
+    },
+
+    SET_PLAYER_BANDWITH: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, bandwith: action.data } };
     },
 };
 const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction) => Promise<void>> = {
@@ -271,6 +287,10 @@ const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState:
 
     FETCH_EPISODE_SEGMENTS: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
         await reducerFetchMultiple(dispatch, action.data, routes.fetchEpisodeSegments, actions.fetchEpisodeSegmentsSuccess);
+    },
+
+    FETCH_EPISODE_ENCODES: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetchMultiple(dispatch, action.data, routes.fetchEpisodeEncodes, actions.fetchEpisodeEncodesSuccess);
     },
 
     FETCH_STATS: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {

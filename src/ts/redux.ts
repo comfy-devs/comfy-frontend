@@ -64,9 +64,15 @@ type ConnectedActions = {
     setFilterPage(page: number): ReduxAction;
 
     setPlayerState(state: PlayerState): ReduxAction;
+    setPlayerPreset(preset: EncodePreset): ReduxAction;
     setPlayerTheater(theater: boolean): ReduxAction;
     setPlayerSubs(subs: boolean): ReduxAction;
     setPlayerOverrideUrl(url?: string): ReduxAction;
     setPlayerOpNotification(opNotifaction: boolean): ReduxAction;
     setPlayerEdNotification(edNotifaction: boolean): ReduxAction;
+    setPlayerOverlay(overlay: boolean): ReduxAction;
+    setPlayerBandwith(bandwith: number): ReduxAction;
+    setPlayerManifestLevels(levels: PlayerManifestLevel[]): ReduxAction;
+    setPlayerManifestSubtitles(tracks: PlayerManifestTrack[]): ReduxAction;
+    setPlayerManifestLevel(level: number): ReduxAction;
 };

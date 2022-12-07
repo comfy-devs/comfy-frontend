@@ -2,6 +2,8 @@
 import { h, FunctionalComponent } from "preact";
 import { useEffect } from "react";
 import { Text } from "preact-i18n";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import { AnimeGenreMapping, AnimeTagMapping } from "../../ts/common/const";
 /* Redux */
 import { connect } from "react-redux";
@@ -38,17 +40,6 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
         episodeElements.push(<EpisodeCard key={i} parent={anime} item={episodes[i]} i={i} disabled={false} preferences={props.preferences} />);
     }
 
-    const synopsis =
-        anime.synopsis === null
-            ? null
-            : anime.synopsis.split("\n").map((e, i) => {
-                  return (
-                      <div key={i}>
-                          {e}
-                          <br />
-                      </div>
-                  );
-              });
     const genres = Object.values(AnimeGenreMapping)
         .filter(e => anime.genres & e)
         .map((e, i) => {
@@ -99,7 +90,9 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                 <div className={style["anime-overview-data-wrapper"]}>
                     <img alt="anime-thumbnail" src={`${getImageEndpoint()}/${anime.id}/poster.webp`} className={style["anime-overview-thumbnail"]} />
                     <div className={style["anime-overview-data"]}>
-                        <div className={style["anime-overview-synopsis"]}>{synopsis === null ? <Text id="anime.noSynopsis" /> : synopsis}</div>
+                        <div className={style["anime-overview-synopsis"]}>
+                            {anime.synopsis === null ? <Text id="anime.noSynopsis" /> : <ReactMarkdown rehypePlugins={[rehypeRaw]} children={anime.synopsis} />}
+                        </div>
                         <div className={style["anime-overview-data-separator"]} />
                         <div className={style["anime-overview-data-field"]}>
                             <Text id="anime.type" />

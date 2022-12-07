@@ -18,6 +18,7 @@ type GenreConnectedProps = {
 type VideoPlayerConnectedProps = {
     dimensions: Dimensions;
     item: Episode;
+    encode: Encode | null;
     parent: Anime;
     segments: Segment[];
     preferences: AppPreferences;
@@ -50,7 +51,6 @@ type VideoPlayerTorrentWrapperConnectedProps = {
     playerData: PlayerData;
     actions: ConnectedActions;
 };
-
 type VideoPlayerHlsWrapperConnectedProps = {
     item: Episode;
     parent: Anime;
@@ -63,6 +63,7 @@ type VideoPlayerHlsWrapperConnectedProps = {
 type VideoPlayerControlsConnectedProps = {
     dimensions: Dimensions;
     item: Episode;
+    encode: Encode | null;
     parent: Anime;
     segments: Segment[];
     preferences: AppPreferences;
@@ -72,7 +73,14 @@ type VideoPlayerControlsConnectedProps = {
     playerData: PlayerData;
     actions: ConnectedActions;
 };
-
+type VideoPlayerControlsOverlayConnectedProps = {
+    item: Episode;
+    encode: Encode | null;
+    preferences: AppPreferences;
+    video: HTMLVideoElement | null;
+    
+    playerData: PlayerData;
+};
 type VideoPlayerControlsDevConnectedProps = {
     item: Episode;
     segments: Segment[];

@@ -30,7 +30,7 @@ const AppRouter: FunctionalComponent<any> = (props: AppConnectedProps) => {
                 session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
             <Group path="/groups/:id" id="" dimensions={props.dimensions} animes={props.animes} groups={props.groups}
                 session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
-            <Episode path="/episodes/:id" id="" dimensions={props.dimensions} playerData={props.playerData} animes={props.animes} episodes={props.episodes} segments={props.segments}
+            <Episode path="/episodes/:id" id="" dimensions={props.dimensions} playerData={props.playerData} animes={props.animes} episodes={props.episodes} encodes={props.encodes} segments={props.segments}
                 session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
         </Router>
     );

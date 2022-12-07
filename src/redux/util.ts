@@ -13,7 +13,11 @@ export const INITIAL: ReduxState = {
     random: Math.floor(Math.random() * 1000000),
     preferences: { theme: "dark", torrent: false, lang: "en", developer: false, blur: true },
     filterData: { page: 0, searchTerm: "", genres: null, year: null, type: null, status: null, sort: "TITLE_ASC", tags: null, items: 100, group: "NO" },
-    playerData: { state: "WAITING", theater: false, subs: true, opNotification: true, edNotification: true }
+    playerData: {
+        state: "WAITING", preset: "X264", theater: false, subs: true,
+        opNotification: true, edNotification: true, overlay: true,
+        manifest: { levels: [], subtitles: [] }, manifestLevel: 0, bandwith: 0
+    }
 };
 
 export enum ResourceType {

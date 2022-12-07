@@ -46,6 +46,7 @@ type EpisodeConnectedProps = RouteProps & {
     dimensions: Dimensions;
     animes: Map<string, Anime>;
     episodes: Map<string, Episode>;
+    encodes: Map<string, Encode>;
     segments: Map<string, Segment>;
     playerData: PlayerData;
     id: string;

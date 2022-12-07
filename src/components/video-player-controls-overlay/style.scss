@@ -1,0 +1,37 @@
+/* Macros */
+%align-y {
+    display: flex;
+    align-items: center;
+}
+
+%align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content */
+.video-controls-overlay {
+	display: flex;
+    flex-direction: column;
+	position: absolute;
+    left: 20px;
+	top: 20px;
+    background-color: var(--color-primary-light-a);
+    opacity: 0.8;
+    padding: 12px;
+    border-radius: 3px;
+	pointer-events: none;
+}
+
+.video-controls-overlay-text {
+    color: white;
+    font-size: 13px;
+}
+.video-controls-overlay-text-highlight {
+    color: #adff4b;
+}
+
+.video-controls-overlay-space {
+    margin-top: 8px;
+}

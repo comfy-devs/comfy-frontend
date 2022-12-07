@@ -74,20 +74,18 @@
 }
 
 /* Icons */
-.icon-segment-0,
-.icon-segment-1,
-.icon-segment-2 {
+.icon-segment {
 	height: 24px;
 	width: 24px;
 	transform: scale(1);
 }
-.icon-segment-0 {
+.icon-segment[data="OP"] {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M13.91 12.36L17 20.854l-2.818 1.026-3.092-8.494-4.172 3.156 1.49-14.909 10.726 10.463z' fill='rgba(82, 82, 211, 1)'/%3E%3C/svg%3E");
 }
-.icon-segment-1 {
+.icon-segment[data="EPISODE"] {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M13.91 12.36L17 20.854l-2.818 1.026-3.092-8.494-4.172 3.156 1.49-14.909 10.726 10.463z' fill='rgba(255, 255, 255, 1)'/%3E%3C/svg%3E");
 }
-.icon-segment-2 {
+.icon-segment[data="ED"] {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M13.91 12.36L17 20.854l-2.818 1.026-3.092-8.494-4.172 3.156 1.49-14.909 10.726 10.463z' fill='rgba(248, 29, 44, 1)'/%3E%3C/svg%3E");
 }
 

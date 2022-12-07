@@ -1,6 +1,7 @@
 /* Base */
 import { Component } from "preact";
 import WebTorrent from "webtorrent";
+import { presetToFilename } from "../../scripts/nyan/constants";
 
 class VideoPlayerTorrentWrapper extends Component<VideoPlayerTorrentWrapperConnectedProps> {
     client: WebTorrent.Instance;
@@ -26,7 +27,7 @@ class VideoPlayerTorrentWrapper extends Component<VideoPlayerTorrentWrapperConne
         const torrent = this.client.add(`${props.parent.magnet}&tr=wss://tracker.nyananime.xyz`, () => {
             torrent.files
                 .filter((e) => {
-                    return e.path !== `${props.parent.id}/${props.item.pos}/episode_x264.mp4`;
+                    return e.path !== `${props.parent.id}/${props.item.pos}/${presetToFilename(this.props.playerData.preset)}`;
                 })
                 .forEach((file) => {
                     file.deselect();
@@ -44,7 +45,7 @@ class VideoPlayerTorrentWrapper extends Component<VideoPlayerTorrentWrapperConne
         torrent.on("ready", () => {
             torrent.files
                 .filter((e) => {
-                    return e.path === `${props.parent.id}/${props.item.pos}/episode_x264.mp4`;
+                    return e.path === `${props.parent.id}/${props.item.pos}/${presetToFilename(this.props.playerData.preset)}`;
                 })
                 .forEach((file) => {
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

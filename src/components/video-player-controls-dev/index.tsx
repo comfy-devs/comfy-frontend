@@ -2,11 +2,12 @@
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
 import { useState } from "react";
+import { SegmentTypeMapping } from "../../ts/common/const";
 /* Styles */
 import style from "./style.scss";
 
 const VideoPlayerControlsDev: FunctionalComponent<VideoPlayerControlsDevConnectedProps> = (props: VideoPlayerControlsDevConnectedProps) => {
-    const [segmentType, setSegmentType] = useState(SegmentType.EPISODE);
+    const [segmentType, setSegmentType] = useState<SegmentType>("EPISODE");
 
     return (
         <div className={style["video-controls-dev"]}>
@@ -32,23 +33,23 @@ const VideoPlayerControlsDev: FunctionalComponent<VideoPlayerControlsDevConnecte
                 }}
                 onContextMenu={(e) => {
                     switch (segmentType) {
-                        case SegmentType.OP:
-                            setSegmentType(SegmentType.EPISODE);
+                        case "OP":
+                            setSegmentType("EPISODE");
                             break;
 
-                        case SegmentType.EPISODE:
-                            setSegmentType(SegmentType.ED);
+                        case "EPISODE":
+                            setSegmentType("ED");
                             break;
 
-                        case SegmentType.ED:
-                            setSegmentType(SegmentType.OP);
+                        case "ED":
+                            setSegmentType("OP");
                             break;
                     }
 
                     e.preventDefault();
                 }}>
-                <div className={style[`icon-segment-${segmentType}`]} />
-                <div className={style.tooltip}>Mark segment end ({<Text id={`enum.segmentType.${segmentType}`} />})</div>
+                <div className={style["icon-segment"]} data={segmentType} />
+                <div className={style.tooltip}>Mark segment end ({<Text id={`enum.segmentType.${SegmentTypeMapping[segmentType]}`} />})</div>
             </div>
             <div
                 className={style["video-controls-button"]}
