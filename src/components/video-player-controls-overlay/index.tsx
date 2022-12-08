@@ -31,7 +31,7 @@ const VideoPlayerControlsOverlay: FunctionalComponent<VideoPlayerControlsOverlay
                 Captions: <span class={style["video-controls-overlay-text-highlight"]}>{props.playerData.manifest.subtitles.map(e => e.name).join(", ")}</span>
             </div> : null}
             {props.encode ? <div class={style["video-controls-overlay-text"]}>
-                Duration: <span class={style["video-controls-overlay-text-highlight"]}>{secondsToStringHuman(Math.round(props.encode.duration))} ({humanFileSize(props.encode.size)})</span>
+                Duration: <span class={style["video-controls-overlay-text-highlight"]}>{secondsToStringHuman(Math.round(props.item.duration))} ({humanFileSize(props.encode.size)})</span>
             </div> : null}
             {props.encode ? <div class={style["video-controls-overlay-text"]}>
                 VMAF: <span class={style["video-controls-overlay-text-highlight"]}>{props.encode.vmaf?.toFixed(2)} (Youtube: 84/Netflix: 93)</span>
@@ -51,7 +51,7 @@ const VideoPlayerControlsOverlay: FunctionalComponent<VideoPlayerControlsOverlay
                 Resolution: <span class={style["video-controls-overlay-text-highlight"]}>{props.video?.videoWidth}x{props.video?.videoHeight}@24 (optimal)</span>
             </div> : null}
             {props.encode ? <div class={style["video-controls-overlay-text"]}>
-                Buffer: <span class={style["video-controls-overlay-text-highlight"]}>{secondsToStringHuman(buffer)} ({((buffer/props.encode.duration) * 100).toFixed(2)}%)</span>
+                Buffer: <span class={style["video-controls-overlay-text-highlight"]}>{secondsToStringHuman(buffer)} ({((buffer/props.item.duration) * 100).toFixed(2)}%)</span>
             </div> : null}
         </div>
     );

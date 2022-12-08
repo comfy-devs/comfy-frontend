@@ -59,7 +59,7 @@ const VideoPlayerControlsDev: FunctionalComponent<VideoPlayerControlsDevConnecte
                     });
                     navigator.clipboard.writeText(queries.join("\n"));
                 }}>
-                <div className={style[`icon-copy`]} />
+                <div className={style["icon-copy"]} />
                 <div className={style.tooltip}>Copy segments query</div>
             </div>
         </div>

@@ -44,6 +44,13 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
         window.removeEventListener("keydown", this.keyCallbackBinded);
     }
 
+    componentWillUpdate(nextProps: Readonly<VideoPlayerConnectedProps>): void {
+        if(this.props.item.id !== nextProps.item.id) {
+            this.video?.pause();
+            this.video?.load();
+        }
+    }
+
     keyCallback(e: KeyboardEvent) {
         if (this.video !== null) {
             switch (e.key) {
@@ -114,7 +121,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
 
     render() {
         const currentSegment = this.video === null ? { end: 0, item: null } : findSegmentForTimestamp(this.props.segments, this.video.currentTime);
-        let videoUrl = `${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/${presetToFilename(this.props.playerData.preset)}`;
+        const videoUrl = `${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/${presetToFilename(this.props.playerData.preset)}`;
         
         return (
             <div className={style["episode-video-wrapper"]} data={this.props.playerData.theater ? "true" : "false"}>
@@ -141,7 +148,8 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     }}
                     onLoadedData={() => {
                         this.props.actions.setPlayerState("DONE");
-                    }}>
+                    }}
+                    volume={this.props.preferences.volume} >
                     {this.props.playerData.preset === "VP9" ? <source src={videoUrl} /> : null}
                     {!this.props.playerData.subs || this.props.playerData.preset === "X264" ? null : <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/subs/eng.vtt`} default />}
                 </video>

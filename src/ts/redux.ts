@@ -51,6 +51,7 @@ type ConnectedActions = {
     setPreferencesTheme(theme: string): ReduxAction;
     setPreferencesTorrent(torrent: boolean): ReduxAction;
     setPreferencesBlur(blur: boolean): ReduxAction;
+    setPreferencesVolume(volume: number): ReduxAction;
 
     setFilterSearchTerm(searchTerm: string): ReduxAction;
     setFilterGenres(genres: AnimeGenre | null): ReduxAction;

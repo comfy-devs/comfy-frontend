@@ -21,7 +21,7 @@ const Register: FunctionalComponent<RegisterConnectedProps> = (props: RegisterCo
                     <Localizer>
                         <input
                             name="username"
-                            placeholder={props.dictionary.register === undefined ? "" : props.dictionary.register.username.placeholder}
+                            placeholder={props.dictionary.register?.username.placeholder}
                             type="text"
                             className={style["auth-input"]}
                             onChange={(e) => {
@@ -31,7 +31,7 @@ const Register: FunctionalComponent<RegisterConnectedProps> = (props: RegisterCo
                         />
                         <input
                             name="password"
-                            placeholder={props.dictionary.register === undefined ? "" : props.dictionary.register.password.placeholder}
+                            placeholder={props.dictionary.register?.password.placeholder}
                             type="password"
                             className={style["auth-input"]}
                             onChange={(e) => {
@@ -41,7 +41,7 @@ const Register: FunctionalComponent<RegisterConnectedProps> = (props: RegisterCo
                         />
                         <input
                             name="password_2"
-                            placeholder={props.dictionary.register === undefined ? "" : props.dictionary.register.password_2.placeholder}
+                            placeholder={props.dictionary.register?.password_2.placeholder}
                             type="password"
                             className={style["auth-input"]}
                             onChange={(e) => {

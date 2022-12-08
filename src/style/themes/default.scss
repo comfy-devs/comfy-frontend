@@ -1,28 +1,19 @@
 * {
-    --color-primary: #151515;
-    --color-primary-light: #1b1b1b;
-    --color-primary-light-a: #272727;
-    --color-primary-light-b: #404040;
-    --color-primary-light-c: #404040;
-    --color-primary-light-d: #424242c9;
-    --color-secondary: #f81d2c;
+    --color-primary: #1c1c1c;
+    --color-primary-light: #282828;
+    --color-primary-dark: #202020;
+    --color-primary-text: #ff3645;
 
-    --color-text-primary: #ffffff;
-    --color-text-primary-a: #9e9e9e;
-    --color-text-primary-b: #f81d2c;
-    --color-text-primary-c: #c3c3c3;
-    --color-button-primary: #272727;
+    --color-secondary: #ff3645;
+    --color-secondary-light: #fb3e4c;
+    --color-secondary-dark: #fd2b3b;
+    --color-secondary-text: #fff;
+    --color-background: #353535;
 
-    --header-height: 50px;
-    --subheader-height: 55px;
-    --navigation-height: 55px;
-    --footer-height: 55px;
+    --color-link: #47a0ff;
+
+    --header-height: 54px;
+    --subheader-height: 56px;
+    --navigation-height: 56px;
+    --footer-height: 56px;
 }
-
-/*
-    filter-items (almost)
-    filter-wrapper
-    filter-title
-    filter-value
-    filter-item (almost)
-*/

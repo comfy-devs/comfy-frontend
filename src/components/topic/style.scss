@@ -31,25 +31,27 @@
 	grid-gap: 10px;
 }
 .topic-title {
-	color: var(--color-text-primary-b);
+	color: var(--color-secondary-text);
 	font-size: 27px;
 }
 
 .topic-nav-button {
 	@extend %align-center;
-
-	width: 32px;
-	height: 32px;
-	background-color: var(--color-primary-light-b);
+	width: 36px;
+	height: 36px;
+	background-color: var(--color-background);
 	border-radius: 10px;
 	cursor: pointer;
 }
 .topic-nav-button:hover {
 	background-color: var(--color-primary-light);
 }
+.topic-nav-button:active {
+	background-color: var(--color-primary-dark);
+}
 
 .topic-previews {
-	height: 290px;
+	height: 300px;
 	overflow: hidden;
 }
 .topic-previews::-webkit-scrollbar {

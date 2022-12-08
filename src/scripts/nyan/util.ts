@@ -19,31 +19,25 @@ export function secondsToString(time: number) {
     timeString += `${secs >= 10 ? secs : `0${secs.toString()}`}`;
     return timeString;
 }
-export function secondsToStringHuman(time: number) {
-    if (time < 0) {
-        return "??";
+export function secondsToStringHuman(seconds: number, limit = 6): string {
+    const units = ["y", "mo", "d", "h", "m", "s"];
+    const values = [
+        Math.floor(seconds / 31536000),
+        Math.floor(seconds / 2592000) % 12,
+        Math.floor(seconds / 86400) % 30,
+        Math.floor(seconds / 3600) % 24,
+        Math.floor(seconds / 60) % 60,
+        Math.floor(seconds) % 60,
+    ];
+    
+    let result = "";
+    for (let i = 0; i < limit; i++) {
+        if (values[i] !== 0) {
+            result += `${values[i]}${units[i]} `;
+        }
     }
-    let timeString = "";
-
-    const years = Math.floor(time / 31557600);
-    time %= 31557600;
-    const months = Math.floor(time / 2629800);
-    time %= 2629800;
-    const days = Math.floor(time / 86400);
-    time %= 86400;
-    const hrs = Math.floor(time / 3600);
-    time %= 3600;
-    const mins = Math.floor(time / 60);
-    const secs = time % 60;
-
-    timeString += years > 0 ? `${years}y ` : "";
-    timeString += months > 0 ? `${months}mo  ` : "";
-    timeString += days > 0 ? `${days}d  ` : "";
-    timeString += hrs > 0 ? `${hrs}h ` : "";
-    timeString += mins > 0 ? `${mins}m ` : "";
-    timeString += secs > 0 ? `${secs}s ` : "";
-    timeString = timeString.substring(0, timeString.length - 1);
-    return timeString;
+    
+    return result.trim();
 }
 
 export function splitArray(array: any[], chunk_size: number) {

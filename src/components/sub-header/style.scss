@@ -15,8 +15,8 @@
 	@extend %align-y;
 	width: 100%;
 	height: var(--subheader-height);
-	background-color: var(--color-primary-light);
-	padding: 5px 10px 15px 10px;
+	background-color: var(--color-primary);
+	padding: 10px;
 	grid-gap: 10px;
 }
 
@@ -24,23 +24,26 @@
 	@extend %align-center;
 	width: 150px;
 	height: 100%;
-	background-color: var(--color-primary-light-c);
+	background-color: var(--color-background);
 	cursor: pointer;
 	border-radius: 10px;
 }
 .sub-header-button:hover {
-	background-color: var(--color-primary-light-b);
+	background-color: var(--color-primary-light);
 }
-.sub-header-button-enabled {
+.sub-header-button:active {
+	background-color: var(--color-primary-dark);
+}
+.sub-header-button-active {
 	background-color: var(--color-secondary);
 	pointer-events: none;
 }
-.sub-header-button-enabled:hover {
+.sub-header-button-active:hover {
 	border: none !important;
 	height: 100% !important;
 }
 
 .sub-header-button-title {
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	font-size: 13px;
 }

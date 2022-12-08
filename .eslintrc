@@ -62,6 +62,7 @@
         "prefer-template": "warn",
         "require-await": "warn",
         "spaced-comment": "warn",
-        "yoda": "warn"
+        "yoda": "warn",
+        "quotes": ["warn", "double", { "avoidEscape": true }]
     }
 }

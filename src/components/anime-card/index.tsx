@@ -29,7 +29,7 @@ const AnimeCard: FunctionalComponent<AnimeCardConnectedProps> = (props: AnimeCar
         <a
             href={`/animes/${props.item.id}`}
             className={style.anime}
-            data={props.alt ? "alt" : undefined}
+            data={props.alt === true ? "alt" : undefined}
             onDragStart={(e) => {
                 e.preventDefault();
             }}>

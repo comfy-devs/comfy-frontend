@@ -45,7 +45,7 @@ const Download: FunctionalComponent<DownloadConnectedProps> = (props: DownloadCo
         {
             name: "Android",
             type: "android",
-            details: `> First release of the app`,
+            details: "> First release of the app",
             version: "beta-1",
             link: "https://files.catbox.moe/93qsr2.apk",
         },
@@ -63,7 +63,7 @@ const Download: FunctionalComponent<DownloadConnectedProps> = (props: DownloadCo
                 </div>
                 <div className={style["download-item"]}>
                     <div className={style["download-item-row"]}>
-                        <div className={style[`icon-android`]} />
+                        <div className={style["icon-android"]} />
                         Android <span className={style["download-item-row-version"]}>[{latestAndroid.version}]</span>
                         <a href={latestAndroid.link} download={`nyananime-${latestAndroid.version}`} className={style["download-item-row-link"]}>
                             (<Text id="download.link" />)

@@ -21,7 +21,7 @@
 }
 
 .download-title {
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	font-size: 25px;
 	text-align: center;
 }
@@ -32,7 +32,7 @@
 	padding: 15px;
 	grid-gap: 10px;
 	border-radius: 10px;
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	background-color: var(--color-primary-light);
 }
 
@@ -42,17 +42,17 @@
 }
 
 .download-item-row-version {
-	color: var(--color-text-primary-a);
+	color: var(--color-primary-text);
 	font-size: 15px;
 }
 
 .download-item-row-link {
-	color: var(--color-text-primary-b);
+	color: var(--color-secondary-text);
 	font-size: 15px;
 }
 
 .download-item-row-details {
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	font-size: 13px;
 }
 

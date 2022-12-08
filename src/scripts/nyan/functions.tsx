@@ -29,13 +29,13 @@ export function topicExtraToDisplayName(item: Anime, extra?: number) {
     }
     switch (extra) {
         case 0: {
-            const t = secondsToStringHuman(Math.floor(Date.now() / 1000) - item.timestamp);
+            const t = secondsToStringHuman(Math.floor(Date.now() / 1000) - item.timestamp, 3);
             return <Text id="home.releasedAgo" fields={{ time: t }} />;
         }
 
         case 1: {
-            const t = secondsToStringHuman(item.timestamp + 604800 - Math.floor(Date.now() / 1000));
-            const t2 = secondsToStringHuman(Math.floor(Date.now() / 1000) - 604800 - item.timestamp);
+            const t = secondsToStringHuman(item.timestamp + 604800 - Math.floor(Date.now() / 1000), 3);
+            const t2 = secondsToStringHuman(Math.floor(Date.now() / 1000) - 604800 - item.timestamp, 3);
             return t === "??" ? <Text id="home.releasedAgoWaiting" fields={{ time: t2 }} /> : <Text id="home.releaseIn" fields={{ time: t }} />;
         }
     }

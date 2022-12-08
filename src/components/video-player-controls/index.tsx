@@ -37,7 +37,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                         }}>
                         <div className={style["icon-play"]} data={props.video.paused ? "false" : "true"} />
                         <div className={style.tooltip} data={"left"}>
-                            {props.video.paused ? <Text id="video.play.tooltip" /> : <Text id="video.pause.tooltip" />}
+                            {props.video.paused ? <Text id="video.play.tooltip" /> : <Text id="video.pause.tooltip" />} (k)
                         </div>
                     </div>
                     <div className={style["video-controls-time"]}>
@@ -52,7 +52,9 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             props.video.muted = !props.video.muted;
                         }}>
                         <div className={style["icon-volume"]} data={props.video.muted ? "false" : "true"} />
-                        <div className={style.tooltip}>{props.video.muted ? <Text id="video.unmute.tooltip" /> : <Text id="video.mute.tooltip" />}</div>
+                        <div className={style.tooltip}>
+                            {props.video.muted ? <Text id="video.unmute.tooltip" /> : <Text id="video.mute.tooltip" />} (m)
+                        </div>
                     </div>
                     <div
                         className={style["video-controls-volume"]}
@@ -62,13 +64,13 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             }
                             const rect = e.currentTarget.getBoundingClientRect();
                             const value = (rect.width - (rect.left + rect.width - e.pageX)) / 120;
-                            props.video.volume = value;
+                            props.actions.setPreferencesVolume(value);
                         }}
                         disabled={props.video.muted}>
                         <div className={style["video-controls-volume-bg"]} />
                         <div className={style["video-controls-volume-value"]} style={{ width: `${props.video.volume * 100}%` }} />
                         <div className={[style.tooltip, style["tooltip-volume"]].join(" ")}>
-                            <Text id="video.volume" fields={{ volume: Math.round(props.video.volume * 100) }} />
+                            <Text id="video.volume" /> ({Math.round(props.video.volume * 100)}%)
                         </div>
                     </div>
                     {props.preferences.developer === false ? null : <VideoPlayerControlsDev item={props.item} segments={segments} setSegments={setSegments} video={props.video} />}
@@ -114,7 +116,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                                 if (props.video === null) {
                                     return;
                                 }
-                                return <div key={i} className={style[`video-controls-timeline-segment-${e.type}`]} style={{ width: `${(e.length / props.video.duration) * 100}%` }} />;
+                                return <div key={i} className={style["video-controls-timeline-segment"]} data={e.type.toString()} style={{ width: `${(e.length / props.video.duration) * 100}%` }} />;
                             })}
                         </div>
                     </div>
@@ -130,12 +132,20 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             props.actions.setPlayerSubs(!props.playerData.subs);
                         }}>
                         <div className={style["icon-subs"]} data={props.playerData.subs ? "true" : "false"} />
-                        <div className={style.tooltip}>{props.playerData.subs ? <Text id="video.showSubtitles.tooltip" /> : <Text id="video.hideSubtitles.tooltip" />}</div>
+                        <div className={style.tooltip}>
+                            {props.playerData.subs ? <Text id="video.showSubtitles.tooltip" /> : <Text id="video.hideSubtitles.tooltip" />} (c)
+                        </div>
                     </div>
                     <div className={style["video-controls-button"]} disabled>
                         <div className={style["icon-audio"]} data={"false"} />
                         <div className={style.tooltip}>
                             <Text id="video.noDub" />
+                        </div>
+                    </div>
+                    <div className={style["video-controls-button"]}>
+                        <div className={style["icon-settings"]} />
+                        <div className={style.tooltip}>
+                            <Text id="video.settings" /> (s)
                         </div>
                     </div>
                     {props.dimensions.w < 500 ? null : (
@@ -145,7 +155,9 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                                 props.actions.setPlayerTheater(!props.playerData.theater);
                             }}>
                             <div className={style["icon-theater"]} data={props.playerData.theater ? "true" : "false"} />
-                            <div className={style.tooltip}>{props.playerData.theater ? <Text id="video.hideTheater.tooltip" /> : <Text id="video.showTheater.tooltip" />}</div>
+                            <div className={style.tooltip}>
+                                {props.playerData.theater ? <Text id="video.hideTheater.tooltip" /> : <Text id="video.showTheater.tooltip" />} (t)
+                            </div>
                         </div>
                     )}
                     <div
@@ -162,7 +174,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                         }}>
                         <div className={style["icon-fullscreen"]} />
                         <div className={style.tooltip} data={"right"}>
-                            <Text id="video.fullscreen.tooltip" />
+                            <Text id="video.fullscreen.tooltip" /> (f)
                         </div>
                     </div>
                 </div>

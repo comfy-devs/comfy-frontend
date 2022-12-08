@@ -44,7 +44,7 @@
 	@extend %align-center;
 	width: 315px;
 	height: 35px;
-	background-color: var(--color-primary-light-c);
+	background-color: var(--color-primary-light);
 	cursor: pointer;
 	border-radius: 10px;
 }
@@ -52,12 +52,12 @@
 	background-color: var(--color-primary-light-b);
 }
 .auth-button-title {
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	font-size: 13px;
 }
 
 .auth-link {
-	color: var(--color-text-primary-a);
+	color: var(--color-primary-text);
 	font-size: 15px;
 	margin-top: 10px;
 }

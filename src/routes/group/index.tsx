@@ -50,10 +50,10 @@ const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteC
                 <div className={style["group-previews"]}>
                     {animes.map((e, i) => {
                         if (e.season !== null) {
-                            return <AnimeCard key={i} item={e} alt extra={<Text id="group.season" fields={{ number: e.season + 1 }} />} preferences={props.preferences} />;
+                            return <AnimeCard key={i} item={e} extra={<Text id="group.season" fields={{ number: e.season + 1 }} />} preferences={props.preferences} />;
                         }
 
-                        return <AnimeCard key={i} item={e} alt extra={<Text id={`enum.animeType.${e.type}`} />} preferences={props.preferences} />;
+                        return <AnimeCard key={i} item={e} extra={<Text id={`enum.animeType.${e.type}`} />} preferences={props.preferences} />;
                     })}
                 </div>
             </div>

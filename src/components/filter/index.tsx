@@ -56,7 +56,7 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
                             props.actions.setFilterGroup(e);
                             return;
                     }
-                }}>
+                }} data={props.value === e ? "active" : undefined}>
                 {filterValueToDisplayName(props.type, e)}
             </div>
         );

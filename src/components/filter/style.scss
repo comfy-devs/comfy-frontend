@@ -9,12 +9,11 @@
 .filter-wrapper {
 	position: relative;
 
-	background-color: var(--color-primary-light-c);
+	background-color: var(--color-background);
 	border: 0;
 	padding: 0;
 	width: 150px;
 	height: 35px;
-	cursor: pointer;
 	border-radius: 10px;
 }
 
@@ -23,17 +22,16 @@
 	width: calc(100% - 4px);
 	height: calc(100% - 4px);
 	padding: 2px;
+	cursor: pointer;
 }
 
 .filter-title {
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	font-size: 13px;
-
 	white-space: pre-wrap;
 }
-
 .filter-value {
-	color: var(--color-text-primary-a);
+	color: var(--color-primary-text);
 	font-size: 12px;
 }
 
@@ -41,7 +39,6 @@
 	position: absolute;
 	display: flex;
 	visibility: hidden;
-
 	border-radius: 10px;
 	overflow: hidden;
 	margin-top: 10px;
@@ -51,15 +48,19 @@
 .filter-items {
 	width: 150px;
 	z-index: 4;
-	background-color: var(--color-primary-light-c);
+	background-color: var(--color-primary-light);
 }
 
 .filter-item {
 	@extend %align-center;
 	height: 25px;
-	color: var(--color-text-primary);
-	font-size: 12px;
+	color: var(--color-secondary-text);
+	font-size: 11px;
+	cursor: pointer;
+}
+.filter-item[data="active"] {
+	color: var(--color-primary-text);
 }
 .filter-item:hover {
-	background-color: var(--color-primary-light-a);
+	background-color: var(--color-primary-dark);
 }

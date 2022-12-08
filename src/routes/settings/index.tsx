@@ -20,7 +20,9 @@ const Settings: FunctionalComponent<SettingsConnectedProps> = (props: SettingsCo
                         props.actions.setPreferencesTheme(props.preferences.theme === "dark" ? "light" : "dark");
                     }}>
                     <div className={style["settings-button-title"]}>
-                        <Text id="settings.theme" fields={{ theme: <Text id={`enum.preferencesTheme.${props.preferences.theme}`} /> }} />
+                        <Text id="settings.theme" />: <span className={style["settings-button-highlight"]}>
+                            <Text id={`enum.preferencesTheme.${props.preferences.theme}`} />
+                        </span>
                     </div>
                 </div>
                 <div
@@ -46,37 +48,37 @@ const Settings: FunctionalComponent<SettingsConnectedProps> = (props: SettingsCo
                         }
                     }}>
                     <div className={style["settings-button-title"]}>
-                        <Text
-                            id="settings.notifications"
-                            fields={{
-                                status:
-                                    props.user === null ? (
-                                        <Text id="enum.notificationPreference.notLoggedIn" />
-                                    ) : !props.user.pushEnabled ? (
-                                        <Text id="enum.notificationPreference.off" />
-                                    ) : (
-                                        <Text id={`enum.notificationPreference.${Notification.permission}`} />
-                                    ),
-                            }}
-                        />
+                        <Text id="settings.torrent" />: <span className={style["settings-button-highlight"]}>
+                            {
+                                props.user === null ? (
+                                    <Text id="enum.notificationPreference.notLoggedIn" />
+                                ) : !props.user.pushEnabled ? (
+                                    <Text id="enum.notificationPreference.off" />
+                                ) : (
+                                    <Text id={`enum.notificationPreference.${Notification.permission}`} />
+                                )
+                            }
+                        </span>
                     </div>
                 </div>
-                <div
-                    className={style["settings-button"]}
+                <div className={style["settings-button"]}
                     onClick={() => {
                         props.actions.setPreferencesTorrent(props.preferences.torrent === false);
                     }}>
                     <div className={style["settings-button-title"]}>
-                        <Text id="settings.torrent" fields={{ torrent: <Text id={`enum.preferencesTorrent.${props.preferences.torrent}`} /> }} />
+                        <Text id="settings.torrent" />: <span className={style["settings-button-highlight"]}>
+                            <Text id={`enum.preferencesTorrent.${props.preferences.torrent}`} />
+                        </span>
                     </div>
                 </div>
-                <div
-                    className={style["settings-button"]}
+                <div className={style["settings-button"]}
                     onClick={() => {
                         props.actions.setPreferencesBlur(!props.preferences.blur);
                     }}>
                     <div className={style["settings-button-title"]}>
-                        <Text id="settings.blur" fields={{ blur: <Text id={`enum.preferencesBlur.${props.preferences.blur}`} /> }} />
+                        <Text id="settings.blur" />: <span className={style["settings-button-highlight"]}>
+                            <Text id={`enum.preferencesBlur.${props.preferences.blur}`} />
+                        </span>
                     </div>
                 </div>
             </div>

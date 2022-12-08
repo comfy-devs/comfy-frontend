@@ -12,7 +12,7 @@
 
 	width: 100%;
 	height: var(--footer-height);
-	background-color: var(--color-primary-light-a);
+	background-color: var(--color-background);
 	color: white;
 	font-size: 12px;
 	white-space: pre-wrap;
@@ -20,9 +20,9 @@
 
 .footer-text {
 	display: flex;
-	color: var(--color-text-primary-a);
+	color: var(--color-secondary-text);
 }
 
 .footer-text-highlight {
-	color: var(--color-text-primary-b);
+	color: var(--color-primary-text);
 }

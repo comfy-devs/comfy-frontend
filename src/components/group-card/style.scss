@@ -17,7 +17,7 @@
 	width: 200px;
 	overflow: hidden;
 	border-radius: 15px;
-	background-color: var(--color-primary-light-a);
+	background-color: var(--color-background);
 	cursor: pointer;
 }
 
@@ -31,7 +31,7 @@
 	background-color: var(--color-primary-light-d);
 }
 .group-title {
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	font-size: 14px;
 }
 
@@ -40,7 +40,7 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	color: var(--color-primary-light-a);
+	color: var(--color-background);
 }
 
 .group-extra-wrapper {

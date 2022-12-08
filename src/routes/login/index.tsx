@@ -21,7 +21,7 @@ const Login: FunctionalComponent<LoginConnectedProps> = (props: LoginConnectedPr
                     <Localizer>
                         <input
                             name="username"
-                            placeholder={props.dictionary.login === undefined ? "" : props.dictionary.login.username.placeholder}
+                            placeholder={props.dictionary.login?.username.placeholder}
                             type="text"
                             className={style["auth-input"]}
                             onChange={(e) => {
@@ -31,7 +31,7 @@ const Login: FunctionalComponent<LoginConnectedProps> = (props: LoginConnectedPr
                         />
                         <input
                             name="password"
-                            placeholder={props.dictionary.login === undefined ? "" : props.dictionary.login.password.placeholder}
+                            placeholder={props.dictionary.login?.password.placeholder}
                             type="password"
                             className={style["auth-input"]}
                             onChange={(e) => {

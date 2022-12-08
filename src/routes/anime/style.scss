@@ -16,7 +16,7 @@
 	flex-direction: column;
 	width: 100%;
     min-height: calc(100vh - var(--header-height) - var(--subheader-height) - var(--footer-height));
-	grid-gap: 25px;
+	grid-gap: 15px;
 	padding: 20px;
 }
 
@@ -26,7 +26,7 @@
 }
 .anime-overview-title {
 	font-size: 22px;
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	text-align: center;
 }
 
@@ -36,7 +36,7 @@
 
 	width: 38px;
 	height: 38px;
-	background-color: var(--color-primary-light-a);
+	background-color: var(--color-background);
 	border-radius: 10px;
 	margin-right: 10px;
 	cursor: pointer;
@@ -55,7 +55,7 @@
 	border-radius: 8px;
 	left: 0px;
 
-	background-color: var(--color-primary-light-a);
+	background-color: var(--color-background);
 	color: var(--color-secondary);
 	font-size: 12px;
 
@@ -71,7 +71,7 @@
 	margin-left: -5px;
 	border-width: 5px;
 	border-style: solid;
-	border-color: var(--color-primary-light-a) transparent transparent transparent;
+	border-color: var(--color-background) transparent transparent transparent;
 	transform: rotate(180deg);
 }
 .anime-overview-favourite:hover .anime-overview-favourite-tooltip {
@@ -81,6 +81,7 @@
 .anime-overview-data-wrapper {
 	display: flex;
 	grid-gap: 25px;
+	padding: 5px 0px 20px 0px;
 
 	@media screen and (max-width: 500px) {
 		display: flex;
@@ -104,10 +105,11 @@
 	background-color: #212121;
 	color: #212121;
 	border-radius: 10px;
+	object-fit: cover;
 }
 
 .anime-overview-synopsis {
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	font-size: 15px;
 	max-width: 70%;
 
@@ -121,11 +123,13 @@
 	height: 1px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	background-color: #212121;
+	background-color: var(--color-background);
 }
 
 .anime-overview-data-field {
-	color: var(--color-text-primary-a);
+	display: flex;
+	align-items: center;
+	color: var(--color-primary-text);
 	font-size: 15px;
 	display: flex;
 	white-space: pre-wrap;
@@ -135,7 +139,7 @@
 	grid-gap: 5px;
 }
 .anime-overview-data-field-highlight {
-	color: var(--color-text-primary-b);
+	color: var(--color-secondary-text);
 }
 
 .anime-overview-tag {
@@ -161,15 +165,47 @@
 }
 
 /* Icons */
-.icon-star {
-	position: absolute;
+.icon-star,
+.icon-type,
+.icon-status,
+.icon-genres,
+.icon-episodes,
+.icon-eye,
+.icon-tag {
 	height: 24px;
 	width: 24px;
 	transform: scale(0.75);
+	margin-right: 2px;
+	background-color: var(--color-primary-text);
 }
-.icon-star[data="red"] {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z' fill='rgba(248, 29, 44, 1)'/%3E%3C/svg%3E");
+.icon-star {
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z' fill='rgba(248, 29, 44, 1)'/%3E%3C/svg%3E");
 }
-.icon-star[data="gray"] {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z' fill='rgba(72, 72, 72, 1)'/%3E%3C/svg%3E");
+.icon-star[data="true"],
+.icon-star[data="false"] {
+	margin: 0px;
+}
+.icon-star[data="false"] {
+	background-color: gray;
+}
+.icon-type {
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M15.414 5h5.594c.548 0 .992.445.992 1v14c0 .552-.455 1-.992 1H2.992A.994.994 0 0 1 2 20V6c0-.552.455-1 .992-1h5.594L6.05 2.464 7.464 1.05 11.414 5h1.172l3.95-3.95 1.414 1.414L15.414 5z'/%3E%3C/svg%3E");
+}
+.icon-status[data="0"] {
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M17 3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2zM4 9v10h16V9H4zm2 2h2v2H6v-2zm5 0h2v2h-2v-2zm5 0h2v2h-2v-2z'/%3E%3C/svg%3E");
+}
+.icon-status[data="1"] {
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M9 1v2h6V1h2v2h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4V1h2zm11 7H4v11h16V8zm-4.964 2.136l1.414 1.414-4.95 4.95-3.536-3.536L9.38 11.55l2.121 2.122 3.536-3.536z'/%3E%3C/svg%3E");
+}
+.icon-genres {
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M7.05 13.406l3.534 3.536-1.413 1.414 1.415 1.415-1.414 1.414-2.475-2.475-2.829 2.829-1.414-1.414 2.829-2.83-2.475-2.474 1.414-1.414 1.414 1.413 1.413-1.414zM3 3l3.546.003 11.817 11.818 1.415-1.414 1.414 1.414-2.474 2.475 2.828 2.829-1.414 1.414-2.829-2.829-2.475 2.475-1.414-1.414 1.414-1.415L3.003 6.531 3 3zm14.457 0L21 3.003l.002 3.523-4.053 4.052-3.536-3.535L17.457 3z'/%3E%3C/svg%3E");
+}
+.icon-episodes {
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M8 4h13v2H8V4zM5 3v3h1v1H3V6h1V4H3V3h2zM3 14v-2.5h2V11H3v-1h3v2.5H4v.5h2v1H3zm2 5.5H3v-1h2V18H3v-1h3v4H3v-1h2v-.5zM8 11h13v2H8v-2zm0 7h13v2H8v-2z'/%3E%3C/svg%3E");
+}
+.icon-eye {
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M1.181 12C2.121 6.88 6.608 3 12 3c5.392 0 9.878 3.88 10.819 9-.94 5.12-5.427 9-10.819 9-5.392 0-9.878-3.88-10.819-9zM12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-2a3 3 0 1 1 0-6 3 3 0 0 1 0 6z' fill='rgba(248, 29, 44, 1)'/%3E%3C/svg%3E");
+}
+.icon-tag {
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M10.9 2.1l9.899 1.415 1.414 9.9-9.192 9.192a1 1 0 0 1-1.414 0l-9.9-9.9a1 1 0 0 1 0-1.414L10.9 2.1zm2.828 8.486a2 2 0 1 0 2.828-2.829 2 2 0 0 0-2.828 2.829z'/%3E%3C/svg%3E");
 }

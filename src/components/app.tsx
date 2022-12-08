@@ -58,6 +58,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
         localStorage.setItem("lang", props.preferences.lang);
         localStorage.setItem("developer", props.preferences.developer.toString());
         localStorage.setItem("blur", props.preferences.blur.toString());
+        localStorage.setItem("volume", props.preferences.volume.toString());
     }, [props.preferences]);
 
     // Themes

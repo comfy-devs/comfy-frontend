@@ -98,13 +98,13 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                         );
                     }
                 } else {
-                    return <AnimeCard key={i} item={e} alt preferences={props.preferences} />;
+                    return <AnimeCard key={i} item={e} preferences={props.preferences} />;
                 }
             });
     } else {
         const start = props.filterData.page * props.filterData.items;
         previews = animes.slice(start, start + props.filterData.items).map((e, i) => {
-            return <AnimeCard key={i} item={e} alt preferences={props.preferences} />;
+            return <AnimeCard key={i} item={e} preferences={props.preferences} />;
         });
     }
 
@@ -123,7 +123,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                     <div className={style["all-filters-chunk-wrapper"]}>
                         <Localizer>
                             <input
-                                placeholder={props.dictionary.all === undefined ? "" : props.dictionary.all.search}
+                                placeholder={props.dictionary.all.search}
                                 className={style["all-filter-search"]}
                                 onChange={(e) => {
                                     props.actions.setFilterSearchTerm(e.currentTarget.value);

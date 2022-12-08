@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Text } from "preact-i18n";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import { AnimeGenreMapping, AnimeTagMapping } from "../../ts/common/const";
+import { AnimeGenreMapping, AnimeStatusMapping, AnimeTagMapping } from "../../ts/common/const";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
@@ -83,7 +83,7 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                         <div className={style["anime-overview-favourite-tooltip"]}>
                             <Text id={`anime.favourite.tooltip.${props.user === null ? "notLoggedIn" : props.user.favourites.includes(anime.id) ? "true" : "false"}`} />
                         </div>
-                        <div className={style["icon-star"]} data={props.user === null || !props.user.favourites.includes(anime.id) ? "gray" : "red"} />
+                        <div className={style["icon-star"]} data={props.user === null || !props.user.favourites.includes(anime.id) ? "false" : "true"} />
                     </div>
                     <div className={style["anime-overview-title"]}>{anime.title}</div>
                 </div>
@@ -95,36 +95,43 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                         </div>
                         <div className={style["anime-overview-data-separator"]} />
                         <div className={style["anime-overview-data-field"]}>
+                            <div className={style["icon-type"]} />
                             <Text id="anime.type" />
                             <span className={style["anime-overview-data-field-highlight"]}>
                                 <Text id={`enum.animeType.${anime.type}`} />
                             </span>
                         </div>
                         <div className={style["anime-overview-data-field"]}>
+                            <div className={style["icon-status"]} data={anime.status.toString()} />
                             <Text id="anime.status" />
                             <span className={style["anime-overview-data-field-highlight"]}>
-                                <Text id={`enum.animeType.${anime.type}`} />
+                                <Text id={`enum.animeStatus.${anime.status}`} />
                             </span>
                         </div>
                         <div className={style["anime-overview-data-field"]}>
+                            <div className={style["icon-genres"]} />
                             <Text id="anime.genres" />
                             {genres.length === 0 ? <Text id="anime.noGenres" /> : genres}
                         </div>
                         <div className={style["anime-overview-data-field"]}>
+                            <div className={style["icon-episodes"]} />
                             <Text id="anime.episodes" />
                             <span className={style["anime-overview-data-field-highlight"]}>{anime.episodes}</span>
                         </div>
                         <div className={style["anime-overview-data-separator"]} />
                         <div className={style["anime-overview-data-field"]}>
+                            <div className={style["icon-star"]} />
                             <Text id="anime.favourites" />
                             <span className={style["anime-overview-data-field-highlight"]}>{anime.favourites}</span>
                         </div>
                         <div className={style["anime-overview-data-field"]}>
+                            <div className={style["icon-eye"]} />
                             <Text id="anime.views" />
                             <span className={style["anime-overview-data-field-highlight"]}>{views}</span>
                         </div>
                         <div className={style["anime-overview-data-separator"]} />
                         <div className={style["anime-overview-data-field"]}>
+                            <div className={style["icon-tag"]} />
                             <Text id="anime.tags" />
                             <span className={style["anime-overview-data-field-highlight"]}>{tags.length === 0 ? <Text id="anime.noTags" /> : tags}</span>
                         </div>

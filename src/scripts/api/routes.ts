@@ -9,7 +9,7 @@ export async function fetchUser(id: string): Promise<User | undefined> {
 }
 
 export async function createSession(type: string, username?: string, password?: string): Promise<Session | undefined> {
-    const response: APIResponse = await post({ path: `/sessions/create`, body: JSON.stringify({ type, username, password }) });
+    const response: APIResponse = await post({ path: "/sessions/create", body: JSON.stringify({ type, username, password }) });
     if (response.status !== 200) {
         return undefined;
     }
@@ -20,7 +20,7 @@ export async function createSession(type: string, username?: string, password?: 
     return response.body;
 }
 export async function deleteSession(): Promise<boolean> {
-    const response: APIResponse = await sendDelete({ path: `/sessions/delete` });
+    const response: APIResponse = await sendDelete({ path: "/sessions/delete" });
     location.href = "/";
 
     return response.status === 200;
@@ -71,7 +71,7 @@ export async function fetchEpisodeSegments(id: string): Promise<Segment[]> {
 }
 
 export async function fetchStats(): Promise<Stats | undefined> {
-    return await fetchResource("/stats", undefined);
+    return await fetchResource("/stats", "default");
 }
 
 export async function pushSubscribe(url: string, key: string, auth: string): Promise<number> {

@@ -21,7 +21,7 @@
 }
 
 .status-title {
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	font-size: 25px;
 	text-align: center;
 	margin-bottom: 10px;
@@ -33,7 +33,7 @@
 	padding: 15px;
 	grid-gap: 5px;
 	border-radius: 10px;
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	background-color: var(--color-primary-light);
 }
 
@@ -43,16 +43,16 @@
 }
 
 .status-item-row-title {
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 }
 
 .status-item-row-key {
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	font-size: 13px;
 }
 
 .status-item-row-value {
-	color: var(--color-text-primary-b);
+	color: var(--color-secondary-text);
 	font-size: 13px;
 }
 

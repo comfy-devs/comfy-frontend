@@ -13,33 +13,18 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     FETCH_PREFERENCES: (state: ReduxState) => {
         const preferences = INITIAL.preferences;
-
-        const theme = localStorage.getItem("theme");
-        if (theme !== null) {
-            preferences.theme = theme as "dark" | "light";
-        }
-        const torrent = localStorage.getItem("torrent");
-        if (torrent !== null) {
-            preferences.torrent = torrent === "true";
-        }
-        const lang = localStorage.getItem("lang");
-        if (lang !== null) {
-            preferences.lang = lang;
-        }
-        const developer = localStorage.getItem("developer");
-        if (developer !== null) {
-            preferences.developer = developer === "true";
-        }
-        const blur = localStorage.getItem("blur");
-        if (blur !== null) {
-            preferences.blur = blur === "true";
-        }
+        preferences.theme = (localStorage.getItem("theme") ?? "dark") as "dark" | "light";
+        preferences.developer = (localStorage.getItem("torrent") ?? "false") === "true";
+        preferences.lang = localStorage.getItem("lang") ?? "eng";
+        preferences.developer = (localStorage.getItem("developer") ?? "false") === "true";
+        preferences.blur = (localStorage.getItem("blur") ?? "false") === "true";
+        preferences.volume = parseFloat(localStorage.getItem("volume") ?? "0.5");
 
         return { ...state, preferences };
     },
 
     CREATE_USER_SUCCESS: (state: ReduxState, action: ReduxAction): ReduxState => {
-        location.href = "/overview";
+        location.href = "/";
         return cacheResource(state, action.data, ResourceType.USER);
     },
 
@@ -140,6 +125,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     SET_PREFERENCES_BLUR: (state: ReduxState, action: ReduxAction) => {
         return { ...state, preferences: { ...state.preferences, blur: action.data } };
+    },
+
+    SET_PREFERENCES_VOLUME: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, preferences: { ...state.preferences, volume: action.data } };
     },
 
     SET_FILTER_SEARCH_TERM: (state: ReduxState, action: ReduxAction) => {

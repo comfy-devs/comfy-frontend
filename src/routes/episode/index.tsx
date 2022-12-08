@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Text } from "preact-i18n";
 /* Redux */
 import { connect } from "react-redux";
+import { Link } from "preact-router/match";
 import { mapState, mapDispatch } from "../../redux/util";
 import * as actions from "../../redux/actions";
 /* Styles */
@@ -15,14 +16,7 @@ import { EncodePresetMapping } from "../../ts/common/const";
 
 const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConnectedProps) => {
     const episode = props.episodes.get(props.id);
-    const anime = props.animes.get(episode ? episode.anime : "");
-    const episodes = Array.from(props.episodes.values())
-        .filter((e) => {
-            return e.anime === anime?.id;
-        })
-        .sort((b, a) => {
-            return b.pos - a.pos;
-        });
+    const anime = episode ? props.animes.get(episode.anime) : undefined;
     const segments = Array.from(props.segments.values())
         .filter((e) => {
             return e.episode === episode?.id;
@@ -35,6 +29,7 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
             return e.episode === episode?.id;
         });
     const encode = encodes.find(e => e.preset === EncodePresetMapping[props.playerData.preset]);
+    const hasVP9 = encodes.some(e => e.preset === EncodePresetMapping.VP9);
 
     /* API calls */
     useEffect(() => {
@@ -43,17 +38,13 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
         props.actions.fetchEpisodeEncodes(props.id);
     }, [props.actions, props.id]);
     useEffect(() => {
-        if(episode !== undefined) {
+        if(episode !== undefined && anime === undefined) {
             props.actions.fetchAnime(episode.anime);
-            props.actions.fetchAnimeEpisodes(episode.anime);
         }
-    }, [episode, props.actions]);
+    }, [episode, anime, props.actions]);
     useEffect(() => {
-        const hasVP9 = encodes.some(e => e.preset === EncodePresetMapping.VP9);
-        if(hasVP9) {
-            // props.actions.setPlayerPreset("VP9");
-        }
-    }, [encodes.length, props.actions]);
+        props.actions.setPlayerPreset(hasVP9 ? "VP9" : "X264");
+    }, [hasVP9, props.actions, props.id]);
     if (episode === undefined || anime === undefined) {
         return null;
     }
@@ -75,11 +66,11 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
                     </div>
                     <div className={style["episode-overview-separator"]} />
                     <div className={style["episode-overview-episodes"]}>
-                        {episodes.map((e, i) => {
+                        {new Array(anime.episodes).fill(null).map((e, i) => {
                             return (
-                                <a key={i} href={`/episodes/${e.id}`} className={style["episode-overview-episodes-item"]} data={e.id === props.id ? "true" : "false"}>
+                                <Link key={i} href={`/episodes/${anime.id}-${i}`} className={style["episode-overview-episodes-item"]} activeClassName={style["episode-overview-episodes-item-active"]}>
                                     {i + 1}
-                                </a>
+                                </Link>
                             );
                         })}
                     </div>

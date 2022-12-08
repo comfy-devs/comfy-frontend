@@ -134,17 +134,17 @@ export function registerSuccess(user: User): ReduxAction {
 export function fetchPreferences(): ReduxAction {
     return getAction("FETCH_PREFERENCES", {});
 }
-
 export function setPreferencesTheme(theme: PreferencesTheme): ReduxAction {
     return getAction("SET_PREFERENCES_THEME", theme);
 }
-
 export function setPreferencesTorrent(torrent: boolean): ReduxAction {
     return getAction("SET_PREFERENCES_TORRENT", torrent);
 }
-
 export function setPreferencesBlur(blur: boolean): ReduxAction {
     return getAction("SET_PREFERENCES_BLUR", blur);
+}
+export function setPreferencesVolume(volume: number): ReduxAction {
+    return getAction("SET_PREFERENCES_VOLUME", volume);
 }
 
 /* Notifications */

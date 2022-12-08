@@ -2,7 +2,7 @@
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
 import { getImageEndpoint } from "../../scripts/api/api";
-import { episodeLocationToURL } from "../../scripts/nyan/constants";
+import { secondsToString } from "../../scripts/nyan/util";
 import { AnimeRatingMapping } from "../../ts/common/const";
 /* Styles */
 import style from "./style.scss";
@@ -31,8 +31,13 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
                     className={style["episode-thumbnail"]}
                     data={props.parent.rating !== AnimeRatingMapping.R || !props.preferences.blur ? undefined : "blur"}
                 />
+                <div className={style["episode-extra-wrapper"]}>
+                    <div className={style["episode-extra-wrapper-text"]}>
+                        {secondsToString(props.item.duration)}
+                    </div>
+                </div>
                 {props.disabled === false ? (
-                    <a href={`/episodes/${props.item.id}`} className={style["episode-overlay"]}>
+                    <a href={`/episodes/${props.item.id}`} className={style["episode-overlay"]} data="hover">
                         <div className={style["icon-play"]} />
                     </a>
                 ) : null}
@@ -56,22 +61,9 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
                     <a href={`/episodes/${props.item.id}`} className={style["episode-button"]}>
                         <Text id="anime.episode.play" />
                     </a>
-                    <div
-                        onClick={() => {
-                            if (props.item === undefined) {
-                                return;
-                            }
-
-                            const e = document.createElement("a");
-                            e.setAttribute("href", `${episodeLocationToURL(props.parent.location)}/${props.item.anime}/${props.item.pos}/ep_low.mp4`);
-                            e.setAttribute("download", `${props.parent.title.replace(/[^a-zA-Z0-9 ]/g, "").replace(" ", "_")}_${String(props.item.pos).padStart(3, "0")}_1080p`);
-                            e.setAttribute("target", "_blank");
-                            e.click();
-                            e.remove();
-                        }}
-                        className={style["episode-button"]}>
-                        <Text id="anime.episode.download" />
-                    </div>
+                    <a className={style["episode-button"]}>
+                        <Text id="anime.episode.watchLater" />
+                    </a>
                 </div>
             </div>
         </div>

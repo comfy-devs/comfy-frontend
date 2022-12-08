@@ -48,20 +48,20 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
         <div className={baseStyle["page-content"]}>
             {props.user !== undefined ?
                 <div className={style["topic-group"]}>
-                    <Topic dimensions={props.dimensions} title={props.dictionary.home === undefined ? "" : props.dictionary.home.favourites} icon="favourites" small={false} items={favouritesSet} preferences={props.preferences} />
+                    <Topic dimensions={props.dimensions} title={props.dictionary.home?.favourites} icon="favourites" small={false} items={favouritesSet} preferences={props.preferences} />
                 </div> : undefined
             }
             <div className={style["topic-group"]}>
-                <Topic dimensions={props.dimensions} title={props.dictionary.home === undefined ? "" : props.dictionary.home.airing} icon="airing" small={false} items={airingSet} preferences={props.preferences} />
+                <Topic dimensions={props.dimensions} title={props.dictionary.home?.airing} icon="airing" small={false} items={airingSet} preferences={props.preferences} />
             </div>
             <div className={style["topics-separator"]} />
             <div className={style["topic-group"]}>
-                <Topic dimensions={props.dimensions} title={props.dictionary.home === undefined ? "" : props.dictionary.home.soon} icon="soon" small={true} extra={1} items={soonSet} preferences={props.preferences} />
-                <Topic dimensions={props.dimensions} title={props.dictionary.home === undefined ? "" : props.dictionary.home.latest} icon="latest" small={true} extra={0} items={latestSet} preferences={props.preferences} />
+                <Topic dimensions={props.dimensions} title={props.dictionary.home?.soon} icon="soon" small={true} extra={1} items={soonSet} preferences={props.preferences} />
+                <Topic dimensions={props.dimensions} title={props.dictionary.home?.latest} icon="latest" small={true} extra={0} items={latestSet} preferences={props.preferences} />
             </div>
             <div className={style["topics-separator"]} />
             <div className={style["topic-group"]}>
-                <Topic dimensions={props.dimensions} title={props.dictionary.home === undefined ? "" : props.dictionary.home.random} icon="random" small={false} items={randomSet} preferences={props.preferences} />
+                <Topic dimensions={props.dimensions} title={props.dictionary.home?.random} icon="random" small={false} items={randomSet} preferences={props.preferences} />
             </div>
             <div className={style["topics-separator"]} />
         </div>

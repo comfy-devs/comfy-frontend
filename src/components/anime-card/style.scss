@@ -14,21 +14,15 @@
 .anime {
 	display: inline-block;
 	position: relative;
-	height: 290px;
-	width: 200px;
-	overflow: hidden;
+	height: 300px;
+	width: 210px;
 	border-radius: 15px;
-	background-color: var(--color-primary-light-a);
+	overflow: hidden;
+	background-color: var(--color-primary-light);
 	cursor: pointer;
 }
 .anime[data="alt"] {
-	position: relative;
-	height: 290px;
-	width: 200px;
-	overflow: hidden;
-	border-radius: 15px;
-	background-color: var(--color-primary-light-a);
-	cursor: pointer;
+	display: block;
 }
 
 .anime-title-wrapper {
@@ -38,10 +32,10 @@
 	bottom: 0px;
 	width: 100%;
 	height: 40px;
-	background-color: var(--color-primary-light-d);
+	background-color: var(--color-background);
 }
 .anime-title {
-	color: var(--color-text-primary);
+	color: var(--color-secondary-text);
 	font-size: 14px;
 }
 
@@ -58,7 +52,8 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	color: var(--color-primary-light-a);
+	color: var(--color-background);
+	border-radius: 18px;
 }
 .anime-thumbnail[data="blur"] {
 	filter: blur(5px);
@@ -69,7 +64,7 @@
 	bottom: 45px;
 	right: 10px;
 	padding: 5px 10px 5px 10px;
-	background-color: var(--color-primary-light-d);
+	background-color: var(--color-background);
 	border-radius: 5px;
 }
 .anime-extra-text {

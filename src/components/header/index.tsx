@@ -8,12 +8,12 @@ import style from "./style.scss";
 const Header: FunctionalComponent<HeaderConnectedProps> = (props: HeaderConnectedProps) => {
     return (
         <div className={style.header}>
-            <div className={style["header-section-0"]}>
+            <a href="/" className={style["header-section-0"]}>
                 <img alt="logo" src={"/assets/icons/icon-32x32.webp"} className={style["header-icon"]} />
-                <a href="/" className={style["header-title"]}>
+                <div className={style["header-title"]}>
                     <Text id="general.name" />
-                </a>
-            </div>
+                </div>
+            </a>
             <div className={style["header-section-1"]}>
                 <a href="https://discord.gg/nVDpxcDsJR" className={style["icon-discord"]} target="_blank" rel="noreferrer" />
                 <a href="https://github.com/nyananime-devs" className={style["icon-github"]} target="_blank" rel="noreferrer" />

@@ -14,7 +14,7 @@ const Topic: FunctionalComponent<TopicConnectedProps> = (props: TopicConnectedPr
         infinite: false,
         swipeToSlide: true,
         speed: 300,
-        slidesToShow: Math.min(props.small ? (props.dimensions.w > 1500 ? (props.dimensions.w - 80) / 2 / 210 : (props.dimensions.w - 40) / 210) : (props.dimensions.w - 40) / 210, wantedItems),
+        slidesToShow: Math.min(props.small ? (props.dimensions.w > 1500 ? (props.dimensions.w - 80) / 2 / 220 : (props.dimensions.w - 40) / 220) : (props.dimensions.w - 40) / 220, wantedItems),
         slidesToScroll: 2,
     };
 
@@ -44,9 +44,9 @@ const Topic: FunctionalComponent<TopicConnectedProps> = (props: TopicConnectedPr
             </div>
             <Slider {...sliderSettings} className={style["topic-previews"]} ref={sliderRef}>
                 {props.items.map((e, i) => {
-                    return <AnimeCard key={i} item={e} extra={topicExtraToDisplayName(e, props.extra)} preferences={props.preferences} />;
+                    return <AnimeCard alt key={i} item={e} extra={topicExtraToDisplayName(e, props.extra)} preferences={props.preferences} />;
                 })}
-                {props.items.length < wantedItems ? new Array(wantedItems - props.items.length).fill(null).map((e, i) => <AnimeCard key={i} preferences={props.preferences} />) : null}
+                {props.items.length < wantedItems ? new Array(wantedItems - props.items.length).fill(null).map((e, i) => <AnimeCard alt key={i} preferences={props.preferences} />) : null}
             </Slider>
         </div>
     );

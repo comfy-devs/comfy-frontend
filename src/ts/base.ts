@@ -10,6 +10,7 @@ type AppPreferences = {
     lang: string;
     developer: boolean;
     blur: boolean;
+    volume: number;
 };
 type Dimensions = {
     w: number;
