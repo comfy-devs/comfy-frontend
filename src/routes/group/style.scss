@@ -6,22 +6,23 @@
 
 %align-center {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 /* Content */
 .group {
 	display: flex;
-	flex-direction: column;
 	width: 100%;
     min-height: calc(100vh - var(--header-height) - var(--subheader-height) - var(--footer-height));
-	grid-gap: 20px;
+	flex-direction: column;
 	padding: 20px;
+	grid-gap: 20px;
 }
 
 .group-title-wrapper {
     @extend %align-center;
+
     flex-direction: column;
 }
 
@@ -39,8 +40,8 @@
 
 .group-previews {
 	@extend %align-center;
-	grid-gap: 10px;
 
-	width: 100%;
 	overflow: hidden;
+	width: 100%;
+	grid-gap: 10px;
 }

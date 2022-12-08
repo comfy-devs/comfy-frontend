@@ -9,9 +9,9 @@
 
 .topics-separator {
 	display: flex;
+	width: 90%;
 	height: 2px;
 	margin-top: 20px;
-	background-color: var(--color-background);
-	width: 90%;
 	margin-left: 10%;
+	background-color: var(--color-background);
 }

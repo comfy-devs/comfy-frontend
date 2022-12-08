@@ -6,13 +6,14 @@
 
 %align-center {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 /* Content */
 .episode-overview {
 	@extend %align-center;
+
 	flex-direction: column;
 	padding-top: 40px;
 	padding-bottom: 20px;
@@ -21,41 +22,43 @@
 
 .episode-overview-title {
 	display: flex;
+	color: var(--color-primary-text);
+	font-size: 19px;
 	white-space: pre-wrap;
 
 	@media screen and (max-width: 500px) {
-		align-items: center;
 		flex-direction: column;
+		align-items: center;
 	}
-
-	color: var(--color-primary-text);
-	font-size: 19px;
 }
+
 .episode-overview-title-highlight {
 	color: var(--color-secondary-text);
 }
 
 .episode-overview-subtitle {
 	display: flex;
-	white-space: pre-wrap;
-
 	color: var(--color-primary-text);
 	font-size: 16px;
+	white-space: pre-wrap;
 }
+
 .episode-overview-subtitle-highlight {
 	color: var(--color-secondary-text);
 }
 
 .episode-overview-extra {
 	@extend %align-center;
+
 	flex-direction: column;
 	grid-gap: 3px;
 }
 
 .episode-overview-episodes {
 	@extend %align-center;
-	flex-wrap: wrap;
+
 	width: 310px;
+	flex-wrap: wrap;
 	margin-top: 10px;
 	grid-gap: 10px;
 }
@@ -65,17 +68,20 @@
 
 	width: 70px;
 	height: 30px;
+	border-radius: 5px;
 	background-color: var(--color-background);
 	color: var(--color-secondary);
-	border-radius: 5px;
 	cursor: pointer;
 }
+
 .episode-overview-episodes-item:hover {
 	background-color: var(--color-primary-light);
 }
+
 .episode-overview-episodes-item:active {
 	background-color: var(--color-primary-dark);
 }
+
 .episode-overview-episodes-item-active {
 	border: 1px solid var(--color-secondary);
 	background-color: var(--color-primary);

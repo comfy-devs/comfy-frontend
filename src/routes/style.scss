@@ -7,28 +7,31 @@
 /* Content */
 .page {
     display: flex;
-    flex-direction: column;
     min-height: calc(100vh - var(--header-height) - var(--subheader-height));
+    flex-direction: column;
     background-color: var(--color-primary);
 }
 
 .page-content {
     display: flex;
-    flex-direction: column;
     width: 100%;
     min-height: calc(100vh - var(--header-height) - var(--subheader-height) - var(--footer-height));
+    flex-direction: column;
     grid-gap: 10px;
 }
+
 .page-content[data="no-padding"] {
-    padding: 0px;
+    padding: 0;
 }
 
 .page-header {
     @extend %align-y;
+
     height: 32px;
     grid-gap: 10px;
 }
+
 .page-title {
-    font-size: 30px;
     color: var(--color-secondary-text);
+    font-size: 30px;
 }

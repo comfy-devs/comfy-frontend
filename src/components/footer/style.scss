@@ -1,17 +1,17 @@
 /* Macros */
 %align-center {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 /* Content */
 .footer {
 	@extend %align-center;
-	flex-direction: column;
 
 	width: 100%;
 	height: var(--footer-height);
+	flex-direction: column;
 	background-color: var(--color-background);
 	color: white;
 	font-size: 12px;

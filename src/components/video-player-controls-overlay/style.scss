@@ -6,21 +6,21 @@
 
 %align-center {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 /* Content */
 .video-controls-overlay {
+	position: absolute;
+	top: 20px;
+    left: 20px;
 	display: flex;
     flex-direction: column;
-	position: absolute;
-    left: 20px;
-	top: 20px;
-    background-color: var(--color-background);
-    opacity: 0.8;
     padding: 12px;
     border-radius: 3px;
+    background-color: var(--color-background);
+    opacity: 0.8;
 	pointer-events: none;
 }
 
@@ -28,6 +28,7 @@
     color: white;
     font-size: 13px;
 }
+
 .video-controls-overlay-text-highlight {
     color: #adff4b;
 }

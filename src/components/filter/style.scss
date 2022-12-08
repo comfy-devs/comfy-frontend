@@ -1,24 +1,24 @@
 /* Macros */
 %align-center {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 /* Content */
 .filter-wrapper {
 	position: relative;
-
-	background-color: var(--color-background);
-	border: 0;
-	padding: 0;
 	width: 150px;
 	height: 35px;
+	padding: 0;
+	border: 0;
 	border-radius: 10px;
+	background-color: var(--color-background);
 }
 
 .filter {
 	@extend %align-center;
+
 	width: calc(100% - 4px);
 	height: calc(100% - 4px);
 	padding: 2px;
@@ -30,6 +30,7 @@
 	font-size: 13px;
 	white-space: pre-wrap;
 }
+
 .filter-value {
 	color: var(--color-primary-text);
 	font-size: 12px;
@@ -38,29 +39,32 @@
 .filter-items-wrapper {
 	position: absolute;
 	display: flex;
-	visibility: hidden;
-	border-radius: 10px;
 	overflow: hidden;
+	border-radius: 10px;
 	margin-top: 10px;
+	visibility: hidden;
 }
 .filter-wrapper:focus .filter-items-wrapper { visibility: visible; }
 
 .filter-items {
-	width: 150px;
 	z-index: 4;
+	width: 150px;
 	background-color: var(--color-primary-light);
 }
 
 .filter-item {
 	@extend %align-center;
+
 	height: 25px;
 	color: var(--color-secondary-text);
-	font-size: 11px;
 	cursor: pointer;
+	font-size: 11px;
 }
+
 .filter-item[data="active"] {
 	color: var(--color-primary-text);
 }
+
 .filter-item:hover {
 	background-color: var(--color-primary-dark);
 }
