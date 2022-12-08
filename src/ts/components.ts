@@ -69,6 +69,8 @@ type VideoPlayerControlsConnectedProps = {
     preferences: AppPreferences;
     video: HTMLVideoElement | null;
     timelineTooltip: HTMLElement | null;
+    timelineText: HTMLElement | null;
+    timelineCanvas: HTMLCanvasElement | null;
 
     playerData: PlayerData;
     actions: ConnectedActions;

@@ -15,20 +15,28 @@ import { SegmentTypeMapping } from "../../ts/common/const";
 class VideoPlayer extends Component<VideoPlayerConnectedProps> {
     video: HTMLVideoElement | null = null;
     timelineTooltip: HTMLElement | null = null;
+    timelineText: HTMLElement | null = null;
+    timelineCanvas: HTMLCanvasElement | null = null;
     setVideoRef: any;
     setTimelineTooltipRef: any;
+    setTimelineTextRef: any;
+    setTimelineCanvasRef: any;
     keyCallbackBinded: any;
 
     constructor(props: VideoPlayerConnectedProps) {
         super(props);
 
         this.setVideoRef = (e: HTMLVideoElement | null) => {
-            this.video = e;
-            this.forceUpdate();
+            this.video = e; this.forceUpdate();
         };
         this.setTimelineTooltipRef = (e: HTMLElement | null) => {
-            this.timelineTooltip = e;
-            this.forceUpdate();
+            this.timelineTooltip = e; this.forceUpdate();
+        };
+        this.setTimelineTextRef = (e: HTMLElement | null) => {
+            this.timelineText = e; this.forceUpdate();
+        };
+        this.setTimelineCanvasRef = (e: HTMLCanvasElement | null) => {
+            this.timelineCanvas = e; this.forceUpdate();
         };
         this.keyCallbackBinded = this.keyCallback.bind(this);
     }
@@ -158,6 +166,8 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     playerData={this.props.playerData}
                     video={this.video}
                     timelineTooltip={this.timelineTooltip}
+                    timelineText={this.timelineText}
+                    timelineCanvas={this.timelineCanvas}
                     item={this.props.item}
                     encode={this.props.encode}
                     parent={this.props.parent}
@@ -165,7 +175,10 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     preferences={this.props.preferences}
                     actions={this.props.actions}
                 />
-                <div ref={this.setTimelineTooltipRef} className={style["episode-timeline-tooltip"]} />
+                <div ref={this.setTimelineTooltipRef} className={style["episode-timeline-tooltip"]}>
+                    <canvas className={style["episode-timeline-tooltip-canvas"]} ref={this.setTimelineCanvasRef} id="canvas" width={192} height={108} />
+                    <div className={style["episode-timeline-tooltip-text"]} ref={this.setTimelineTextRef}>0:00</div>
+                </div>
                 {!this.props.playerData.opNotification || currentSegment.item === null || currentSegment.item.type !== SegmentTypeMapping.OP ? null : (
                     <VideoPlayerNotification type={"OP"} segment={currentSegment} video={this.video} actions={this.props.actions} />
                 )}

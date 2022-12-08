@@ -39,12 +39,24 @@
 	@extend %align-center;
 
 	position: absolute;
-	bottom: 54px;
+	bottom: 55px;
+	display: flex;
+	flex-direction: column;
+	grid-gap: 2px;
+	visibility: hidden;
+}
+
+.episode-timeline-tooltip-canvas {
+	border: 2px solid white;
+	border-radius: 2px;
+}
+
+.episode-timeline-tooltip-text {
+	@extend %align-center;
+
 	height: 32px;
-	padding: 0 15px;
 	border-radius: 10px;
-	background-color: var(--color-primary);
 	color: var(--color-secondary-text);
 	font-size: 14px;
-	visibility: hidden;
+	text-shadow: 0 0 10px black;
 }

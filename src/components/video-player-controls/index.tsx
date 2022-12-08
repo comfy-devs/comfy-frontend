@@ -10,6 +10,7 @@ import style from "./style.scss";
 import VideoPlayerControlsOverlay from "../video-player-controls-overlay";
 import VideoPlayerControlsDev from "../video-player-controls-dev";
 import { AnimeTagMapping, SegmentTypeMapping } from "../../ts/common/const";
+import { updateCanvas } from "./timeline";
 
 const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps> = (props: VideoPlayerControlsConnectedProps) => {
     const [segments, setSegments] = useState(props.segments);
@@ -91,7 +92,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             props.timelineTooltip.style.visibility = "visible";
                         }}
                         onMouseMove={(e) => {
-                            if (props.video === null || isNaN(props.video.duration) || props.timelineTooltip === null) {
+                            if (props.video === null || isNaN(props.video.duration) || props.timelineTooltip === null || props.timelineText === null) {
                                 return;
                             }
                             const rect = e.currentTarget.getBoundingClientRect();
@@ -99,9 +100,10 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             props.timelineTooltip.style.left = `calc(${value * 100}% - ${Math.round(props.timelineTooltip.getBoundingClientRect().width / 2)}px)`;
 
                             const segment = findSegmentForTimestamp(segments, value * props.video.duration);
-                            props.timelineTooltip.innerText = `${secondsToString(Math.round(props.video.duration * value))} ${
+                            props.timelineText.innerText = `${secondsToString(Math.round(props.video.duration * value))} ${
                                 segment.item === null || segment.item.type === SegmentTypeMapping.EPISODE ? "" : `(${segment.item.type === SegmentTypeMapping.OP ? "OP" : "ED"})`
                             }`;
+                            updateCanvas(props.item, props.video, props.timelineCanvas, value * props.video.duration);
                         }}
                         onMouseLeave={() => {
                             if (props.timelineTooltip === null) {

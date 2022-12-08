@@ -43,7 +43,7 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
         }
     }, [episode, anime, props.actions]);
     useEffect(() => {
-        props.actions.setPlayerPreset(hasVP9 ? "VP9" : "X264");
+        // props.actions.setPlayerPreset(hasVP9 ? "VP9" : "X264");
     }, [hasVP9, props.actions, props.id]);
     if (episode === undefined || anime === undefined) {
         return null;
