@@ -39,6 +39,7 @@ type Episode = {
     title: string;
     duration: number;
     views: number;
+    subtitles: string[];
 };
 
 type EncodePreset = "X264" | "VP9";

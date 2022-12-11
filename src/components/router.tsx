@@ -24,8 +24,8 @@ const AppRouter: FunctionalComponent<any> = (props: AppConnectedProps) => {
                 session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
             <Download path="/download" session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
             <Status path="/status" session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
-            <Login path="/login" session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
-            <Register path="/register" session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
+            <Login path="/login" session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} authResult={props.authResult} />
+            <Register path="/register" session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} authResult={props.authResult} />
             <Anime path="/animes/:id" id="" animes={props.animes} episodes={props.episodes} user={props.user}
                 session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
             <Group path="/groups/:id" id="" dimensions={props.dimensions} animes={props.animes} groups={props.groups}

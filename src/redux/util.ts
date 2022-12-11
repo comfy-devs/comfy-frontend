@@ -9,15 +9,16 @@ export const INITIAL: ReduxState = {
     episodes: new Map(),
     encodes: new Map(),
     segments: new Map(),
-    stats: { size: 0, ammount: 0 },
+    stats: { id: "default", size: 0, files: 0 },
     random: Math.floor(Math.random() * 1000000),
-    preferences: { theme: "dark", torrent: false, lang: "en", developer: false, blur: true },
+    preferences: { theme: "dark", torrent: false, lang: "en", developer: false, blur: true, volume: 50 },
     filterData: { page: 0, searchTerm: "", genres: null, year: null, type: null, status: null, sort: "TITLE_ASC", tags: null, items: 100, group: "NO" },
     playerData: {
         state: "WAITING", preset: "X264", theater: false, subs: true,
         opNotification: true, edNotification: true, overlay: true,
         manifest: { levels: [], subtitles: [] }, manifestLevel: 0, bandwith: 0
-    }
+    },
+    authResult: "NONE"
 };
 
 export enum ResourceType {

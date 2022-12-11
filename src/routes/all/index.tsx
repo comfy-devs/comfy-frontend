@@ -123,7 +123,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                     <div className={style["all-filters-chunk-wrapper"]}>
                         <Localizer>
                             <input
-                                placeholder={props.dictionary.all.search}
+                                placeholder={props.dictionary.all?.search}
                                 className={style["all-filter-search"]}
                                 onChange={(e) => {
                                     props.actions.setFilterSearchTerm(e.currentTarget.value);

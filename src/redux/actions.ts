@@ -10,8 +10,8 @@ export function setDimensions(w: number, h: number): ReduxAction {
 }
 
 /* Users */
-export function createUser(create: UserCreate): ReduxAction {
-    return getAction("CREATE_USER", create);
+export function createUser(username: string, password: string): ReduxAction {
+    return getAction("CREATE_USER", { username, password });
 }
 export function createUserSuccess(user: User): ReduxAction {
     return getAction("CREATE_USER_SUCCESS", user);
@@ -21,6 +21,17 @@ export function fetchUser(id: string): ReduxAction {
 }
 export function fetchUserSuccess(user: User): ReduxAction {
     return getAction("FETCH_USER_SUCCESS", user);
+}
+
+/* Sessions */
+export function createSession(type: "classic" | "token", username?: string, password?: string): ReduxAction {
+    return getAction("CREATE_SESSION", { type, username, password });
+}
+export function createSessionSuccess(type: "classic" | "token", session: Session): ReduxAction {
+    return getAction("CREATE_SESSION_SUCCESS", { type, session });
+}
+export function deleteSession(): ReduxAction {
+    return getAction("DELETE_SESSION", {});
 }
 
 /* Animes */
@@ -122,19 +133,21 @@ export function loginToken(): ReduxAction {
 export function loginSuccess(session: Session): ReduxAction {
     return getAction("LOGIN_SUCCESS", session);
 }
-
 export function register(username: string, password: string): ReduxAction {
     return getAction("REGISTER", { username, password });
 }
 export function registerSuccess(user: User): ReduxAction {
     return getAction("REGISTER_SUCCESS", user);
 }
+export function setAuthResult(result: AuthResult): ReduxAction {
+    return getAction("SET_AUTH_RESULT", result);
+}
 
 /* Preferences */
 export function fetchPreferences(): ReduxAction {
     return getAction("FETCH_PREFERENCES", {});
 }
-export function setPreferencesTheme(theme: PreferencesTheme): ReduxAction {
+export function setPreferencesTheme(theme: "dark" | "light"): ReduxAction {
     return getAction("SET_PREFERENCES_THEME", theme);
 }
 export function setPreferencesTorrent(torrent: boolean): ReduxAction {
@@ -168,13 +181,6 @@ export function favourite(id: string): ReduxAction {
 }
 export function favouriteSuccess(user: User | undefined): ReduxAction {
     return getAction("FAVOURITE_SUCCESS", user);
-}
-
-export function unfavourite(id: string): ReduxAction {
-    return getAction("UNFAVOURITE", id);
-}
-export function unfavouriteSuccess(user: User | undefined): ReduxAction {
-    return getAction("UNFAVOURITE_SUCCESS", user);
 }
 
 /* Filters */
@@ -254,18 +260,4 @@ export function setPlayerManifestSubtitles(tracks: PlayerManifestTrack[]): Redux
 }
 export function setPlayerManifestLevel(level: number): ReduxAction {
     return getAction("SET_PLAYER_MANIFEST_LEVEL", level);
-}
-
-/* Auth */
-export function setAuthUsername(username: string): ReduxAction {
-    return getAction("SET_AUTH_USERNAME", username);
-}
-export function setAuthPassword(password: string): ReduxAction {
-    return getAction("SET_AUTH_PASSWORD", password);
-}
-export function setAuthPassword2(password: string): ReduxAction {
-    return getAction("SET_AUTH_PASSWORD_2", password);
-}
-export function setAuthResult(result: AuthResult): ReduxAction {
-    return getAction("SET_AUTH_RESULT", result);
 }

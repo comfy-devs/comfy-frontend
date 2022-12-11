@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Text } from "preact-i18n";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import { AnimeGenreMapping, AnimeStatusMapping, AnimeTagMapping } from "../../ts/common/const";
+import { AnimeGenreMapping, AnimeTagMapping } from "../../ts/common/const";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
@@ -74,11 +74,7 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                 <div className={style["anime-overview-title-wrapper"]}>
                     <div className={style["anime-overview-favourite"]} data={props.user === null ? "not-logged-in" : (props.user.favourites.includes(anime.id) ? "true" : "false")} onClick={() => {
                         if(props.user === null) { return; }
-                        if(props.user.favourites.includes(anime.id)) {
-                            props.actions.unfavourite(anime.id);
-                        } else {
-                            props.actions.favourite(anime.id);
-                        }
+                        props.actions.favourite(anime.id);
                     }}>
                         <div className={style["anime-overview-favourite-tooltip"]}>
                             <Text id={`anime.favourite.tooltip.${props.user === null ? "notLoggedIn" : props.user.favourites.includes(anime.id) ? "true" : "false"}`} />
@@ -117,6 +113,13 @@ const Anime: FunctionalComponent<AnimeConnectedProps> = (props: AnimeConnectedPr
                             <div className={style["icon-episodes"]} />
                             <Text id="anime.episodes" />
                             <span className={style["anime-overview-data-field-highlight"]}>{anime.episodes}</span>
+                        </div>
+                        <div className={style["anime-overview-data-field"]}>
+                            <div className={style["icon-rating"]} />
+                            <Text id="anime.rating" />
+                            <span className={style["anime-overview-data-field-highlight"]}>
+                                <Text id={`enum.animeRating.${anime.rating}`} />
+                            </span>
                         </div>
                         <div className={style["anime-overview-data-separator"]} />
                         <div className={style["anime-overview-data-field"]}>

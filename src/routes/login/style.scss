@@ -37,31 +37,18 @@
 }
 
 .auth-button {
-	@extend %align-center;
-
-	width: 315px;
-	height: 35px;
-	border-radius: 10px;
-	background-color: var(--color-primary-light);
-	cursor: pointer;
-}
-
-.auth-button:hover {
-	background-color: var(--color-primary-light-b);
-}
-
-.auth-button-title {
-	color: var(--color-secondary-text);
-	font-size: 13px;
+    width: 200px;
+    margin-top: 10px;
 }
 
 .auth-link {
 	margin-top: 10px;
-	color: var(--color-primary-text);
+	color: var(--color-link);
 	font-size: 15px;
 }
 
 .auth-result-text {
-	color: var(--color-secondary);
-	font-size: 15px;
+	color: var(--color-primary-text);
+	font-size: 14px;
+	margin-top: 2px;
 }

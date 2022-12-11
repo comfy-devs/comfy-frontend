@@ -12,6 +12,7 @@ type AppPreferences = {
     blur: boolean;
     volume: number;
 };
+type AuthResult = "NONE" | "USERNAME_TOO_SHORT" | "PASSWORD_TOO_SHORT" | "PASSWORD_NO_MATCH" | "NOT_FOUND" | "NOT_AUTHORIZED" | "USER_TAKEN";
 type Dimensions = {
     w: number;
     h: number;

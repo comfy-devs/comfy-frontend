@@ -28,6 +28,10 @@
 	width: 355px;
 	height: 100%;
 	background-color: var(--color-background);
+
+	@media screen and (max-width: 500px) {
+		width: 100%;
+	}
 }
 
 .episode-thumbnail {
@@ -63,6 +67,8 @@
 
 .episode-extra-wrapper {
 	position: absolute;
+	display: flex;
+	grid-gap: 10px;
 	right: 10px;
 	bottom: 10px;
 	padding: 5px 10px;
@@ -71,8 +77,22 @@
 }
 
 .episode-extra-wrapper-text {
+	@extend %align-center;
 	color: var(--color-link);
-	font-size: 13px
+	font-size: 13px;
+}
+.episode-extra-wrapper-text[data="episode"],
+.episode-extra-wrapper-text[data="details"] {
+	display: none;
+	color: var(--color-secondary-text);
+	@media screen and (max-width: 500px) {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+.episode-extra-wrapper-text[data="details"] {
+	color: var(--color-primary-text);
 }
 
 .episode-data-wrapper {
@@ -80,6 +100,10 @@
 	flex-direction: column;
 	padding: 20px;
 	grid-gap: 6px;
+
+	@media screen and (max-width: 500px) {
+		display: none;
+	}
 }
 
 .episode-title-wrapper {

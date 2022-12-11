@@ -59,5 +59,8 @@ type GroupRouteConnectedProps = RouteProps & {
     id: string;
 };
 
-type LoginConnectedProps = RouteProps;
-type RegisterConnectedProps = RouteProps;
+type AuthConnectedProps = RouteProps & {
+    authResult: AuthResult;
+};
+type LoginConnectedProps = AuthConnectedProps;
+type RegisterConnectedProps = AuthConnectedProps;

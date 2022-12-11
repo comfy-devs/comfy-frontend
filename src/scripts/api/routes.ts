@@ -1,20 +1,25 @@
 /* Types */
-import { fetchResource, post, sendDelete, fetchResources, createResource } from "./api";
+import { fetchResource, post, sendDelete, fetchResources } from "./api";
 
-export async function createUser(create: UserCreate): Promise<User | undefined> {
-    return await createResource("/users", create);
+export async function createUser(username: string, password: string): Promise<User | 403> {
+    const response: APIResponse = await post({ path: "/users/create", body: { username, password } });
+    if (response.status !== 200) {
+        return response.status as 403;
+    }
+
+    return response.body;
 }
 export async function fetchUser(id: string): Promise<User | undefined> {
     return await fetchResource("/users", id);
 }
 
-export async function createSession(type: string, username?: string, password?: string): Promise<Session | undefined> {
-    const response: APIResponse = await post({ path: "/sessions/create", body: JSON.stringify({ type, username, password }) });
+export async function createSession(type: "classic" | "token", username?: string, password?: string): Promise<Session | 404 | 401> {
+    const response: APIResponse = await post({ path: "/sessions/create", body: { type, username, password } });
     if (response.status !== 200) {
-        return undefined;
+        return response.status as 404 | 401;
     }
     if(type === "classic") {
-        location.href = "/overview";
+        location.href = "/";
     }
 
     return response.body;
@@ -84,15 +89,7 @@ export async function pushUnsubscribe(): Promise<number> {
 }
 
 export async function favourite(id: string): Promise<User | undefined> {
-    const response: APIResponse = await post({ path: `/animes/favourite?id=${id}`, body: {} });
-    if (response.status !== 200) {
-        return undefined;
-    }
-
-    return response.body;
-}
-export async function unfavourite(id: string): Promise<User | undefined> {
-    const response: APIResponse = await post({ path: `/animes/unfavourite?id=${id}`, body: {} });
+    const response: APIResponse = await post({ path: "/animes/favourite", body: { id } });
     if (response.status !== 200) {
         return undefined;
     }

@@ -29,7 +29,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
     useEffect(() => {
         props.actions.fetchStats();
         props.actions.fetchPreferences();
-        props.actions.loginToken();
+        props.actions.createSession("token");
 
         props.actions.setDimensions(window.innerWidth, window.innerHeight);
         window.addEventListener("resize", () => {

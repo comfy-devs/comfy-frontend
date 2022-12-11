@@ -17,17 +17,19 @@ const Header: FunctionalComponent<HeaderConnectedProps> = (props: HeaderConnecte
             <div className={style["header-section-1"]}>
                 <a href="https://discord.gg/nVDpxcDsJR" className={style["icon-discord"]} target="_blank" rel="noreferrer" />
                 <a href="https://github.com/nyananime-devs" className={style["icon-github"]} target="_blank" rel="noreferrer" />
-                <div className={style["header-button"]}>
-                    {props.user === null ? (
-                        <Link href="/login" className={style["header-button-title"]}>
+                {props.user === null ? (
+                    <Link className={style["header-button"]} href="/login" >
+                        <div className={style["header-button-title"]}>
                             <Text id="general.login" />
-                        </Link>
-                    ) : (
-                        <Link href="/account" className={style["header-button-title"]}>
+                        </div>
+                    </Link>
+                ) : (
+                    <Link className={style["header-button"]} href="/account">
+                        <div className={style["header-button-title"]}>
                             {props.user.username}
-                        </Link>
-                    )}
-                </div>
+                        </div>
+                    </Link>
+                )}
             </div>
         </div>
     );

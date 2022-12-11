@@ -1,6 +1,5 @@
 /* Redux */
 import { createStore, applyMiddleware } from "redux";
-import { ReduxAction, ReduxState } from "../ts/redux";
 import { REDUCERS, ASYNC_REDUCERS } from "./reducers";
 import { INITIAL } from "./util";
 

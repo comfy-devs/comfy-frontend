@@ -1,5 +1,7 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { useEffect, useState } from "react";
+import Button from "../../components/ui/button";
 import { Link } from "preact-router";
 import { Text, Localizer } from "preact-i18n";
 /* Redux */
@@ -11,6 +13,13 @@ import baseStyle from "../style.scss";
 import style from "./style.scss";
 
 const Register: FunctionalComponent<RegisterConnectedProps> = (props: RegisterConnectedProps) => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordRepeat, setPasswordRepeat] = useState("");
+    useEffect(() => {
+        props.actions.setAuthResult("NONE");
+    }, [true]);
+
     return (
         <div className={baseStyle["page-content"]}>
             <div className={style.auth}>
@@ -25,9 +34,9 @@ const Register: FunctionalComponent<RegisterConnectedProps> = (props: RegisterCo
                             type="text"
                             className={style["auth-input"]}
                             onChange={(e) => {
-                                props.actions.setAuthUsername(e.currentTarget.value);
+                                setUsername(e.currentTarget.value);
                             }}
-                            value={props.authData.username}
+                            value={username}
                         />
                         <input
                             name="password"
@@ -35,9 +44,9 @@ const Register: FunctionalComponent<RegisterConnectedProps> = (props: RegisterCo
                             type="password"
                             className={style["auth-input"]}
                             onChange={(e) => {
-                                props.actions.setAuthPassword(e.currentTarget.value);
+                                setPassword(e.currentTarget.value);
                             }}
-                            value={props.authData.password}
+                            value={password}
                         />
                         <input
                             name="password_2"
@@ -45,37 +54,30 @@ const Register: FunctionalComponent<RegisterConnectedProps> = (props: RegisterCo
                             type="password"
                             className={style["auth-input"]}
                             onChange={(e) => {
-                                props.actions.setAuthPassword2(e.currentTarget.value);
+                                setPasswordRepeat(e.currentTarget.value);
                             }}
-                            value={props.authData.password2}
+                            value={passwordRepeat}
                         />
                     </Localizer>
-                    <div
+                    <Button secondary
                         className={style["auth-button"]}
                         onClick={() => {
-                            if (props.authData.username.length < 3) {
-                                props.actions.setAuthResult(AuthResult.USERNAME_TOO_SHORT);
-                                return;
+                            if(username.length < 3) {
+                                props.actions.setAuthResult("USERNAME_TOO_SHORT");
+                            } else if(password.length < 3) {
+                                props.actions.setAuthResult("PASSWORD_TOO_SHORT");
+                            } else if(password !== passwordRepeat) {
+                                props.actions.setAuthResult("PASSWORD_NO_MATCH");
+                            } else {
+                                props.actions.createUser(username, password);
                             }
-                            if (props.authData.password.length < 8) {
-                                props.actions.setAuthResult(AuthResult.PASSWORD_TOO_SHORT);
-                                return;
-                            }
-                            if (props.authData.password !== props.authData.password2) {
-                                props.actions.setAuthResult(AuthResult.PASSWORD_NO_MATCH);
-                                return;
-                            }
-                            props.actions.setAuthResult(AuthResult.WAITING);
-                            props.actions.register(props.authData.username, props.authData.password);
                         }}>
-                        <div className={style["auth-button-title"]}>
-                            <Text id="register.button" />
-                        </div>
-                    </div>
+                        <Text id="register.button" />
+                    </Button>
+                    {props.authResult === "NONE" ? null : <div className={style["auth-result-text"]}>{<Text id={`enum.authResult.${props.authResult}`} />}</div>}
                     <Link href="/login" className={style["auth-link"]}>
                         <Text id="register.existingAccount" />
                     </Link>
-                    <div className={style["auth-result-text"]}>{<Text id={`enum.authResult.${props.authData.result}`} />}</div>
                 </div>
             </div>
         </div>

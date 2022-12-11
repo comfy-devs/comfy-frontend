@@ -29,7 +29,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
     },
 
     CREATE_SESSION_SUCCESS: (state: ReduxState, action: ReduxAction): ReduxState => {
-        return { ...state, session: action.data };
+        if(action.data.type === "classic") {
+            location.href = "/";
+        }
+        return { ...state, session: action.data.session };
     },
 
     DELETE_SESSION: (state: ReduxState): ReduxState => {
@@ -37,16 +40,15 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return state;
     },
 
+    SET_AUTH_RESULT: (state: ReduxState, action: ReduxAction): ReduxState => {
+        return { ...state, authResult: action.data };
+    },
+
     FETCH_USER_SUCCESS: (state: ReduxState, action: ReduxAction) => {
         return cacheResource(state, action.data, ResourceType.USER);
     },
 
     FAVOURITE_SUCCESS: (state: ReduxState, action: ReduxAction) => {
-        if(action.data === undefined) { return state; }
-        return cacheResource(state, action.data, ResourceType.USER);
-    },
-
-    UNFAVOURITE_SUCCESS: (state: ReduxState, action: ReduxAction) => {
         if(action.data === undefined) { return state; }
         return cacheResource(state, action.data, ResourceType.USER);
     },
@@ -217,7 +219,13 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 };
 const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction) => Promise<void>> = {
     CREATE_USER: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        await reducerFetch(dispatch, action.data, routes.createUser, actions.createUserSuccess);
+        const user = await routes.createUser(action.data.username, action.data.password);
+        if (user === 403) {
+            dispatch(actions.setAuthResult("USER_TAKEN"));
+            return;
+        }
+
+        dispatch(actions.createUserSuccess(user));
     },
 
     FETCH_USER: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
@@ -226,15 +234,19 @@ const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState:
 
     CREATE_SESSION: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
         const session = await routes.createSession(action.data.type, action.data.username, action.data.password);
-        if (session === undefined) {
+        if (session === 404) {
+            dispatch(actions.setAuthResult("NOT_FOUND"));
+            return;
+        } else if (session === 401) {
+            dispatch(actions.setAuthResult("NOT_AUTHORIZED"));
             return;
         }
+        dispatch(actions.createSessionSuccess(action.data.type, session));
+
         const user = await routes.fetchUser(session.user);
         if (user === undefined) {
             return;
         }
-
-        dispatch(actions.createSessionSuccess(session));
         dispatch(actions.fetchUserSuccess(user));
     },
 
@@ -302,10 +314,6 @@ const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState:
 
     FAVOURITE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
         await reducerFetch(dispatch, action.data, routes.favourite, actions.favouriteSuccess);
-    },
-
-    UNFAVOURITE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        await reducerFetch(dispatch, action.data, routes.unfavourite, actions.unfavouriteSuccess);
     },
 };
 

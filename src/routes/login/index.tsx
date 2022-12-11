@@ -1,5 +1,7 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
+import { useEffect, useState } from "react";
+import Button from "../../components/ui/button";
 import { Link } from "preact-router";
 import { Text, Localizer } from "preact-i18n";
 /* Redux */
@@ -11,6 +13,12 @@ import baseStyle from "../style.scss";
 import style from "./style.scss";
 
 const Login: FunctionalComponent<LoginConnectedProps> = (props: LoginConnectedProps) => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    useEffect(() => {
+        props.actions.setAuthResult("NONE");
+    }, [true]);
+
     return (
         <div className={baseStyle["page-content"]}>
             <div className={style.auth}>
@@ -25,9 +33,9 @@ const Login: FunctionalComponent<LoginConnectedProps> = (props: LoginConnectedPr
                             type="text"
                             className={style["auth-input"]}
                             onChange={(e) => {
-                                props.actions.setAuthUsername(e.currentTarget.value);
+                                setUsername(e.currentTarget.value);
                             }}
-                            value={props.authData.username}
+                            value={username}
                         />
                         <input
                             name="password"
@@ -35,25 +43,28 @@ const Login: FunctionalComponent<LoginConnectedProps> = (props: LoginConnectedPr
                             type="password"
                             className={style["auth-input"]}
                             onChange={(e) => {
-                                props.actions.setAuthPassword(e.currentTarget.value);
+                                setPassword(e.currentTarget.value);
                             }}
-                            value={props.authData.password}
+                            value={password}
                         />
                     </Localizer>
-                    <div
+                    <Button secondary
                         className={style["auth-button"]}
                         onClick={() => {
-                            props.actions.setAuthResult(AuthResult.WAITING);
-                            props.actions.login(props.authData.username, props.authData.password);
+                            if(username.length < 3) {
+                                props.actions.setAuthResult("USERNAME_TOO_SHORT");
+                            } else if(password.length < 3) {
+                                props.actions.setAuthResult("PASSWORD_TOO_SHORT");
+                            } else {
+                                props.actions.createSession("classic", username, password);
+                            }
                         }}>
-                        <div className={style["auth-button-title"]}>
-                            <Text id="login.button" />
-                        </div>
-                    </div>
+                        <Text id="login.button" />
+                    </Button>
+                    {props.authResult === "NONE" ? null : <div className={style["auth-result-text"]}>{<Text id={`enum.authResult.${props.authResult}`} />}</div>}
                     <Link href="/register" className={style["auth-link"]}>
                         <Text id="login.noAccount" />
                     </Link>
-                    <div className={style["auth-result-text"]}>{<Text id={`enum.authResult.${props.authData.result}`} />}</div>
                 </div>
             </div>
         </div>

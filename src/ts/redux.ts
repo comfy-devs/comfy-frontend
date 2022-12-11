@@ -17,6 +17,7 @@ type ReduxState = {
     stats: Stats;
     random: number;
     preferences: AppPreferences;
+    authResult: AuthResult;
     filterData: FilterData;
     playerData: PlayerData;
 };
@@ -24,7 +25,10 @@ type ReduxState = {
 type ConnectedActions = {
     setDimensions(w: number, h: number): ReduxAction;
 
+    createUser(username: string, password: string): ReduxAction;
     fetchUser(id: string): ReduxAction;
+    createSession(type: "classic" | "token", username?: string, password?: string): ReduxAction;
+    deleteSession(): ReduxAction;
     fetchAnime(id: string): ReduxAction;
     fetchAllAnimes(): ReduxAction;
     fetchAnimeEpisodes(id: string): ReduxAction;
@@ -39,19 +43,16 @@ type ConnectedActions = {
     fetchSegment(id: string): ReduxAction;
     fetchAllSegments(): ReduxAction;
     fetchStats(): ReduxAction;
-    login(username: string, password: string): ReduxAction;
-    loginToken(): ReduxAction;
-    register(username: string, password: string): ReduxAction;
     pushSubscribe(url: string, key: string, auth: string): ReduxAction;
     pushUnsubscribe(): ReduxAction;
     favourite(id: string): ReduxAction;
-    unfavourite(id: string): ReduxAction;
 
     fetchPreferences(): ReduxAction;
     setPreferencesTheme(theme: string): ReduxAction;
     setPreferencesTorrent(torrent: boolean): ReduxAction;
     setPreferencesBlur(blur: boolean): ReduxAction;
     setPreferencesVolume(volume: number): ReduxAction;
+    setAuthResult(result: AuthResult): ReduxAction;
 
     setFilterSearchTerm(searchTerm: string): ReduxAction;
     setFilterGenres(genres: AnimeGenre | null): ReduxAction;

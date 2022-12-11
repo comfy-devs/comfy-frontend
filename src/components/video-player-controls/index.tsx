@@ -1,7 +1,7 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { secondsToString } from "../../scripts/nyan/util";
 import { findSegmentForTimestamp } from "../../scripts/nyan/functions";
 /* Styles */
@@ -14,6 +14,9 @@ import { updateCanvas } from "./timeline";
 
 const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps> = (props: VideoPlayerControlsConnectedProps) => {
     const [segments, setSegments] = useState(props.segments);
+    useEffect(() => {
+        setSegments(props.segments);
+    }, [props.segments]);
     if (props.video === null) {
         return null;
     }

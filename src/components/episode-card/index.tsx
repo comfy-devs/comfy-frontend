@@ -32,8 +32,17 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
                     data={props.parent.rating !== AnimeRatingMapping.R || !props.preferences.blur ? undefined : "blur"}
                 />
                 <div className={style["episode-extra-wrapper"]}>
+                    <div className={style["episode-extra-wrapper-text"]} data="episode">
+                        {props.item.title}
+                    </div>
                     <div className={style["episode-extra-wrapper-text"]}>
                         {secondsToString(props.item.duration)}
+                    </div>
+                    <div className={style["episode-extra-wrapper-text"]} data="details">
+                        <div className={style["icon-eye"]} /> {props.item.views}
+                    </div>
+                    <div className={style["episode-extra-wrapper-text"]} data="details">
+                        <div className={style["icon-comment"]} /> 0
                     </div>
                 </div>
                 {props.disabled === false ? (

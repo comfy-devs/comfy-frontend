@@ -10,7 +10,7 @@ const VideoPlayerNotification: FunctionalComponent<VideoPlayerNotificationConnec
             <div className={style["notification-text"]}>
                 <Text id={`enum.videoPlayerNotification.${props.type}`} />
             </div>
-            {props.type === VideoPlayerNotificationType.OP || props.type === VideoPlayerNotificationType.ED ? (
+            {props.type === "OP" || props.type === "ED" ? (
                 <div className={style["notification-links"]}>
                     <div
                         onClick={() => {
@@ -18,18 +18,17 @@ const VideoPlayerNotification: FunctionalComponent<VideoPlayerNotificationConnec
                                 return;
                             }
                             props.video.currentTime = props.segment.end;
-
                             switch (props.type) {
-                                case VideoPlayerNotificationType.OP:
+                                case "OP":
                                     props.actions.setPlayerOpNotification(false);
                                     break;
 
-                                case VideoPlayerNotificationType.ED:
+                                case "ED":
                                     props.actions.setPlayerEdNotification(false);
                                     break;
                             }
                         }}
-                        className={style["notification-link"]}>
+                        className={style["notification-link"]} data="skip">
                         ({<Text id="video.notification.skip" />})
                     </div>
                     <div
@@ -38,16 +37,16 @@ const VideoPlayerNotification: FunctionalComponent<VideoPlayerNotificationConnec
                                 return;
                             }
                             switch (props.type) {
-                                case VideoPlayerNotificationType.OP:
+                                case "OP":
                                     props.actions.setPlayerOpNotification(false);
                                     break;
 
-                                case VideoPlayerNotificationType.ED:
+                                case "ED":
                                     props.actions.setPlayerEdNotification(false);
                                     break;
                             }
                         }}
-                        className={style["notification-link"]}>
+                        className={style["notification-link"]} data="hide">
                         ({<Text id="video.notification.hide" />})
                     </div>
                 </div>

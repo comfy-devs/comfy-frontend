@@ -28,7 +28,7 @@ const VideoPlayerControlsOverlay: FunctionalComponent<VideoPlayerControlsOverlay
                 Audio: <span class={style["video-controls-overlay-text-highlight"]}>{props.playerData.preset === "X264" ? "aac" : "opus"} ({Math.round(props.encode.audioBitrate / 1000)}kbits/s)</span>
             </div> : null}
             {props.encode ? <div class={style["video-controls-overlay-text"]}>
-                Captions: <span class={style["video-controls-overlay-text-highlight"]}>{props.playerData.manifest.subtitles.map(e => e.name).join(", ")}</span>
+                Captions: <span class={style["video-controls-overlay-text-highlight"]}>{props.item.subtitles.join(", ")}</span>
             </div> : null}
             {props.encode ? <div class={style["video-controls-overlay-text"]}>
                 Duration: <span class={style["video-controls-overlay-text-highlight"]}>{secondsToStringHuman(Math.round(props.item.duration))} ({humanFileSize(props.encode.size)})</span>
