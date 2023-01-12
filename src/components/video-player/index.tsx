@@ -1,16 +1,16 @@
 /* Base */
 import { h, Component } from "preact";
-import { episodeLocationToURL, presetToFilename } from "../../scripts/nyan/constants";
-import { findSegmentForTimestamp } from "../../scripts/nyan/functions";
+import { episodeLocationToURL, presetToFilename } from "../../scripts/comfy/constants";
+import { findSegmentForTimestamp } from "../../scripts/comfy/segment";
 /* Styles */
 import style from "./style.scss";
 /* Components */
 import VideoPlayerControls from "../video-player-controls";
 import VideoPlayerOverlay from "../video-player-overlay";
 import VideoPlayerNotification from "../video-player-notification";
-import VideoPlayerTorrentWrapper from "../video-player-torrent-wrapper";
 import VideoPlayerHlsWrapper from "../video-player-hls-wrapper";
 import { SegmentTypeMapping } from "../../ts/common/const";
+import VideoPlayerSettings from "../video-player-settings";
 
 class VideoPlayer extends Component<VideoPlayerConnectedProps> {
     video: HTMLVideoElement | null = null;
@@ -98,12 +98,17 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     break;
 
                 case "c":
-                    this.props.actions.setPlayerSubs(!this.props.playerData.subs);
+                    this.props.actions.setPlayerSubs({ enabled: !this.props.playerData.subs.enabled, lang: this.props.playerData.subs.lang });
                     e.preventDefault();
                     break;
 
                 case "t":
                     this.props.actions.setPlayerTheater(!this.props.playerData.theater);
+                    e.preventDefault();
+                    break;
+
+                case "s":
+                    this.props.actions.setPlayerSettings(!this.props.playerData.settings);
                     e.preventDefault();
                     break;
 
@@ -129,8 +134,11 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
 
     render() {
         const currentSegment = this.video === null ? { end: 0, item: null } : findSegmentForTimestamp(this.props.segments, this.video.currentTime);
-        const videoUrl = `${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/${presetToFilename(this.props.playerData.preset)}`;
-        
+        let videoUrl = `${episodeLocationToURL(this.props.parent.location)}/${this.props.item.show}/${this.props.item.pos}/${presetToFilename(this.props.playerData.preset)}`;
+        if(this.props.playerData.overrideUrl !== null) {
+            videoUrl = this.props.playerData.overrideUrl;
+        }
+
         return (
             <div className={style["episode-video-wrapper"]} data={this.props.playerData.theater ? "true" : "false"}>
                 <video
@@ -159,7 +167,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     }}
                     volume={this.props.preferences.volume} >
                     {this.props.playerData.preset === "VP9" ? <source src={videoUrl} /> : null}
-                    {!this.props.playerData.subs || this.props.playerData.preset === "X264" ? null : <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/subs/eng.vtt`} default />}
+                    {!this.props.playerData.subs || this.props.playerData.preset === "X264" ? null : <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.show}/${this.props.item.pos}/subs/eng.vtt`} default />}
                 </video>
                 <VideoPlayerControls
                     dimensions={this.props.dimensions}
@@ -186,10 +194,8 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     <VideoPlayerNotification type={"ED"} segment={currentSegment} video={this.video} actions={this.props.actions} />
                 )}
                 <VideoPlayerOverlay state={this.props.playerData.state} />
-                {this.props.preferences.torrent === false || this.video === null ? null : (
-                    <VideoPlayerTorrentWrapper item={this.props.item} parent={this.props.parent} video={this.video} actions={this.props.actions} playerData={this.props.playerData} />
-                )}
-                {this.video === null || this.props.playerData.preset === "VP9" ? null : <VideoPlayerHlsWrapper item={this.props.item} parent={this.props.parent} video={this.video} actions={this.props.actions} playerData={this.props.playerData} />}
+                {!this.props.playerData.settings ? null : <VideoPlayerSettings item={this.props.item} encode={this.props.encode} actions={this.props.actions} playerData={this.props.playerData} />}
+                {this.props.playerData.preset === "VP9" || this.props.playerData.overrideUrl !== null ? null : <VideoPlayerHlsWrapper item={this.props.item} parent={this.props.parent} video={this.video} preferences={this.props.preferences} actions={this.props.actions} playerData={this.props.playerData} />}
             </div>
         );
     }

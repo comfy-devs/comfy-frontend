@@ -1,11 +1,11 @@
-type AnimeType = "TV" | "SPECIAL" | "OVA" | "MOVIE" | "ONA";
-type AnimeStatus = "AIRING" | "FINISHED";
-type AnimeGenre = "ACTION" | "ADVENTURE" | "COMEDY" | "DRAMA" | "ECCHI" | "FANTASY" | "HORROR" |
+type ShowType = "TV" | "SPECIAL" | "OVA" | "MOVIE" | "ONA";
+type ShowStatus = "AIRING" | "FINISHED";
+type ShowGenre = "ACTION" | "ADVENTURE" | "COMEDY" | "DRAMA" | "ECCHI" | "FANTASY" | "HORROR" |
     "MAHOU_SHOUJO" | "MECHA" | "MUSIC" | "MYSTERY" | "PSYCHOLOGICAL" | "ROMANCE" | "SCIFI" |
     "SLICE_OF_LIFE" | "SPORTS" | "SUPERNATURAL" | "THRILLER";
-type AnimeTag = "SUBBED" | "HARD_SUBBED" | "DUBBED";
-type AnimeRating = "PG" | "R";
-type Anime = {
+type ShowTag = "SUBBED" | "HARD_SUBBED" | "DUBBED";
+type ShowRating = "PG" | "R";
+type Show = {
     id: string;
     type: number;
     group: string | null;
@@ -31,15 +31,16 @@ type Group = {
     title: string;
 };
 
-type EpisodeLocation = "AKAGI" | "KAGA";
+type EpisodeLocation = "VAPOREON" | "JOLTEON" | "FLAREON";
 type Episode = {
     id: string;
     pos: number;
-    anime: string;
+    show: string;
     title: string;
     duration: number;
     views: number;
     subtitles: string[];
+    audio: string[];
 };
 
 type EncodePreset = "X264" | "VP9";
@@ -67,4 +68,5 @@ type Stats = {
     id: string;
     files: number;
     size: number;
+    torrents: number;
 };

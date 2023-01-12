@@ -1,7 +1,7 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
-import { setupNotifications } from "../../scripts/nyan/notifications";
+import { setupNotifications } from "../../scripts/comfy/notifications";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";

@@ -65,7 +65,7 @@ const Download: FunctionalComponent<DownloadConnectedProps> = (props: DownloadCo
                     <div className={style["download-item-row"]}>
                         <div className={style["icon-android"]} />
                         Android <span className={style["download-item-row-version"]}>[{latestAndroid.version}]</span>
-                        <a href={latestAndroid.link} download={`nyananime-${latestAndroid.version}`} className={style["download-item-row-link"]}>
+                        <a href={latestAndroid.link} download={`comfy-${latestAndroid.version}`} className={style["download-item-row-link"]}>
                             (<Text id="download.link" />)
                         </a>
                     </div>
@@ -82,7 +82,7 @@ const Download: FunctionalComponent<DownloadConnectedProps> = (props: DownloadCo
                             <div className={style["download-item-row"]}>
                                 <div className={style[`icon-${e.type}`]} />
                                 {e.name} <span className={style["download-item-row-version"]}>[{e.version}]</span>
-                                <a href={e.link} download={`nyananime-${e.version}`} className={style["download-item-row-link"]}>
+                                <a href={e.link} download={`comfy-${e.version}`} className={style["download-item-row-link"]}>
                                     (<Text id="download.link" />)
                                 </a>
                             </div>

@@ -1,9 +1,9 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
-import { splitArray } from "../../scripts/nyan/util";
-import { filterTypeToValues } from "../../scripts/nyan/constants";
-import { filterValueToDisplayName } from "../../scripts/nyan/functions";
+import { splitArray } from "../../scripts/comfy/util";
+import { filterTypeToValues } from "../../scripts/comfy/constants";
+import { filterValueToDisplayName } from "../../scripts/comfy/filter";
 /* Styles */
 import style from "./style.scss";
 import { useEffect, useState } from "react";

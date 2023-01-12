@@ -16,7 +16,7 @@ import { EncodePresetMapping } from "../../ts/common/const";
 
 const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConnectedProps) => {
     const episode = props.episodes.get(props.id);
-    const anime = episode ? props.animes.get(episode.anime) : undefined;
+    const show = episode ? props.shows.get(episode.show) : undefined;
     const segments = Array.from(props.segments.values())
         .filter((e) => {
             return e.episode === episode?.id;
@@ -38,14 +38,23 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
         props.actions.fetchEpisodeEncodes(props.id);
     }, [props.actions, props.id]);
     useEffect(() => {
-        if(episode !== undefined && anime === undefined) {
-            props.actions.fetchAnime(episode.anime);
+        if(episode !== undefined && show === undefined) {
+            props.actions.fetchShow(episode.show);
         }
-    }, [episode, anime, props.actions]);
+    }, [episode, show, props.actions]);
     useEffect(() => {
-        props.actions.setPlayerPreset(hasVP9 ? "VP9" : "X264");
-    }, [hasVP9, props.actions, props.id]);
-    if (episode === undefined || anime === undefined) {
+        // Make sure that everytime the original language is selected, VP9 is preferred if available
+        if(props.playerData.audio.lang === "jpn") {
+            // props.actions.setPlayerPreset(hasVP9 ? "VP9" : "X264");
+        }
+    }, [props.id, props.actions, props.playerData.audio, hasVP9]);
+    useEffect(() => {
+        // Make sure that everytime a dubbed language is selected, HLS is preferred (standalone can't switch languages)
+        if(props.playerData.audio.lang !== "jpn" && props.playerData.preset === "VP9") {
+            props.actions.setPlayerPreset("X264");
+        }
+    }, [props.actions, props.playerData.audio, props.playerData.preset]);
+    if (episode === undefined || show === undefined) {
         return null;
     }
 
@@ -56,19 +65,19 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
                     <Text id="episode.number" fields={{ num: episode.pos + 1 }} />
                     <span className={style["episode-overview-title-highlight"]}>{episode.title}</span>
                 </div>
-                <VideoPlayer dimensions={props.dimensions} playerData={props.playerData} item={episode} encode={encode ?? null} parent={anime} segments={segments} preferences={props.preferences} actions={props.actions} />
+                <VideoPlayer dimensions={props.dimensions} playerData={props.playerData} item={episode} encode={encode ?? null} parent={show} segments={segments} preferences={props.preferences} actions={props.actions} />
                 <div className={style["episode-overview-extra"]}>
                     <div className={style["episode-overview-subtitle"]}>
-                        <Text id="episode.anime" />
-                        <a href={`/animes/${anime.id}`} className={style["episode-overview-subtitle-highlight"]}>
-                            {anime.title}
+                        <Text id="episode.show" />
+                        <a href={`/shows/${show.id}`} className={style["episode-overview-subtitle-highlight"]}>
+                            {show.title}
                         </a>
                     </div>
                     <div className={style["episode-overview-separator"]} />
                     <div className={style["episode-overview-episodes"]}>
-                        {new Array(anime.episodes).fill(null).map((e, i) => {
+                        {new Array(show.episodes).fill(null).map((e, i) => {
                             return (
-                                <Link key={i} href={`/episodes/${anime.id}-${i}`} className={style["episode-overview-episodes-item"]} activeClassName={style["episode-overview-episodes-item-active"]}>
+                                <Link key={i} href={`/episodes/${show.id}-${i}`} className={style["episode-overview-episodes-item"]} activeClassName={style["episode-overview-episodes-item-active"]}>
                                     {i + 1}
                                 </Link>
                             );

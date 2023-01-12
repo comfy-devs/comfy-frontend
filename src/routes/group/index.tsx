@@ -10,7 +10,7 @@ import * as actions from "../../redux/actions";
 import baseStyle from "../style.scss";
 import style from "./style.scss";
 /* Components */
-import AnimeCard from "../../components/anime-card";
+import ShowCard from "../../components/show-card";
 
 const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteConnectedProps) => {
     const group = props.groups.get(props.id);
@@ -18,13 +18,13 @@ const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteC
     /* API calls */
     useEffect(() => {
         props.actions.fetchGroup(props.id);
-        props.actions.fetchAllAnimes();
+        props.actions.fetchAllShows();
     }, [props.actions, props.id]);
 
     if (group === undefined) {
         return null;
     }
-    const animes = Array.from(props.animes.values())
+    const shows = Array.from(props.shows.values())
         .filter((e) => {
             return e.group === group.id;
         })
@@ -44,16 +44,16 @@ const Group: FunctionalComponent<GroupRouteConnectedProps> = (props: GroupRouteC
                 <div className={style["group-title-wrapper"]}>
                     <div className={style["group-title"]}>{group.title}</div>
                     <div className={style["group-subtitle"]}>
-                        (<Text id="group.seasons" fields={{ count: animes.length }} />)
+                        (<Text id="group.seasons" fields={{ count: shows.length }} />)
                     </div>
                 </div>
                 <div className={style["group-previews"]}>
-                    {animes.map((e, i) => {
+                    {shows.map((e, i) => {
                         if (e.season !== null) {
-                            return <AnimeCard key={i} item={e} extra={<Text id="group.season" fields={{ number: e.season + 1 }} />} preferences={props.preferences} />;
+                            return <ShowCard key={i} item={e} extra={<Text id="group.season" fields={{ number: e.season + 1 }} />} preferences={props.preferences} />;
                         }
 
-                        return <AnimeCard key={i} item={e} extra={<Text id={`enum.animeType.${e.type}`} />} preferences={props.preferences} />;
+                        return <ShowCard key={i} item={e} extra={<Text id={`enum.showType.${e.type}`} />} preferences={props.preferences} />;
                     })}
                 </div>
             </div>

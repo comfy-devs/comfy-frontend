@@ -1,7 +1,7 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { useEffect, useState } from "react";
-import { humanFileSize, secondsToStringHuman } from "../../scripts/nyan/util";
+import { humanFileSize, secondsToStringHuman } from "../../scripts/comfy/util";
 /* Styles */
 import style from "./style.scss";
 

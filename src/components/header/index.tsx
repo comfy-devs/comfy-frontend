@@ -16,7 +16,7 @@ const Header: FunctionalComponent<HeaderConnectedProps> = (props: HeaderConnecte
             </a>
             <div className={style["header-section-1"]}>
                 <a href="https://discord.gg/nVDpxcDsJR" className={style["icon-discord"]} target="_blank" rel="noreferrer" />
-                <a href="https://github.com/nyananime-devs" className={style["icon-github"]} target="_blank" rel="noreferrer" />
+                <a href="https://github.com/comfy-devs" className={style["icon-github"]} target="_blank" rel="noreferrer" />
                 {props.user === null ? (
                     <Link className={style["header-button"]} href="/login" >
                         <div className={style["header-button-title"]}>

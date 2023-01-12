@@ -75,7 +75,12 @@
 	pointer-events: all;
 	visibility: hidden;
 }
-.video-controls-wrapper:hover .video-controls { visibility: visible; }
+.video-controls-wrapper:hover .video-controls {
+	visibility: visible;
+}
+.video-controls[data="show"] {
+	visibility: visible;
+}
 
 .video-controls-bg {
 	position: absolute;

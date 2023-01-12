@@ -34,26 +34,26 @@ export function deleteSession(): ReduxAction {
     return getAction("DELETE_SESSION", {});
 }
 
-/* Animes */
-export function fetchAnime(id: string): ReduxAction {
-    return getAction("FETCH_ANIME", id);
+/* Shows */
+export function fetchShow(id: string): ReduxAction {
+    return getAction("FETCH_SHOW", id);
 }
-export function fetchAnimeSuccess(anime: Anime): ReduxAction {
-    return getAction("FETCH_ANIME_SUCCESS", anime);
-}
-
-export function fetchAllAnimes(): ReduxAction {
-    return getAction("FETCH_ALL_ANIMES", {});
-}
-export function fetchAllAnimesSuccess(animes: Anime[]): ReduxAction {
-    return getAction("FETCH_ALL_ANIMES_SUCCESS", animes);
+export function fetchShowSuccess(show: Show): ReduxAction {
+    return getAction("FETCH_SHOW_SUCCESS", show);
 }
 
-export function fetchAnimeEpisodes(id: string): ReduxAction {
-    return getAction("FETCH_ANIME_EPISODES", id);
+export function fetchAllShows(): ReduxAction {
+    return getAction("FETCH_ALL_SHOWS", {});
 }
-export function fetchAnimeEpisodesSuccess(episodes: Episode[]): ReduxAction {
-    return getAction("FETCH_ANIME_EPISODES_SUCCESS", episodes);
+export function fetchAllShowsSuccess(shows: Show[]): ReduxAction {
+    return getAction("FETCH_ALL_SHOWS_SUCCESS", shows);
+}
+
+export function fetchShowEpisodes(id: string): ReduxAction {
+    return getAction("FETCH_SHOW_EPISODES", id);
+}
+export function fetchShowEpisodesSuccess(episodes: Episode[]): ReduxAction {
+    return getAction("FETCH_SHOW_EPISODES_SUCCESS", episodes);
 }
 
 /* Groups */
@@ -188,7 +188,7 @@ export function setFilterSearchTerm(searchTerm: string): ReduxAction {
     return getAction("SET_FILTER_SEARCH_TERM", searchTerm);
 }
 
-export function setFilterGenres(genres: AnimeGenre | null): ReduxAction {
+export function setFilterGenres(genres: ShowGenre | null): ReduxAction {
     return getAction("SET_FILTER_GENRES", genres);
 }
 
@@ -196,11 +196,11 @@ export function setFilterYear(year: number | null): ReduxAction {
     return getAction("SET_FILTER_YEAR", year);
 }
 
-export function setFilterType(type: AnimeType | null): ReduxAction {
+export function setFilterType(type: ShowType | null): ReduxAction {
     return getAction("SET_FILTER_TYPE", type);
 }
 
-export function setFilterStatus(status: AnimeStatus | null): ReduxAction {
+export function setFilterStatus(status: ShowStatus | null): ReduxAction {
     return getAction("SET_FILTER_STATUS", status);
 }
 
@@ -208,7 +208,7 @@ export function setFilterSort(sort: FilterSort): ReduxAction {
     return getAction("SET_FILTER_SORT", sort);
 }
 
-export function setFilterTags(tags: AnimeTag | null): ReduxAction {
+export function setFilterTags(tags: ShowTag | null): ReduxAction {
     return getAction("SET_FILTER_TAGS", tags);
 }
 
@@ -234,23 +234,23 @@ export function setPlayerPreset(preset: EncodePreset): ReduxAction {
 export function setPlayerTheater(theater: boolean): ReduxAction {
     return getAction("SET_PLAYER_THEATER", theater);
 }
-export function setPlayerSubs(subs: boolean): ReduxAction {
+export function setPlayerSettings(settings: boolean): ReduxAction {
+    return getAction("SET_PLAYER_SETTINGS", settings);
+}
+export function setPlayerOverlay(overlay: boolean): ReduxAction {
+    return getAction("SET_PLAYER_OVERLAY", overlay);
+}
+export function setPlayerSubs(subs: PlayerDataSubs): ReduxAction {
     return getAction("SET_PLAYER_SUBS", subs);
 }
-export function setPlayerOverrideUrl(url?: string): ReduxAction {
-    return getAction("SET_PLAYER_OVERRIDE_URL", url);
+export function setPlayerAudio(audio: PlayerDataAudio): ReduxAction {
+    return getAction("SET_PLAYER_AUDIO", audio);
 }
 export function setPlayerOpNotification(opNotifaction: boolean): ReduxAction {
     return getAction("SET_PLAYER_OP_NOTIFICATION", opNotifaction);
 }
 export function setPlayerEdNotification(edNotifaction: boolean): ReduxAction {
     return getAction("SET_PLAYER_ED_NOTIFICATION", edNotifaction);
-}
-export function setPlayerOverlay(overlay: boolean): ReduxAction {
-    return getAction("SET_PLAYER_OVERLAY", overlay);
-}
-export function setPlayerBandwith(bandwith: number): ReduxAction {
-    return getAction("SET_PLAYER_BANDWITH", bandwith);
 }
 export function setPlayerManifestLevels(levels: PlayerManifestLevel[]): ReduxAction {
     return getAction("SET_PLAYER_MANIFEST_LEVELS", levels);
@@ -260,4 +260,10 @@ export function setPlayerManifestSubtitles(tracks: PlayerManifestTrack[]): Redux
 }
 export function setPlayerManifestLevel(level: number): ReduxAction {
     return getAction("SET_PLAYER_MANIFEST_LEVEL", level);
+}
+export function setPlayerBandwith(bandwith: number): ReduxAction {
+    return getAction("SET_PLAYER_BANDWITH", bandwith);
+}
+export function setPlayerOverrideUrl(url?: string): ReduxAction {
+    return getAction("SET_PLAYER_OVERRIDE_URL", url);
 }

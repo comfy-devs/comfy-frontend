@@ -10,7 +10,7 @@ import * as actions from "../../redux/actions";
 import baseStyle from "../style.scss";
 import style from "./style.scss";
 /* Components */
-import AnimeCard from "../../components/anime-card";
+import ShowCard from "../../components/show-card";
 import GroupCard from "../../components/group-card";
 import Navigation from "../../components/navigation";
 import Filter from "../../components/filter";
@@ -18,7 +18,7 @@ import Filter from "../../components/filter";
 const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) => {
     /* API calls */
     useEffect(() => {
-        props.actions.fetchAllAnimes();
+        props.actions.fetchAllShows();
         props.actions.fetchAllGroups();
     }, [true]);
 
@@ -28,25 +28,25 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
         props.actions.setFilterSort("TITLE_ASC");
     }, [true]);
 
-    /* Filter through animes */
-    let animes = Array.from(props.animes.values());
-    animes = animes.filter((e) => {
+    /* Filter through shows */
+    let shows = Array.from(props.shows.values());
+    shows = shows.filter((e) => {
         return e.title.toLowerCase().includes(props.filterData.searchTerm.toLowerCase());
     });
-    animes = animes.filter((e) => {
+    shows = shows.filter((e) => {
         return props.filterData.genres === null ? true : (e.genres & props.filterData.genres) === props.filterData.genres;
     });
-    // animes = animes.filter((e) => { return props.filterData.year === null ? true : true; });
-    animes = animes.filter((e) => {
+    // shows = shows.filter((e) => { return props.filterData.year === null ? true : true; });
+    shows = shows.filter((e) => {
         return props.filterData.type === null ? true : e.type === props.filterData.type;
     });
-    animes = animes.filter((e) => {
+    shows = shows.filter((e) => {
         return props.filterData.status === null ? true : e.status === props.filterData.status;
     });
-    animes = animes.filter((e) => {
+    shows = shows.filter((e) => {
         return props.filterData.tags === null ? true : (e.tags & props.filterData.tags) === props.filterData.tags;
     });
-    animes.sort((a, b) => {
+    shows.sort((a, b) => {
         switch (props.filterData.sort) {
             case "TITLE_ASC":
                 return a.title.localeCompare(b.title);
@@ -79,7 +79,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
 
     let previews: any[] = [];
     if (props.filterData.group === "YES") {
-        previews = animes
+        previews = shows
             .filter((e) => {
                 return e.group === null || e.season === 0;
             })
@@ -91,20 +91,20 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                             <GroupCard
                                 key={i}
                                 item={group}
-                                children={animes.filter((el) => {
+                                children={shows.filter((el) => {
                                     return el.group === e.group;
                                 })}
                             />
                         );
                     }
                 } else {
-                    return <AnimeCard key={i} item={e} preferences={props.preferences} />;
+                    return <ShowCard key={i} item={e} preferences={props.preferences} />;
                 }
             });
     } else {
         const start = props.filterData.page * props.filterData.items;
-        previews = animes.slice(start, start + props.filterData.items).map((e, i) => {
-            return <AnimeCard key={i} item={e} preferences={props.preferences} />;
+        previews = shows.slice(start, start + props.filterData.items).map((e, i) => {
+            return <ShowCard key={i} item={e} preferences={props.preferences} />;
         });
     }
 
@@ -112,7 +112,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
         <div className={baseStyle["page-content"]}>
             <div className={style.all}>
                 <div className={style["all-title"]}>
-                    <Text id="all.title" fields={{ count: animes.length }} />
+                    <Text id="all.title" fields={{ count: shows.length }} />
                 </div>
                 <div className={style["all-filters"]}>
                     <div className={style["all-filters-chunk-wrapper"]}>
@@ -139,7 +139,7 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                 </div>
                 <div className={style["all-previews"]}>{previews}</div>
             </div>
-            <Navigation items={animes.length} page={props.filterData.page} limit={props.filterData.items} actions={props.actions} />
+            <Navigation items={shows.length} page={props.filterData.page} limit={props.filterData.items} actions={props.actions} />
         </div>
     );
 };

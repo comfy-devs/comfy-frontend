@@ -1,7 +1,7 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
 import { useEffect } from "react";
-import { AnimeStatusMapping } from "../../ts/common/const";
+import { ShowStatusMapping } from "../../ts/common/const";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
@@ -15,16 +15,16 @@ import Topic from "../../components/topic";
 const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps) => {
     /* API calls */
     useEffect(() => {
-        props.actions.fetchAllAnimes();
+        props.actions.fetchAllShows();
     }, [props.actions]);
 
     /* Get sets to preview */
-    const animes = Array.from(props.animes.values());
-    const favouritesSet = props.user === undefined ? [] : animes.filter((e) => {
+    const shows = Array.from(props.shows.values());
+    const favouritesSet = props.user === undefined ? [] : shows.filter((e) => {
         return props.user?.favourites.includes(e.id);
     });
-    const airingSet = animes.filter((e) => {
-        return e.status === AnimeStatusMapping.AIRING;
+    const airingSet = shows.filter((e) => {
+        return e.status === ShowStatusMapping.AIRING;
     });
     const soonSet = airingSet.sort((a, b) => {
         if (a.timestamp === null || b.timestamp === null) {
@@ -32,7 +32,7 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
         }
         return a.timestamp - b.timestamp;
     });
-    const latestSet = animes
+    const latestSet = shows
         .filter((e) => {
             return e.timestamp !== null;
         })
@@ -42,7 +42,7 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
             }
             return b.timestamp - a.timestamp;
         });
-    const randomSet = animes.length < 1 ? [] : [animes[props.random % animes.length]];
+    const randomSet = shows.length < 1 ? [] : [shows[props.random % shows.length]];
 
     return (
         <div className={baseStyle["page-content"]}>

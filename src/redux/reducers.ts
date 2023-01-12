@@ -53,15 +53,15 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return cacheResource(state, action.data, ResourceType.USER);
     },
 
-    FETCH_ANIME_SUCCESS: (state: ReduxState, action: ReduxAction) => {
-        return cacheResource(state, action.data, ResourceType.ANIME);
+    FETCH_SHOW_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+        return cacheResource(state, action.data, ResourceType.SHOW);
     },
 
-    FETCH_ALL_ANIMES_SUCCESS: (state: ReduxState, action: ReduxAction) => {
-        return cacheResources(state, action.data, ResourceType.ANIME);
+    FETCH_ALL_SHOWS_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+        return cacheResources(state, action.data, ResourceType.SHOW);
     },
 
-    FETCH_ANIME_EPISODES_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+    FETCH_SHOW_EPISODES_SUCCESS: (state: ReduxState, action: ReduxAction) => {
         return cacheResources(state, action.data, ResourceType.EPISODE);
     },
 
@@ -181,8 +181,16 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, playerData: { ...state.playerData, theater: action.data } };
     },
 
+    SET_PLAYER_SETTINGS: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, settings: action.data } };
+    },
+
     SET_PLAYER_SUBS: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, subs: action.data } };
+    },
+
+    SET_PLAYER_AUDIO: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, audio: action.data } };
     },
 
     SET_PLAYER_PRESET: (state: ReduxState, action: ReduxAction) => {
@@ -215,6 +223,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     SET_PLAYER_BANDWITH: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, bandwith: action.data } };
+    },
+
+    SET_PLAYER_OVERRIDE_URL: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, overrideUrl: action.data } };
     },
 };
 const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction) => Promise<void>> = {
@@ -250,16 +262,16 @@ const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState:
         dispatch(actions.fetchUserSuccess(user));
     },
 
-    FETCH_ANIME: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        await reducerFetch(dispatch, action.data, routes.fetchAnime, actions.fetchAnimeSuccess);
+    FETCH_SHOW: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetch(dispatch, action.data, routes.fetchShow, actions.fetchShowSuccess);
     },
 
-    FETCH_ALL_ANIMES: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        await reducerFetchMultiple(dispatch, action.data, routes.fetchAllAnimes, actions.fetchAllAnimesSuccess);
+    FETCH_ALL_SHOWS: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetchMultiple(dispatch, action.data, routes.fetchAllShows, actions.fetchAllShowsSuccess);
     },
 
-    FETCH_ANIME_EPISODES: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
-        await reducerFetchMultiple(dispatch, action.data, routes.fetchAnimeEpisodes, actions.fetchAnimeEpisodesSuccess);
+    FETCH_SHOW_EPISODES: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetchMultiple(dispatch, action.data, routes.fetchShowEpisodes, actions.fetchShowEpisodesSuccess);
     },
 
     FETCH_GROUP: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {

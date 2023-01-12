@@ -26,7 +26,7 @@ const Status: FunctionalComponent<StatusConnectedProps> = (props: StatusConnecte
                         <span className={style["status-item-row-value"]}>??</span>
                     </div>
                     <div className={style["status-item-row"]}>
-                        <span className={style["status-item-row-key"]}>Anime:</span>
+                        <span className={style["status-item-row-key"]}>Shows:</span>
                         <span className={style["status-item-row-value"]}>??</span>
                     </div>
                     <div className={style["status-item-row"]}>
@@ -47,7 +47,7 @@ const Status: FunctionalComponent<StatusConnectedProps> = (props: StatusConnecte
                 <div className={style["status-item"]}>
                     <div className={style["status-item-row"]}>
                         <div className={style["icon-file"]} />
-                        <span className={style["status-item-row-title"]}>File server - Akagi</span>
+                        <span className={style["status-item-row-title"]}>File server - Vaporeon</span>
                     </div>
                     <div className={style["status-item-row"]}>
                         <span className={style["status-item-row-key"]}>Online:</span>

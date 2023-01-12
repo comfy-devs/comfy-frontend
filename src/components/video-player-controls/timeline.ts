@@ -22,5 +22,5 @@ export function updateCanvas(episode: Episode, video: HTMLVideoElement | null, t
             0, 0, timelineCanvas.width, timelineCanvas.height
         );
     }
-    sheet.src = `${getImageEndpoint()}/${episode.anime}/${episode.pos}/timeline_${sheetValue}.webp`;
+    sheet.src = `${getImageEndpoint()}/${episode.show}/${episode.pos}/timeline_${sheetValue}.webp`;
 }

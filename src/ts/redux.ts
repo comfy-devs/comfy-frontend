@@ -9,7 +9,7 @@ type ReduxState = {
     dimensions: Dimensions;
     session: Session | null;
     users: Map<string, User>;
-    animes: Map<string, Anime>;
+    shows: Map<string, Show>;
     groups: Map<string, Group>;
     episodes: Map<string, Episode>;
     encodes: Map<string, Encode>;
@@ -29,9 +29,9 @@ type ConnectedActions = {
     fetchUser(id: string): ReduxAction;
     createSession(type: "classic" | "token", username?: string, password?: string): ReduxAction;
     deleteSession(): ReduxAction;
-    fetchAnime(id: string): ReduxAction;
-    fetchAllAnimes(): ReduxAction;
-    fetchAnimeEpisodes(id: string): ReduxAction;
+    fetchShow(id: string): ReduxAction;
+    fetchAllShows(): ReduxAction;
+    fetchShowEpisodes(id: string): ReduxAction;
     fetchGroup(id: string): ReduxAction;
     fetchAllGroups(): ReduxAction;
     fetchEpisode(id: string): ReduxAction;
@@ -55,12 +55,12 @@ type ConnectedActions = {
     setAuthResult(result: AuthResult): ReduxAction;
 
     setFilterSearchTerm(searchTerm: string): ReduxAction;
-    setFilterGenres(genres: AnimeGenre | null): ReduxAction;
+    setFilterGenres(genres: ShowGenre | null): ReduxAction;
     setFilterYear(year: number | null): ReduxAction;
-    setFilterType(type: AnimeType | null): ReduxAction;
-    setFilterStatus(status: AnimeStatus | null): ReduxAction;
+    setFilterType(type: ShowType | null): ReduxAction;
+    setFilterStatus(status: ShowStatus | null): ReduxAction;
     setFilterSort(sort: FilterSort): ReduxAction;
-    setFilterTags(tags: AnimeTag | null): ReduxAction;
+    setFilterTags(tags: ShowTag | null): ReduxAction;
     setFilterItems(items: number): ReduxAction;
     setFilterGroup(group: FilterGroup): ReduxAction;
     setFilterPage(page: number): ReduxAction;
@@ -68,11 +68,13 @@ type ConnectedActions = {
     setPlayerState(state: PlayerState): ReduxAction;
     setPlayerPreset(preset: EncodePreset): ReduxAction;
     setPlayerTheater(theater: boolean): ReduxAction;
-    setPlayerSubs(subs: boolean): ReduxAction;
+    setPlayerSettings(settings: boolean): ReduxAction;
+    setPlayerOverlay(overlay: boolean): ReduxAction;
+    setPlayerSubs(subs: PlayerDataSubs): ReduxAction;
+    setPlayerAudio(audio: PlayerDataAudio): ReduxAction;
     setPlayerOverrideUrl(url?: string): ReduxAction;
     setPlayerOpNotification(opNotifaction: boolean): ReduxAction;
     setPlayerEdNotification(edNotifaction: boolean): ReduxAction;
-    setPlayerOverlay(overlay: boolean): ReduxAction;
     setPlayerBandwith(bandwith: number): ReduxAction;
     setPlayerManifestLevels(levels: PlayerManifestLevel[]): ReduxAction;
     setPlayerManifestSubtitles(tracks: PlayerManifestTrack[]): ReduxAction;

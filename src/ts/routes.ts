@@ -10,7 +10,7 @@ type RouteProps = {
 type HomeConnectedProps = RouteProps & {
     dimensions: Dimensions;
     users: Map<string, User>;
-    animes: Map<string, Anime>;
+    shows: Map<string, Show>;
     episodes: Map<string, Episode>;
     groups: Map<string, Group>;
     random: number;
@@ -19,13 +19,13 @@ type HomeConnectedProps = RouteProps & {
 
 type AllConnectedProps = RouteProps & {
     dimensions: Dimensions;
-    animes: Map<string, Anime>;
+    shows: Map<string, Show>;
     groups: Map<string, Group>;
     filterData: FilterData;
 };
 
 type GenresConnectedProps = RouteProps & {
-    animes: Map<string, Anime>;
+    shows: Map<string, Show>;
 };
 
 type SettingsConnectedProps = RouteProps & {
@@ -35,8 +35,8 @@ type SettingsConnectedProps = RouteProps & {
 type DownloadConnectedProps = RouteProps;
 type StatusConnectedProps = RouteProps;
 
-type AnimeConnectedProps = RouteProps & {
-    animes: Map<string, Anime>;
+type ShowConnectedProps = RouteProps & {
+    shows: Map<string, Show>;
     episodes: Map<string, Episode>;
     user: User | null;
     id: string;
@@ -44,7 +44,7 @@ type AnimeConnectedProps = RouteProps & {
 
 type EpisodeConnectedProps = RouteProps & {
     dimensions: Dimensions;
-    animes: Map<string, Anime>;
+    shows: Map<string, Show>;
     episodes: Map<string, Episode>;
     encodes: Map<string, Encode>;
     segments: Map<string, Segment>;
@@ -54,7 +54,7 @@ type EpisodeConnectedProps = RouteProps & {
 
 type GroupRouteConnectedProps = RouteProps & {
     dimensions: Dimensions;
-    animes: Map<string, Anime>;
+    shows: Map<string, Show>;
     groups: Map<string, Group>;
     id: string;
 };

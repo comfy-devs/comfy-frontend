@@ -2,14 +2,14 @@
 import { h, FunctionalComponent } from "preact";
 import { Text } from "preact-i18n";
 import { useEffect, useState } from "react";
-import { secondsToString } from "../../scripts/nyan/util";
-import { findSegmentForTimestamp } from "../../scripts/nyan/functions";
+import { secondsToString } from "../../scripts/comfy/util";
+import { findSegmentForTimestamp } from "../../scripts/comfy/segment";
 /* Styles */
 import style from "./style.scss";
 /* Components */
 import VideoPlayerControlsOverlay from "../video-player-controls-overlay";
 import VideoPlayerControlsDev from "../video-player-controls-dev";
-import { AnimeTagMapping, SegmentTypeMapping } from "../../ts/common/const";
+import { ShowTagMapping, SegmentTypeMapping } from "../../ts/common/const";
 import { updateCanvas } from "./timeline";
 
 const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps> = (props: VideoPlayerControlsConnectedProps) => {
@@ -24,7 +24,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
     return (
         <div className={style["video-controls-wrapper"]}>
             {props.playerData.overlay ? <VideoPlayerControlsOverlay item={props.item} encode={props.encode} preferences={props.preferences} video={props.video} playerData={props.playerData} /> : null}
-            <div className={style["video-controls"]}>
+            <div className={style["video-controls"]} data={props.playerData.settings ? "show" : undefined}>
                 <div className={style["video-controls-bg"]} />
                 <div className={style["video-controls-section-0"]}>
                     <div
@@ -129,14 +129,14 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                 <div className={style["video-controls-section-1"]}>
                     <div
                         className={style["video-controls-button"]}
-                        disabled={!((props.parent.tags & AnimeTagMapping.SUBBED) === AnimeTagMapping.SUBBED)}
+                        disabled={!((props.parent.tags & ShowTagMapping.SUBBED) === ShowTagMapping.SUBBED)}
                         onClick={() => {
-                            if (!((props.parent.tags & AnimeTagMapping.SUBBED) === AnimeTagMapping.SUBBED)) {
+                            if (!((props.parent.tags & ShowTagMapping.SUBBED) === ShowTagMapping.SUBBED)) {
                                 return;
                             }
-                            props.actions.setPlayerSubs(!props.playerData.subs);
+                            props.actions.setPlayerSubs({ enabled: !props.playerData.subs.enabled, lang: props.playerData.subs.lang });
                         }}>
-                        <div className={style["icon-subs"]} data={props.playerData.subs ? "true" : "false"} />
+                        <div className={style["icon-subs"]} data={props.playerData.subs.enabled ? "true" : "false"} />
                         <div className={style.tooltip}>
                             {props.playerData.subs ? <Text id="video.showSubtitles.tooltip" /> : <Text id="video.hideSubtitles.tooltip" />} (c)
                         </div>
@@ -147,7 +147,11 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             <Text id="video.noDub" />
                         </div>
                     </div>
-                    <div className={style["video-controls-button"]}>
+                    <div
+                        className={style["video-controls-button"]}
+                        onClick={() => {
+                            props.actions.setPlayerSettings(!props.playerData.settings);
+                        }}>
                         <div className={style["icon-settings"]} />
                         <div className={style.tooltip}>
                             <Text id="video.settings" /> (s)

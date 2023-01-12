@@ -1,11 +1,11 @@
 /* Base */
 import { h, FunctionalComponent, createRef } from "preact";
-import { topicExtraToDisplayName } from "../../scripts/nyan/functions";
+import { topicExtraToDisplayName } from "../../scripts/comfy/topic";
 /* Styles */
 import style from "./style.scss";
 /* Components */
 import Slider from "react-slick";
-import AnimeCard from "../anime-card";
+import ShowCard from "../show-card";
 
 const Topic: FunctionalComponent<TopicConnectedProps> = (props: TopicConnectedProps) => {
     const sliderRef = createRef();
@@ -44,9 +44,9 @@ const Topic: FunctionalComponent<TopicConnectedProps> = (props: TopicConnectedPr
             </div>
             <Slider {...sliderSettings} className={style["topic-previews"]} ref={sliderRef}>
                 {props.items.map((e, i) => {
-                    return <AnimeCard alt key={i} item={e} extra={topicExtraToDisplayName(e, props.extra)} preferences={props.preferences} />;
+                    return <ShowCard alt key={i} item={e} extra={topicExtraToDisplayName(e, props.extra)} preferences={props.preferences} />;
                 })}
-                {props.items.length < wantedItems ? new Array(wantedItems - props.items.length).fill(null).map((e, i) => <AnimeCard alt key={i} preferences={props.preferences} />) : null}
+                {props.items.length < wantedItems ? new Array(wantedItems - props.items.length).fill(null).map((e, i) => <ShowCard alt key={i} preferences={props.preferences} />) : null}
             </Slider>
         </div>
     );

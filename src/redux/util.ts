@@ -4,26 +4,27 @@ export const INITIAL: ReduxState = {
     dimensions: { w: 0, h: 0 },
     session: null,
     users: new Map(),
-    animes: new Map(),
+    shows: new Map(),
     groups: new Map(),
     episodes: new Map(),
     encodes: new Map(),
     segments: new Map(),
-    stats: { id: "default", size: 0, files: 0 },
+    stats: { id: "default", size: 0, files: 0, torrents: 0 },
     random: Math.floor(Math.random() * 1000000),
     preferences: { theme: "dark", torrent: false, lang: "en", developer: false, blur: true, volume: 50 },
     filterData: { page: 0, searchTerm: "", genres: null, year: null, type: null, status: null, sort: "TITLE_ASC", tags: null, items: 100, group: "NO" },
     playerData: {
-        state: "WAITING", preset: "X264", theater: false, subs: true,
-        opNotification: true, edNotification: true, overlay: true,
-        manifest: { levels: [], subtitles: [] }, manifestLevel: 0, bandwith: 0
+        state: "WAITING", preset: "X264", theater: false, overlay: true,
+        subs: { enabled: true, lang: "eng" }, audio: { lang: "jpn" },
+        opNotification: true, edNotification: true,
+        manifest: { levels: [], subtitles: [] }, manifestLevel: 0, bandwith: 0, overrideUrl: null
     },
     authResult: "NONE"
 };
 
 export enum ResourceType {
     USER,
-    ANIME,
+    SHOW,
     EPISODE,
     ENCODE,
     SEGMENT,
@@ -58,8 +59,8 @@ export function cacheResources(state: ReduxState, resources: any[], resourceType
         case ResourceType.USER:
             return saveResources(state, "users", resources);
 
-        case ResourceType.ANIME:
-            return saveResources(state, "animes", resources);
+        case ResourceType.SHOW:
+            return saveResources(state, "shows", resources);
 
         case ResourceType.EPISODE:
             return saveResources(state, "episodes", resources);

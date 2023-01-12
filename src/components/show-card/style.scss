@@ -11,7 +11,7 @@
 }
 
 /* Content */
-.anime {
+.show {
 	position: relative;
 	display: inline-block;
 	overflow: hidden;
@@ -22,11 +22,11 @@
 	cursor: pointer;
 }
 
-.anime[data="alt"] {
+.show[data="alt"] {
 	display: block;
 }
 
-.anime-title-wrapper {
+.show-title-wrapper {
 	@extend %align-center;
 
 	position: absolute;
@@ -36,21 +36,21 @@
 	background-color: var(--color-background);
 }
 
-.anime-title {
+.show-title {
 	color: var(--color-secondary-text);
 	font-size: 14px;
 }
 
-.anime-favourites-wrapper {
+.show-favourites-wrapper {
 	@extend %align-y;
 }
 
-.anime-favourites {
+.show-favourites {
 	color: var(--color-secondary);
 	font-size: 14px;
 }
 
-.anime-thumbnail {
+.show-thumbnail {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -59,11 +59,11 @@
 	object-fit: cover;
 }
 
-.anime-thumbnail[data="blur"] {
+.show-thumbnail[data="blur"] {
 	filter: blur(5px);
 }
 
-.anime-extra-wrapper {
+.show-extra-wrapper {
 	position: absolute;
 	right: 10px;
 	bottom: 45px;
@@ -72,12 +72,12 @@
 	background-color: var(--color-background);
 }
 
-.anime-extra-text {
+.show-extra-text {
 	color: #23ff83;
 	font-size: 13px;
 }
 
-.anime-overlay {
+.show-overlay {
 	@extend %align-center;
 
 	position: absolute;
@@ -87,7 +87,7 @@
 	opacity: 0.3;
 	visibility: hidden;
 }
-.anime:hover .anime-overlay { visibility: visible; }
+.show:hover .show-overlay { visibility: visible; }
 
 /* Icons */
 .icon-star,

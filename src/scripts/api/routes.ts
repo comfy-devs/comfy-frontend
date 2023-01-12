@@ -31,11 +31,11 @@ export async function deleteSession(): Promise<boolean> {
     return response.status === 200;
 }
 
-export async function fetchAnime(id: string): Promise<Anime | undefined> {
-    return await fetchResource("/animes", id);
+export async function fetchShow(id: string): Promise<Show | undefined> {
+    return await fetchResource("/shows", id);
 }
-export async function fetchAllAnimes(): Promise<Anime[]> {
-    return await fetchResources("/animes/all");
+export async function fetchAllShows(): Promise<Show[]> {
+    return await fetchResources("/shows/all");
 }
 
 export async function fetchGroup(id: string): Promise<Group | undefined> {
@@ -51,8 +51,8 @@ export async function fetchEpisode(id: string): Promise<Episode | undefined> {
 export async function fetchAllEpisodes(): Promise<Episode[]> {
     return await fetchResources("/episodes/all");
 }
-export async function fetchAnimeEpisodes(id: string): Promise<Episode[]> {
-    return await fetchResources("/animes/episodes", id);
+export async function fetchShowEpisodes(id: string): Promise<Episode[]> {
+    return await fetchResources("/shows/episodes", id);
 }
 
 export async function fetchEncode(id: string): Promise<Encode | undefined> {
@@ -89,7 +89,7 @@ export async function pushUnsubscribe(): Promise<number> {
 }
 
 export async function favourite(id: string): Promise<User | undefined> {
-    const response: APIResponse = await post({ path: "/animes/favourite", body: { id } });
+    const response: APIResponse = await post({ path: "/shows/favourite", body: { id } });
     if (response.status !== 200) {
         return undefined;
     }

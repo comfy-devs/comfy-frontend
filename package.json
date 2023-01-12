@@ -1,7 +1,7 @@
 {
-    "name": "nyananime-frontend",
+    "name": "comfy-frontend",
     "version": "0.0.0",
-    "description": "A front-end for Nyan Anime written using Preact.",
+    "description": "A front-end for Comfy written using Preact.",
     "license": "GPL-3.0-or-later",
     "author": {
         "name": "LamkasDev",

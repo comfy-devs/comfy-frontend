@@ -1,59 +1,161 @@
 /* Base */
-import { Component } from "preact";
-import Hls from "hls.js";
-import { episodeLocationToURL } from "../../scripts/nyan/constants";
+import { FunctionalComponent } from "preact";
+import Hls, { LoaderCallbacks, LoaderConfiguration, LoaderContext, HlsConfig } from "hls.js";
+import { episodeLocationToURL } from "../../scripts/comfy/constants";
+import { useEffect, useState } from "react";
+import { Torrent, TorrentFile } from "webtorrent";
 
-class VideoPlayerHlsWrapper extends Component<VideoPlayerHlsWrapperConnectedProps> {
-    client: Hls;
+function createLoader(torrent: Torrent | null, root: string) {
+    return class TorrentLoader extends Hls.DefaultConfig.loader {
+        load(context: LoaderContext, config: LoaderConfiguration, callbacks: LoaderCallbacks<LoaderContext>) {
+            const { url } = context;
+            const path = url.replace(root, "");
 
-    constructor(props: VideoPlayerHlsWrapperConnectedProps) {
-        super(props);
-        
-        this.client = new Hls({
-            maxBufferHole: 3,
-            maxFragLookUpTolerance: 5
-        });
-        if (props.video === null) {
+            const file = torrent !== null ? torrent.files.find((e: TorrentFile) => path === e.path) : undefined;
+            if(file !== undefined) {
+                (file as any).getStreamURL((e: Error, url: string) => {
+                    if (e) {
+                        console.error(e);
+                        return;
+                    }
+                    context.url = url;
+                    super.load(context, config, callbacks);
+                });
+            } else {
+                super.load(context, config, callbacks);
+            }
+        }
+    }
+}
+
+const VideoPlayerHlsWrapper: FunctionalComponent<VideoPlayerHlsWrapperConnectedProps> = (props: VideoPlayerHlsWrapperConnectedProps) => {
+    const [torrentClient, setTorrentClient] = useState<null | any>(null);
+    useEffect(() => {
+        if(props.preferences.torrent && props.parent.magnet !== null) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const torrentClient = new window.WebTorrent();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            torrentClient.loadWorker(navigator.serviceWorker.controller);
+
+            setTorrentClient(torrentClient);
+        }
+    }, [props.parent.magnet]);
+    const [torrentReady, setTorrentReady] = useState<null | boolean>(null);
+    const [torrent, setTorrent] = useState<null | Torrent>(null);
+    useEffect(() => {
+        if(torrentClient !== null) {
+            const torrent = torrentClient.add(`${episodeLocationToURL(props.parent.location)}/${props.item.show}/series.torrent`,
+            { announce: ["wss://localhost:9102"] },
+            () => {
+                torrent.files
+                    .forEach((file: any) => {
+                        file.deselect();
+                    });
+            });
+            torrent.on("error", (e: any) => {
+                console.log(e);
+            });
+            torrent.on("warning", (e: any) => {
+                console.log(e);
+            });
+            torrent.on("metadata", () => {
+                console.log("metadata");
+            });
+            torrent.on("ready", () => {
+                console.log("ready");
+                setTorrentReady(true);
+            });
+            torrent.on("noPeers", () => {
+                console.log("no peers");
+            });
+            setTorrent(torrent);
+        }
+    }, [torrentClient]);
+    const [loader, setLoader] = useState<null | any>(null);
+    useEffect(() => {
+        if(torrentReady === true) {
+            setLoader(() => createLoader(torrent, `${episodeLocationToURL(props.parent.location)}/`));
+        }
+    }, [torrentReady]);
+    const [client, setClient] = useState<null | Hls>(null);
+    useEffect(() => {
+        const options: HlsConfig = Hls.DefaultConfig;
+        options.maxBufferHole = 3;
+        options.maxBufferLength = 30;
+        options.maxFragLookUpTolerance = 5;
+        if(loader !== null) {
+            options.loader = loader;
+        }
+        setClient(new Hls(options));
+    }, [loader]);
+
+    useEffect(() => {
+        if(client === null || props.video === null || props.playerData.preset === "VP9") {
             return;
         }
-        this.client.attachMedia(props.video);
-        this.client.on(Hls.Events.ERROR, (event, data) => {
+        client.attachMedia(props.video);
+        client.on(Hls.Events.ERROR, (event, data) => {
             console.log(data);
         });
-        this.client.on(Hls.Events.MEDIA_ATTACHED, (event, data) => {
-            this.client.loadSource(`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.anime}/${this.props.item.pos}/hls/${this.props.playerData.preset.toLowerCase()}/master.m3u8`);
-            this.client.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
-                this.props.actions.setPlayerManifestLevels(this.client.levels.map(e => {
+        client.on(Hls.Events.MEDIA_ATTACHED, (event, data) => {
+            client.loadSource(`${episodeLocationToURL(props.parent.location)}/${props.item.show}/${props.item.pos}/hls/${props.playerData.preset.toLowerCase()}/master.m3u8`);
+            client.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
+                props.actions.setPlayerManifestLevels(client.levels.map(e => {
                     return {
                         codecs: `${e.videoCodec},${e.audioCodec}`,
                         resolution: `${e.width},${e.height}`,
                         bitrate: e.bitrate
                     };
                 }));
-                console.log(this.client.levels);
+                console.log(client.levels);
             });
         });
-        this.client.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, () => {
-            this.props.actions.setPlayerManifestSubtitles(this.client.subtitleTracks.map(e => {
+        client.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, () => {
+            props.actions.setPlayerManifestSubtitles(client.subtitleTracks.map(e => {
                 return {
                     name: e.lang ?? e.name
                 };
             }));
-            this.client.subtitleTrack = 0;
-            this.client.subtitleDisplay = true;
-            console.log(this.client.subtitleTracks);
+            client.subtitleTrack = 0;
+            client.subtitleDisplay = true;
         });
-        this.client.on(Hls.Events.LEVEL_SWITCHED, (event, data) => {
-            this.props.actions.setPlayerManifestLevel(data.level);
+        client.on(Hls.Events.AUDIO_TRACKS_UPDATED, () => {
+            console.log(client.audioTracks);
         });
-        this.client.on(Hls.Events.FRAG_CHANGED, () => {
-            this.props.actions.setPlayerBandwith(this.client.bandwidthEstimate);
+        client.on(Hls.Events.LEVEL_SWITCHED, (event, data) => {
+            props.actions.setPlayerManifestLevel(data.level);
         });
-    }
+        client.on(Hls.Events.FRAG_CHANGED, () => {
+            props.actions.setPlayerBandwith(client.bandwidthEstimate);
+        });
 
-    render() {
-        return null;
-    }
-}
+        return () => {
+            client.destroy();
+        }
+    }, [client, props.video]);
+    useEffect(() => {
+        if(client === null) { return; }
+        const track = client.audioTracks.findIndex(e => e.lang === props.playerData.audio.lang);
+        console.log(`wanted: ${props.playerData.audio.lang}`)
+        if(track !== -1) {
+            client.audioTrack = track;
+            console.log(`new atrack: ${track}`)
+        }
+    }, [client, props.playerData.audio.lang]);
+    useEffect(() => {
+        if(client === null) { return; }
+        const track = client.subtitleTracks.findIndex(e => e.lang === props.playerData.subs.lang);
+        console.log(client.audioTracks);
+        console.log(`wanted: ${props.playerData.subs.lang}`)
+        if(track !== -1) {
+            client.subtitleTrack = track;
+            console.log(`new strack: ${track}`)
+        }
+    }, [client, props.playerData.subs.lang]);
+
+    return null;
+};
 
 export default VideoPlayerHlsWrapper;

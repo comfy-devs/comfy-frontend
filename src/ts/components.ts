@@ -11,15 +11,15 @@ type FooterConnectedProps = {
 
 /* Types */
 type GenreConnectedProps = {
-    item: AnimeGenre;
-    animes: Map<string, Anime>;
+    item: ShowGenre;
+    shows: Map<string, Show>;
 };
 
 type VideoPlayerConnectedProps = {
     dimensions: Dimensions;
     item: Episode;
     encode: Encode | null;
-    parent: Anime;
+    parent: Show;
     segments: Segment[];
     preferences: AppPreferences;
 
@@ -43,18 +43,11 @@ type VideoPlayerNotificationConnectedProps = {
     actions: ConnectedActions;
 };
 
-type VideoPlayerTorrentWrapperConnectedProps = {
-    item: Episode;
-    parent: Anime;
-    video: HTMLVideoElement | null;
-
-    playerData: PlayerData;
-    actions: ConnectedActions;
-};
 type VideoPlayerHlsWrapperConnectedProps = {
     item: Episode;
-    parent: Anime;
+    parent: Show;
     video: HTMLVideoElement | null;
+    preferences: AppPreferences;
 
     playerData: PlayerData;
     actions: ConnectedActions;
@@ -64,7 +57,7 @@ type VideoPlayerControlsConnectedProps = {
     dimensions: Dimensions;
     item: Episode;
     encode: Encode | null;
-    parent: Anime;
+    parent: Show;
     segments: Segment[];
     preferences: AppPreferences;
     video: HTMLVideoElement | null;
@@ -90,8 +83,16 @@ type VideoPlayerControlsDevConnectedProps = {
     video: HTMLVideoElement | null;
 };
 
-type AnimeCardConnectedProps = {
-    item?: Anime;
+type VideoPlayerSettingsConnectedProps = {
+    item: Episode;
+    encode: Encode | null;
+
+    playerData: PlayerData;
+    actions: ConnectedActions;
+};
+
+type ShowCardConnectedProps = {
+    item?: Show;
     alt?: boolean;
     extra?: JSX.Element;
     preferences: AppPreferences;
@@ -99,12 +100,12 @@ type AnimeCardConnectedProps = {
 
 type GroupCardConnectedProps = {
     item: Group;
-    children: Anime[];
+    children: Show[];
 };
 
 type EpisodeCardConnectedProps = {
     item?: Episode;
-    parent: Anime;
+    parent: Show;
     i: number;
     disabled?: boolean;
     preferences: AppPreferences;
@@ -126,7 +127,7 @@ type TopicConnectedProps = {
     icon?: string;
     small?: boolean;
     extra?: number;
-    items: Anime[];
+    items: Show[];
     preferences: AppPreferences;
 };
 
