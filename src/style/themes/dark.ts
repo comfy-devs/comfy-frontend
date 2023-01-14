@@ -9,6 +9,9 @@ export default `
         --color-secondary-light: #fb3e4c;
         --color-secondary-dark: #fd2b3b;
         --color-secondary-text: #fff;
+
         --color-background: #353535;
+        --color-link: #47a0ff;
+        --color-tooltip: #131313;
     }
 `;

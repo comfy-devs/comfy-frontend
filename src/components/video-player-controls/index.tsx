@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { secondsToString } from "../../scripts/comfy/util";
 import { findSegmentForTimestamp } from "../../scripts/comfy/segment";
 /* Styles */
+import tooltipStyle from "../tooltip.scss";
 import style from "./style.scss";
 /* Components */
 import VideoPlayerControlsOverlay from "../video-player-controls-overlay";
@@ -28,7 +29,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                 <div className={style["video-controls-bg"]} />
                 <div className={style["video-controls-section-0"]}>
                     <div
-                        className={style["video-controls-button"]}
+                        className={[tooltipStyle["tooltip-wrapper"], style["video-controls-button"]].join(" ")}
                         onClick={() => {
                             if (props.video === null) {
                                 return;
@@ -40,7 +41,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             }
                         }}>
                         <div className={style["icon-play"]} data={props.video.paused ? "false" : "true"} />
-                        <div className={style.tooltip} data={"left"}>
+                        <div className={tooltipStyle.tooltip} data={"left"}>
                             {props.video.paused ? <Text id="video.play.tooltip" /> : <Text id="video.pause.tooltip" />} (k)
                         </div>
                     </div>
@@ -48,7 +49,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                         {secondsToString(Math.round(props.video.currentTime))}/{isNaN(props.video.duration) ? "??" : secondsToString(Math.round(props.video.duration))}
                     </div>
                     <div
-                        className={style["video-controls-button"]}
+                        className={[tooltipStyle["tooltip-wrapper"], style["video-controls-button"]].join(" ")}
                         onClick={() => {
                             if (props.video === null) {
                                 return;
@@ -56,12 +57,10 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             props.video.muted = !props.video.muted;
                         }}>
                         <div className={style["icon-volume"]} data={props.video.muted ? "false" : "true"} />
-                        <div className={style.tooltip}>
-                            {props.video.muted ? <Text id="video.unmute.tooltip" /> : <Text id="video.mute.tooltip" />} (m)
-                        </div>
+                        <div className={tooltipStyle.tooltip}>{props.video.muted ? <Text id="video.unmute.tooltip" /> : <Text id="video.mute.tooltip" />} (m)</div>
                     </div>
                     <div
-                        className={style["video-controls-volume"]}
+                        className={[tooltipStyle["tooltip-wrapper"], style["video-controls-volume"]].join(" ")}
                         onClick={(e) => {
                             if (props.video === null || props.video.muted) {
                                 return;
@@ -73,7 +72,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                         disabled={props.video.muted}>
                         <div className={style["video-controls-volume-bg"]} />
                         <div className={style["video-controls-volume-value"]} style={{ width: `${props.video.volume * 100}%` }} />
-                        <div className={[style.tooltip, style["tooltip-volume"]].join(" ")}>
+                        <div className={[tooltipStyle.tooltip, style["tooltip-volume"]].join(" ")}>
                             <Text id="video.volume" /> ({Math.round(props.video.volume * 100)}%)
                         </div>
                     </div>
@@ -103,9 +102,8 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             props.timelineTooltip.style.left = `calc(${value * 100}% - ${Math.round(props.timelineTooltip.getBoundingClientRect().width / 2)}px)`;
 
                             const segment = findSegmentForTimestamp(segments, value * props.video.duration);
-                            props.timelineText.innerText = `${secondsToString(Math.round(props.video.duration * value))} ${
-                                segment.item === null || segment.item.type === SegmentTypeMapping.EPISODE ? "" : `(${segment.item.type === SegmentTypeMapping.OP ? "OP" : "ED"})`
-                            }`;
+                            const segmentText = segment.item === null || segment.item.type === SegmentTypeMapping.EPISODE ? "" : `(${segment.item.type === SegmentTypeMapping.OP ? "OP" : "ED"})`;
+                            props.timelineText.innerText = `${secondsToString(Math.round(props.video.duration * value))} ${segmentText}`;
                             updateCanvas(props.item, props.video, props.timelineCanvas, value * props.video.duration);
                         }}
                         onMouseLeave={() => {
@@ -128,7 +126,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                 </div>
                 <div className={style["video-controls-section-1"]}>
                     <div
-                        className={style["video-controls-button"]}
+                        className={[tooltipStyle["tooltip-wrapper"], style["video-controls-button"]].join(" ")}
                         disabled={!((props.parent.tags & ShowTagMapping.SUBBED) === ShowTagMapping.SUBBED)}
                         onClick={() => {
                             if (!((props.parent.tags & ShowTagMapping.SUBBED) === ShowTagMapping.SUBBED)) {
@@ -137,40 +135,30 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             props.actions.setPlayerSubs({ enabled: !props.playerData.subs.enabled, lang: props.playerData.subs.lang });
                         }}>
                         <div className={style["icon-subs"]} data={props.playerData.subs.enabled ? "true" : "false"} />
-                        <div className={style.tooltip}>
-                            {props.playerData.subs ? <Text id="video.showSubtitles.tooltip" /> : <Text id="video.hideSubtitles.tooltip" />} (c)
-                        </div>
-                    </div>
-                    <div className={style["video-controls-button"]} disabled>
-                        <div className={style["icon-audio"]} data={"false"} />
-                        <div className={style.tooltip}>
-                            <Text id="video.noDub" />
-                        </div>
+                        <div className={tooltipStyle.tooltip}>{props.playerData.subs ? <Text id="video.showSubtitles.tooltip" /> : <Text id="video.hideSubtitles.tooltip" />} (c)</div>
                     </div>
                     <div
-                        className={style["video-controls-button"]}
+                        className={[tooltipStyle["tooltip-wrapper"], style["video-controls-button"]].join(" ")}
                         onClick={() => {
                             props.actions.setPlayerSettings(!props.playerData.settings);
                         }}>
                         <div className={style["icon-settings"]} />
-                        <div className={style.tooltip}>
+                        <div className={tooltipStyle.tooltip}>
                             <Text id="video.settings" /> (s)
                         </div>
                     </div>
                     {props.dimensions.w < 500 ? null : (
                         <div
-                            className={style["video-controls-button"]}
+                            className={[tooltipStyle["tooltip-wrapper"], style["video-controls-button"]].join(" ")}
                             onClick={() => {
                                 props.actions.setPlayerTheater(!props.playerData.theater);
                             }}>
                             <div className={style["icon-theater"]} data={props.playerData.theater ? "true" : "false"} />
-                            <div className={style.tooltip}>
-                                {props.playerData.theater ? <Text id="video.hideTheater.tooltip" /> : <Text id="video.showTheater.tooltip" />} (t)
-                            </div>
+                            <div className={tooltipStyle.tooltip}>{props.playerData.theater ? <Text id="video.hideTheater.tooltip" /> : <Text id="video.showTheater.tooltip" />} (t)</div>
                         </div>
                     )}
                     <div
-                        className={style["video-controls-button"]}
+                        className={[tooltipStyle["tooltip-wrapper"], style["video-controls-button"]].join(" ")}
                         onClick={() => {
                             if (props.video === null) {
                                 return;
@@ -182,7 +170,7 @@ const VideoPlayerControls: FunctionalComponent<VideoPlayerControlsConnectedProps
                             }
                         }}>
                         <div className={style["icon-fullscreen"]} />
-                        <div className={style.tooltip} data={"right"}>
+                        <div className={tooltipStyle.tooltip} data={"right"}>
                             <Text id="video.fullscreen.tooltip" /> (f)
                         </div>
                     </div>

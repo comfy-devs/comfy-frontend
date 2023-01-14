@@ -27,16 +27,20 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
         super(props);
 
         this.setVideoRef = (e: HTMLVideoElement | null) => {
-            this.video = e; this.forceUpdate();
+            this.video = e;
+            this.forceUpdate();
         };
         this.setTimelineTooltipRef = (e: HTMLElement | null) => {
-            this.timelineTooltip = e; this.forceUpdate();
+            this.timelineTooltip = e;
+            this.forceUpdate();
         };
         this.setTimelineTextRef = (e: HTMLElement | null) => {
-            this.timelineText = e; this.forceUpdate();
+            this.timelineText = e;
+            this.forceUpdate();
         };
         this.setTimelineCanvasRef = (e: HTMLCanvasElement | null) => {
-            this.timelineCanvas = e; this.forceUpdate();
+            this.timelineCanvas = e;
+            this.forceUpdate();
         };
         this.keyCallbackBinded = this.keyCallback.bind(this);
     }
@@ -53,7 +57,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
     }
 
     componentWillUpdate(nextProps: Readonly<VideoPlayerConnectedProps>): void {
-        if(this.props.item.id !== nextProps.item.id) {
+        if (this.props.item.id !== nextProps.item.id) {
             this.video?.pause();
             this.video?.load();
         }
@@ -135,7 +139,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
     render() {
         const currentSegment = this.video === null ? { end: 0, item: null } : findSegmentForTimestamp(this.props.segments, this.video.currentTime);
         let videoUrl = `${episodeLocationToURL(this.props.parent.location)}/${this.props.item.show}/${this.props.item.pos}/${presetToFilename(this.props.playerData.preset)}`;
-        if(this.props.playerData.overrideUrl !== null) {
+        if (this.props.playerData.overrideUrl !== null) {
             videoUrl = this.props.playerData.overrideUrl;
         }
 
@@ -165,9 +169,11 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     onLoadedData={() => {
                         this.props.actions.setPlayerState("DONE");
                     }}
-                    volume={this.props.preferences.volume} >
+                    volume={this.props.preferences.volume}>
                     {this.props.playerData.preset === "VP9" ? <source src={videoUrl} /> : null}
-                    {!this.props.playerData.subs || this.props.playerData.preset === "X264" ? null : <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.show}/${this.props.item.pos}/subs/eng.vtt`} default />}
+                    {!this.props.playerData.subs || this.props.playerData.preset === "X264" ? null : (
+                        <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.show}/${this.props.item.pos}/subs/eng.vtt`} default />
+                    )}
                 </video>
                 <VideoPlayerControls
                     dimensions={this.props.dimensions}
@@ -185,7 +191,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                 />
                 <div ref={this.setTimelineTooltipRef} className={style["episode-timeline-tooltip"]}>
                     <canvas className={style["episode-timeline-tooltip-canvas"]} ref={this.setTimelineCanvasRef} id="canvas" width={192} height={108} />
-                    <div className={style["episode-timeline-tooltip-text"]} ref={this.setTimelineTextRef}>0:00</div>
+                    <div className={style["episode-timeline-tooltip-text"]} ref={this.setTimelineTextRef} />
                 </div>
                 {!this.props.playerData.opNotification || currentSegment.item === null || currentSegment.item.type !== SegmentTypeMapping.OP ? null : (
                     <VideoPlayerNotification type={"OP"} segment={currentSegment} video={this.video} actions={this.props.actions} />
@@ -195,7 +201,9 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                 )}
                 <VideoPlayerOverlay state={this.props.playerData.state} />
                 {!this.props.playerData.settings ? null : <VideoPlayerSettings item={this.props.item} encode={this.props.encode} actions={this.props.actions} playerData={this.props.playerData} />}
-                {this.props.playerData.preset === "VP9" || this.props.playerData.overrideUrl !== null ? null : <VideoPlayerHlsWrapper item={this.props.item} parent={this.props.parent} video={this.video} preferences={this.props.preferences} actions={this.props.actions} playerData={this.props.playerData} />}
+                {this.props.playerData.preset === "VP9" || this.props.playerData.overrideUrl !== null ? null : (
+                    <VideoPlayerHlsWrapper item={this.props.item} parent={this.props.parent} video={this.video} preferences={this.props.preferences} actions={this.props.actions} playerData={this.props.playerData} />
+                )}
             </div>
         );
     }

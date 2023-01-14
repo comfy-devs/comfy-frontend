@@ -20,7 +20,8 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
 
     const filterButtons = filterValues.map((e, i) => {
         return (
-            <div key={i}
+            <div
+                key={i}
                 className={style["filter-item"]}
                 onClick={() => {
                     switch (props.type) {
@@ -56,12 +57,13 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
                             props.actions.setFilterGroup(e);
                             return;
                     }
-                }} data={props.value === e ? "active" : undefined}>
+                }}
+                data={props.value === e ? "active" : undefined}>
                 {filterValueToDisplayName(props.type, e)}
             </div>
         );
     });
-    
+
     return (
         <button className={style["filter-wrapper"]}>
             <div className={style.filter}>
@@ -71,7 +73,7 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
                 <div className={style["filter-value"]}>{filterValueToDisplayName(props.type, props.value)}</div>
             </div>
             <div className={style["filter-items-wrapper"]}>
-                {splitArray(filterButtons, 15).map((e: h.JSX.Element, i: number) => {
+                {splitArray(filterButtons, 15).map((e: h.JSX.Element[], i: number) => {
                     return (
                         <div key={i} className={style["filter-items"]}>
                             {e}

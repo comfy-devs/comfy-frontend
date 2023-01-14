@@ -1,0 +1,63 @@
+/* Macros */
+%align-y {
+    display: flex;
+    align-items: center;
+}
+
+%align-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Content */
+.tooltip {
+	position: absolute;
+	z-index: 2;
+	top: -30px;
+	height: 25px;
+	padding-right: 20px;
+	padding-left: 20px;
+	border-radius: 8px;
+	background-color: var(--color-tooltip);
+	color: var(--color-secondary);
+	font-size: 13px;
+	visibility: hidden;
+	white-space: nowrap;
+	@extend %align-center;
+}
+
+.tooltip::after {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	border-width: 5px;
+	border-style: solid;
+	border-color: var(--color-tooltip) transparent transparent transparent;
+	margin-left: -5px;
+	content: " ";
+}
+
+.tooltip[data="no-arrow"]::after {
+	visibility: hidden;
+}
+
+.tooltip[data="left"] {
+	left: 5px;
+}
+
+.tooltip[data="left"]::after {
+	left: 17%;
+}
+
+.tooltip[data="right"] {
+	right: 5px;
+}
+
+.tooltip[data="right"]::after {
+	left: 83%;
+}
+
+.tooltip-wrapper:hover .tooltip {
+	visibility: visible;
+}

@@ -20,9 +20,12 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
 
     /* Get sets to preview */
     const shows = Array.from(props.shows.values());
-    const favouritesSet = props.user === undefined ? [] : shows.filter((e) => {
-        return props.user?.favourites.includes(e.id);
-    });
+    const favouritesSet =
+        props.user === undefined
+            ? []
+            : shows.filter((e) => {
+                  return props.user?.favourites.includes(e.id);
+              });
     const airingSet = shows.filter((e) => {
         return e.status === ShowStatusMapping.AIRING;
     });
@@ -46,11 +49,11 @@ const Home: FunctionalComponent<HomeConnectedProps> = (props: HomeConnectedProps
 
     return (
         <div className={baseStyle["page-content"]}>
-            {props.user !== undefined ?
+            {props.user !== undefined ? (
                 <div className={style["topic-group"]}>
                     <Topic dimensions={props.dimensions} title={props.dictionary.home?.favourites} icon="favourites" small={false} items={favouritesSet} preferences={props.preferences} />
-                </div> : undefined
-            }
+                </div>
+            ) : undefined}
             <div className={style["topic-group"]}>
                 <Topic dimensions={props.dimensions} title={props.dictionary.home?.airing} icon="airing" small={false} items={airingSet} preferences={props.preferences} />
             </div>

@@ -24,12 +24,11 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
         .sort((b, a) => {
             return b.pos - a.pos;
         });
-    const encodes = Array.from(props.encodes.values())
-        .filter((e) => {
-            return e.episode === episode?.id;
-        });
-    const encode = encodes.find(e => e.preset === EncodePresetMapping[props.playerData.preset]);
-    const hasVP9 = encodes.some(e => e.preset === EncodePresetMapping.VP9);
+    const encodes = Array.from(props.encodes.values()).filter((e) => {
+        return e.episode === episode?.id;
+    });
+    const encode = encodes.find((e) => e.preset === EncodePresetMapping[props.playerData.preset]);
+    const hasVP9 = encodes.some((e) => e.preset === EncodePresetMapping.VP9);
 
     /* API calls */
     useEffect(() => {
@@ -38,22 +37,25 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
         props.actions.fetchEpisodeEncodes(props.id);
     }, [props.actions, props.id]);
     useEffect(() => {
-        if(episode !== undefined && show === undefined) {
+        if (episode !== undefined && show === undefined) {
             props.actions.fetchShow(episode.show);
         }
     }, [episode, show, props.actions]);
     useEffect(() => {
-        // Make sure that everytime the original language is selected, VP9 is preferred if available
-        if(props.playerData.audio.lang === "jpn") {
-            // props.actions.setPlayerPreset(hasVP9 ? "VP9" : "X264");
+        if (episode !== undefined) {
+            props.actions.setPlayerAudio({ lang: episode.audio[0] });
         }
-    }, [props.id, props.actions, props.playerData.audio, hasVP9]);
+    }, [props.id, episode, props.actions]);
     useEffect(() => {
-        // Make sure that everytime a dubbed language is selected, HLS is preferred (standalone can't switch languages)
-        if(props.playerData.audio.lang !== "jpn" && props.playerData.preset === "VP9") {
-            props.actions.setPlayerPreset("X264");
+        // Make sure that everytime the original language is selected, VP9 is preferred if available
+        if (episode !== undefined) {
+            if (props.playerData.audio.lang === episode.audio[0] && hasVP9 && props.playerData.preset !== "VP9") {
+                props.actions.setPlayerPreset("VP9");
+            } else if (props.playerData.preset !== "X264") {
+                props.actions.setPlayerPreset("X264");
+            }
         }
-    }, [props.actions, props.playerData.audio, props.playerData.preset]);
+    }, [props.id, episode, props.actions, props.playerData.audio, hasVP9, props.playerData.preset]);
     if (episode === undefined || show === undefined) {
         return null;
     }

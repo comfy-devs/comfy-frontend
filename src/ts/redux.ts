@@ -77,6 +77,7 @@ type ConnectedActions = {
     setPlayerEdNotification(edNotifaction: boolean): ReduxAction;
     setPlayerBandwith(bandwith: number): ReduxAction;
     setPlayerManifestLevels(levels: PlayerManifestLevel[]): ReduxAction;
+    setPlayerManifestAudio(tracks: PlayerManifestTrack[]): ReduxAction;
     setPlayerManifestSubtitles(tracks: PlayerManifestTrack[]): ReduxAction;
     setPlayerManifestLevel(level: number): ReduxAction;
 };

@@ -73,13 +73,13 @@ type VideoPlayerControlsOverlayConnectedProps = {
     encode: Encode | null;
     preferences: AppPreferences;
     video: HTMLVideoElement | null;
-    
+
     playerData: PlayerData;
 };
 type VideoPlayerControlsDevConnectedProps = {
     item: Episode;
     segments: Segment[];
-    setSegments: any;
+    setSegments: (segments: Segment[]) => void;
     video: HTMLVideoElement | null;
 };
 

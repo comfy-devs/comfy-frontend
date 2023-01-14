@@ -59,14 +59,15 @@ const Register: FunctionalComponent<RegisterConnectedProps> = (props: RegisterCo
                             value={passwordRepeat}
                         />
                     </Localizer>
-                    <Button secondary
+                    <Button
+                        secondary
                         className={style["auth-button"]}
                         onClick={() => {
-                            if(username.length < 3) {
+                            if (username.length < 3) {
                                 props.actions.setAuthResult("USERNAME_TOO_SHORT");
-                            } else if(password.length < 3) {
+                            } else if (password.length < 3) {
                                 props.actions.setAuthResult("PASSWORD_TOO_SHORT");
-                            } else if(password !== passwordRepeat) {
+                            } else if (password !== passwordRepeat) {
                                 props.actions.setAuthResult("PASSWORD_NO_MATCH");
                             } else {
                                 props.actions.createUser(username, password);

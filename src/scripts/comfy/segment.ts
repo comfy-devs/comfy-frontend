@@ -1,6 +1,6 @@
 export function findSegmentForTimestamp(segments: Segment[], timestamp: number): SegmentData {
     const segmentData = segments.reduce(
-        (acc: any, curr) => {
+        (acc: SegmentData, curr) => {
             if (acc.item !== null) {
                 return acc;
             }

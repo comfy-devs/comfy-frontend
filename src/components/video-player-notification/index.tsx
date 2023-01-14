@@ -28,7 +28,8 @@ const VideoPlayerNotification: FunctionalComponent<VideoPlayerNotificationConnec
                                     break;
                             }
                         }}
-                        className={style["notification-link"]} data="skip">
+                        className={style["notification-link"]}
+                        data="skip">
                         ({<Text id="video.notification.skip" />})
                     </div>
                     <div
@@ -46,7 +47,8 @@ const VideoPlayerNotification: FunctionalComponent<VideoPlayerNotificationConnec
                                     break;
                             }
                         }}
-                        className={style["notification-link"]} data="hide">
+                        className={style["notification-link"]}
+                        data="hide">
                         ({<Text id="video.notification.hide" />})
                     </div>
                 </div>

@@ -48,12 +48,13 @@ const Login: FunctionalComponent<LoginConnectedProps> = (props: LoginConnectedPr
                             value={password}
                         />
                     </Localizer>
-                    <Button secondary
+                    <Button
+                        secondary
                         className={style["auth-button"]}
                         onClick={() => {
-                            if(username.length < 3) {
+                            if (username.length < 3) {
                                 props.actions.setAuthResult("USERNAME_TOO_SHORT");
-                            } else if(password.length < 3) {
+                            } else if (password.length < 3) {
                                 props.actions.setAuthResult("PASSWORD_TOO_SHORT");
                             } else {
                                 props.actions.createSession("classic", username, password);

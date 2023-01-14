@@ -1,12 +1,11 @@
 /* Base */
 import { h, FunctionalComponent } from "preact";
-import { Text } from "preact-i18n";
 /* Styles */
+import tooltipStyle from "../tooltip.scss";
 import style from "./style.scss";
 import switchStyle from "../switch.scss";
 
 const VideoPlayerSettings: FunctionalComponent<VideoPlayerSettingsConnectedProps> = (props: VideoPlayerSettingsConnectedProps) => {
-    // TODO: add tooltips to flags
     return (
         <div className={style["episode-video-settings"]}>
             <div className={style["episode-video-settings-item"]}>
@@ -20,27 +19,54 @@ const VideoPlayerSettings: FunctionalComponent<VideoPlayerSettingsConnectedProps
                 <div className={style["icon-audio"]} />
                 Audio
                 <div className={style["episode-video-settings-item-option"]} data="margin">
-                    {props.item.audio.map((e, i) => <img key={i} className={style["option-flag"]} data={e === props.playerData.audio.lang ? "selected" : undefined}
-                        src={`/assets/icons/flags/${e}.svg`} width={20} height={20}
-                        onClick={() => { props.actions.setPlayerAudio({ lang: e }) }} />
-                    )}
+                    {props.playerData.manifest.audio.map((e, i) => (
+                        <div key={i} className={[tooltipStyle["tooltip-wrapper"], style["option-flag"]].join(" ")}>
+                            <img
+                                className={[tooltipStyle["tooltip-wrapper"], style["option-flag"]].join(" ")}
+                                data={e.lang === props.playerData.audio.lang ? "selected" : undefined}
+                                src={`/assets/icons/flags/${e.lang}.svg`}
+                                width={20} 
+                                height={20}
+                                onClick={() => {
+                                    props.actions.setPlayerAudio({ lang: e.lang });
+                                }}
+                            />
+                            <div className={tooltipStyle.tooltip} data="no-arrow">{e.name}</div>
+                        </div>
+                    ))}
                 </div>
             </div>
             <div className={style["episode-video-settings-item"]}>
                 <div className={style["icon-subs"]} />
                 Subtitles
                 <div className={style["episode-video-settings-item-option"]} data="margin">
-                    {props.item.subtitles.map((e, i) => <img key={i} className={style["option-flag"]} data={e === props.playerData.subs.lang ? "selected" : undefined}
-                        src={`/assets/icons/flags/${e}.svg`} width={20} height={20}
-                        onClick={() => { props.actions.setPlayerSubs({ enabled: true, lang: e }) }} />
-                    )}
+                    {props.playerData.manifest.subtitles.map((e, i) => (
+                        <div key={i} className={[tooltipStyle["tooltip-wrapper"], style["option-flag"]].join(" ")}>
+                            <img
+                                className={[tooltipStyle["tooltip-wrapper"], style["option-flag"]].join(" ")}
+                                data={e.lang === props.playerData.subs.lang ? "selected" : undefined}
+                                src={`/assets/icons/flags/${e.lang}.svg`}
+                                width={20}
+                                height={20}
+                                onClick={() => {
+                                    props.actions.setPlayerSubs({ enabled: true, lang: e.lang });
+                                }}
+                            />
+                            <div className={tooltipStyle.tooltip} data="no-arrow">{e.name}</div>
+                        </div>
+                    ))}
                 </div>
             </div>
             <div className={style["episode-video-settings-item"]}>
                 <div className={style["icon-debug"]} />
                 Debug
                 <div className={style["episode-video-settings-item-option"]}>
-                    <div className={switchStyle.switch} style={{ transform: "scale(0.65)" }} onClick={() => { props.actions.setPlayerOverlay(!props.playerData.overlay); }}>
+                    <div
+                        className={switchStyle.switch}
+                        style={{ transform: "scale(0.65)" }}
+                        onClick={() => {
+                            props.actions.setPlayerOverlay(!props.playerData.overlay);
+                        }}>
                         <input type="checkbox" checked={props.playerData.overlay} />
                         <div className={switchStyle["switch-slider"]} />
                     </div>

@@ -20,8 +20,8 @@ type Dimensions = {
 
 /* Player */
 type PlayerState = "WAITING" | "TORRENT_NO_PEERS" | "TORRENT_LOADING" | "DONE";
-type PlayerDataSubs = { enabled: boolean; lang: string; };
-type PlayerDataAudio = { lang: string; };
+type PlayerDataSubs = { enabled: boolean; lang: string };
+type PlayerDataAudio = { lang: string };
 type PlayerData = {
     state: PlayerState;
     preset: EncodePreset;
@@ -40,6 +40,7 @@ type PlayerData = {
 };
 type PlayerManifest = {
     levels: PlayerManifestLevel[];
+    audio: PlayerManifestTrack[];
     subtitles: PlayerManifestTrack[];
 };
 type PlayerManifestLevel = {
@@ -49,6 +50,7 @@ type PlayerManifestLevel = {
 };
 type PlayerManifestTrack = {
     name: string;
+    lang: string;
 };
 type VideoPlayerNotificationType = "OP" | "ED";
 

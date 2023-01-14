@@ -35,9 +35,7 @@ const EpisodeCard: FunctionalComponent<EpisodeCardConnectedProps> = (props: Epis
                     <div className={style["episode-extra-wrapper-text"]} data="episode">
                         {props.item.title}
                     </div>
-                    <div className={style["episode-extra-wrapper-text"]}>
-                        {secondsToString(props.item.duration)}
-                    </div>
+                    <div className={style["episode-extra-wrapper-text"]}>{secondsToString(props.item.duration)}</div>
                     <div className={style["episode-extra-wrapper-text"]} data="details">
                         <div className={style["icon-eye"]} /> {props.item.views}
                     </div>

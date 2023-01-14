@@ -55,33 +55,7 @@ const Status: FunctionalComponent<StatusConnectedProps> = (props: StatusConnecte
                     </div>
                     <div className={style["status-item-row"]}>
                         <span className={style["status-item-row-key"]}>Capacity:</span>
-                        <span className={style["status-item-row-value"]}>
-                            ??/??
-                        </span>
-                    </div>
-                    <div className={style["status-item-row"]}>
-                        <span className={style["status-item-row-key"]}>Bandwith used (last hour): </span>
-                        <span className={style["status-item-row-value"]}>??</span>
-                    </div>
-                    <div className={style["status-item-row"]}>
-                        <span className={style["status-item-row-key"]}>Transfer rate (last hour): </span>
-                        <span className={style["status-item-row-value"]}>??</span>
-                    </div>
-                </div>
-                <div className={style["status-item"]}>
-                    <div className={style["status-item-row"]}>
-                        <div className={style["icon-file"]} />
-                        <span className={style["status-item-row-title"]}>File server - Kaga</span>
-                    </div>
-                    <div className={style["status-item-row"]}>
-                        <span className={style["status-item-row-key"]}>Online:</span>
-                        <span className={style["status-item-row-value"]}>??</span>
-                    </div>
-                    <div className={style["status-item-row"]}>
-                        <span className={style["status-item-row-key"]}>Capacity:</span>
-                        <span className={style["status-item-row-value"]}>
-                            ??/??
-                        </span>
+                        <span className={style["status-item-row-value"]}>??/??</span>
                     </div>
                     <div className={style["status-item-row"]}>
                         <span className={style["status-item-row-key"]}>Bandwith used (last hour): </span>
@@ -103,9 +77,7 @@ const Status: FunctionalComponent<StatusConnectedProps> = (props: StatusConnecte
                     </div>
                     <div className={style["status-item-row"]}>
                         <span className={style["status-item-row-key"]}>Peers:</span>
-                        <span className={style["status-item-row-value"]}>
-                        ?? (?? seeding/?? leeching)
-                        </span>
+                        <span className={style["status-item-row-value"]}>?? (?? seeding/?? leeching)</span>
                     </div>
                     <div className={style["status-item-row"]}>
                         <span className={style["status-item-row-key"]}>Bandwith used (last hour):</span>
@@ -117,9 +89,7 @@ const Status: FunctionalComponent<StatusConnectedProps> = (props: StatusConnecte
                     </div>
                     <div className={style["status-item-row"]}>
                         <span className={style["status-item-row-key"]}>Availability:</span>
-                        <span className={style["status-item-row-value"]}>
-                            ?? (??-??)
-                        </span>
+                        <span className={style["status-item-row-value"]}>?? (??-??)</span>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 /* Base */
+import { JSXInternal } from "preact/src/jsx";
 import styled, { css } from "styled-components";
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
     readonly iconText?: boolean;
 }
 
-export type ButtonProps = Props & Omit<React.HTMLAttributes<HTMLButtonElement>, "as">;
+export type ButtonProps = Props & Omit<JSXInternal.HTMLAttributes<HTMLButtonElement>, "as">;
 
 export default styled.button<Props>`
     z-index: 1;

@@ -29,7 +29,7 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
     },
 
     CREATE_SESSION_SUCCESS: (state: ReduxState, action: ReduxAction): ReduxState => {
-        if(action.data.type === "classic") {
+        if (action.data.type === "classic") {
             location.href = "/";
         }
         return { ...state, session: action.data.session };
@@ -49,7 +49,9 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
     },
 
     FAVOURITE_SUCCESS: (state: ReduxState, action: ReduxAction) => {
-        if(action.data === undefined) { return state; }
+        if (action.data === undefined) {
+            return state;
+        }
         return cacheResource(state, action.data, ResourceType.USER);
     },
 
@@ -211,6 +213,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     SET_PLAYER_MANIFEST_LEVELS: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, manifest: { ...state.playerData.manifest, levels: action.data } } };
+    },
+
+    SET_PLAYER_MANIFEST_AUDIO: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, manifest: { ...state.playerData.manifest, audio: action.data } } };
     },
 
     SET_PLAYER_MANIFEST_SUBTITLES: (state: ReduxState, action: ReduxAction) => {

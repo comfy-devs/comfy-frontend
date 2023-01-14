@@ -11,49 +11,6 @@
 }
 
 /* Content */
-.tooltip {
-	position: absolute;
-	z-index: 2;
-	top: -30px;
-	height: 25px;
-	padding-right: 20px;
-	padding-left: 20px;
-	border-radius: 8px;
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
-	font-size: 13px;
-	visibility: hidden;
-	white-space: nowrap;
-	@extend %align-center;
-}
-
-.tooltip::after {
-	position: absolute;
-	top: 100%;
-	left: 50%;
-	border-width: 5px;
-	border-style: solid;
-	border-color: var(--color-primary) transparent transparent transparent;
-	margin-left: -5px;
-	content: " ";
-}
-
-.tooltip[data="left"] {
-	left: 5px;
-}
-
-.tooltip[data="left"]::after {
-	left: 17%;
-}
-
-.tooltip[data="right"] {
-	right: 5px;
-}
-
-.tooltip[data="right"]::after {
-	left: 83%;
-}
-
 .tooltip-volume {
 	left: -10px;
 }
@@ -75,9 +32,11 @@
 	pointer-events: all;
 	visibility: hidden;
 }
+
 .video-controls-wrapper:hover .video-controls {
 	visibility: visible;
 }
+
 .video-controls[data="show"] {
 	visibility: visible;
 }
@@ -112,10 +71,6 @@
 	@extend %align-center;
 }
 
-.video-controls-button:hover .tooltip {
-	visibility: visible;
-}
-
 .video-controls-button[disabled] {
 	cursor: default;
 	filter: grayscale(1);
@@ -139,10 +94,6 @@
 	margin-left: 10px;
 	cursor: pointer;
 	@extend %align-y;
-}
-
-.video-controls-volume:hover .tooltip{
-	visibility: visible;
 }
 
 .video-controls-volume[disabled="true"] {

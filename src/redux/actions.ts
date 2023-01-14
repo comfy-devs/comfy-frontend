@@ -1,7 +1,8 @@
 function getAction(type: string, data: any): ReduxAction {
     return {
-        type, data
-    }
+        type,
+        data,
+    };
 }
 
 /* App */
@@ -254,6 +255,9 @@ export function setPlayerEdNotification(edNotifaction: boolean): ReduxAction {
 }
 export function setPlayerManifestLevels(levels: PlayerManifestLevel[]): ReduxAction {
     return getAction("SET_PLAYER_MANIFEST_LEVELS", levels);
+}
+export function setPlayerManifestAudio(tracks: PlayerManifestTrack[]): ReduxAction {
+    return getAction("SET_PLAYER_MANIFEST_AUDIO", tracks);
 }
 export function setPlayerManifestSubtitles(tracks: PlayerManifestTrack[]): ReduxAction {
     return getAction("SET_PLAYER_MANIFEST_SUBTITLES", tracks);

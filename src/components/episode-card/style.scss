@@ -67,20 +67,22 @@
 
 .episode-extra-wrapper {
 	position: absolute;
-	display: flex;
-	grid-gap: 10px;
 	right: 10px;
 	bottom: 10px;
+	display: flex;
 	padding: 5px 10px;
 	border-radius: 5px;
 	background-color: var(--color-background);
+	grid-gap: 10px;
 }
 
 .episode-extra-wrapper-text {
 	@extend %align-center;
+
 	color: var(--color-link);
 	font-size: 13px;
 }
+
 .episode-extra-wrapper-text[data="episode"],
 .episode-extra-wrapper-text[data="details"] {
 	display: none;
@@ -91,6 +93,7 @@
 		justify-content: center;
 	}
 }
+
 .episode-extra-wrapper-text[data="details"] {
 	color: var(--color-primary-text);
 }

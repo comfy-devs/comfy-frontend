@@ -22,7 +22,7 @@ export async function sendDelete(descriptor: APIGetRequest): Promise<APIResponse
 }
 
 export async function fetchResource<T>(path: string, id?: string): Promise<T | undefined> {
-    const response: APIResponse = await get({ path: `${path}/fetch${(id === undefined ? "" : `?id=${id}`)}` });
+    const response: APIResponse = await get({ path: `${path}/fetch${id === undefined ? "" : `?id=${id}`}` });
     if (response.status !== 200) {
         return undefined;
     }
@@ -31,7 +31,7 @@ export async function fetchResource<T>(path: string, id?: string): Promise<T | u
 }
 
 export async function fetchResources<T>(path: string, id?: string): Promise<T[]> {
-    const response: APIResponse = await get({ path: `${path}/fetch${(id === undefined ? "" : `?id=${id}`)}` });
+    const response: APIResponse = await get({ path: `${path}/fetch${id === undefined ? "" : `?id=${id}`}` });
     if (response.status !== 200) {
         return [];
     }

@@ -1,8 +1,24 @@
 type ShowType = "TV" | "SPECIAL" | "OVA" | "MOVIE" | "ONA";
 type ShowStatus = "AIRING" | "FINISHED";
-type ShowGenre = "ACTION" | "ADVENTURE" | "COMEDY" | "DRAMA" | "ECCHI" | "FANTASY" | "HORROR" |
-    "MAHOU_SHOUJO" | "MECHA" | "MUSIC" | "MYSTERY" | "PSYCHOLOGICAL" | "ROMANCE" | "SCIFI" |
-    "SLICE_OF_LIFE" | "SPORTS" | "SUPERNATURAL" | "THRILLER";
+type ShowGenre =
+    | "ACTION"
+    | "ADVENTURE"
+    | "COMEDY"
+    | "DRAMA"
+    | "ECCHI"
+    | "FANTASY"
+    | "HORROR"
+    | "MAHOU_SHOUJO"
+    | "MECHA"
+    | "MUSIC"
+    | "MYSTERY"
+    | "PSYCHOLOGICAL"
+    | "ROMANCE"
+    | "SCIFI"
+    | "SLICE_OF_LIFE"
+    | "SPORTS"
+    | "SUPERNATURAL"
+    | "THRILLER";
 type ShowTag = "SUBBED" | "HARD_SUBBED" | "DUBBED";
 type ShowRating = "PG" | "R";
 type Show = {

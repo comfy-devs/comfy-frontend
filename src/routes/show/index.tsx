@@ -41,7 +41,7 @@ const Show: FunctionalComponent<ShowConnectedProps> = (props: ShowConnectedProps
     }
 
     const genres = Object.values(ShowGenreMapping)
-        .filter(e => show.genres & e)
+        .filter((e) => show.genres & e)
         .map((e, i) => {
             return (
                 <div key={i} className={style["show-overview-data-field"]}>
@@ -53,7 +53,7 @@ const Show: FunctionalComponent<ShowConnectedProps> = (props: ShowConnectedProps
             );
         });
     const tags = Object.values(ShowTagMapping)
-        .filter(e => show.tags & e)
+        .filter((e) => show.tags & e)
         .map((e, i) => {
             return (
                 <div key={i} className={style["show-overview-data-field"]}>
@@ -72,10 +72,15 @@ const Show: FunctionalComponent<ShowConnectedProps> = (props: ShowConnectedProps
         <div className={baseStyle["page-content"]}>
             <div className={style["show-overview"]}>
                 <div className={style["show-overview-title-wrapper"]}>
-                    <div className={style["show-overview-favourite"]} data={props.user === null ? "not-logged-in" : (props.user.favourites.includes(show.id) ? "true" : "false")} onClick={() => {
-                        if(props.user === null) { return; }
-                        props.actions.favourite(show.id);
-                    }}>
+                    <div
+                        className={style["show-overview-favourite"]}
+                        data={props.user === null ? "not-logged-in" : props.user.favourites.includes(show.id) ? "true" : "false"}
+                        onClick={() => {
+                            if (props.user === null) {
+                                return;
+                            }
+                            props.actions.favourite(show.id);
+                        }}>
                         <div className={style["show-overview-favourite-tooltip"]}>
                             <Text id={`show.favourite.tooltip.${props.user === null ? "notLoggedIn" : props.user.favourites.includes(show.id) ? "true" : "false"}`} />
                         </div>
@@ -86,9 +91,7 @@ const Show: FunctionalComponent<ShowConnectedProps> = (props: ShowConnectedProps
                 <div className={style["show-overview-data-wrapper"]}>
                     <img alt="show-thumbnail" src={`${getImageEndpoint()}/${show.id}/poster.webp`} className={style["show-overview-thumbnail"]} />
                     <div className={style["show-overview-data"]}>
-                        <div className={style["show-overview-synopsis"]}>
-                            {show.synopsis === null ? <Text id="show.noSynopsis" /> : <ReactMarkdown rehypePlugins={[rehypeRaw]} children={show.synopsis} />}
-                        </div>
+                        <div className={style["show-overview-synopsis"]}>{show.synopsis === null ? <Text id="show.noSynopsis" /> : <ReactMarkdown rehypePlugins={[rehypeRaw]} children={show.synopsis} />}</div>
                         <div className={style["show-overview-data-separator"]} />
                         <div className={style["show-overview-data-field"]}>
                             <div className={style["icon-type"]} />

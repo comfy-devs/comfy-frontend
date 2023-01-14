@@ -34,10 +34,12 @@
 .notification-link {
 	cursor: pointer;
 }
+
 .notification-link[data="skip"] {
 	color: var(--color-link);
 	font-size: 16px;
 }
+
 .notification-link[data="hide"] {
 	color: var(--color-primary-text);
 	font-size: 13px;

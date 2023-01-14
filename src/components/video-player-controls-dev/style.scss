@@ -15,49 +15,6 @@
     display: flex;
 }
 
-.tooltip {
-	position: absolute;
-	z-index: 2;
-	top: -30px;
-	height: 25px;
-	padding-right: 20px;
-	padding-left: 20px;
-	border-radius: 8px;
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
-	font-size: 13px;
-	visibility: hidden;
-	white-space: nowrap;
-	@extend %align-center;
-}
-
-.tooltip::after {
-	position: absolute;
-	top: 100%;
-	left: 50%;
-	border-width: 5px;
-	border-style: solid;
-	border-color: var(--color-primary) transparent transparent transparent;
-	margin-left: -5px;
-	content: " ";
-}
-
-.tooltip[data="left"] {
-	left: 5px;
-}
-
-.tooltip[data="left"]::after {
-	left: 17%;
-}
-
-.tooltip[data="right"] {
-	right: 5px;
-}
-
-.tooltip[data="right"]::after {
-	left: 83%;
-}
-
 .video-controls-button {
 	position: relative;
 	width: 40px;
@@ -69,10 +26,6 @@
 .video-controls-button[disabled] {
 	cursor: default;
 	filter: grayscale(1);
-}
-
-.video-controls-button:hover .tooltip {
-	visibility: visible;
 }
 
 /* Icons */
@@ -87,12 +40,15 @@
 .icon-segment {
 	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M13.91 12.36L17 20.854l-2.818 1.026-3.092-8.494-4.172 3.156 1.49-14.909 10.726 10.463z'/%3E%3C/svg%3E");
 }
+
 .icon-segment[data="OP"] {
 	background-color: #5252d3;
 }
+
 .icon-segment[data="EPISODE"] {
-	background-color: #ffffff;
+	background-color: #fff;
 }
+
 .icon-segment[data="ED"] {
 	background-color: #f81d2c;
 }

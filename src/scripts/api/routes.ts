@@ -18,7 +18,7 @@ export async function createSession(type: "classic" | "token", username?: string
     if (response.status !== 200) {
         return response.status as 404 | 401;
     }
-    if(type === "classic") {
+    if (type === "classic") {
         location.href = "/";
     }
 

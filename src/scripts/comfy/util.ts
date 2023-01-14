@@ -21,29 +21,24 @@ export function secondsToString(time: number) {
 }
 export function secondsToStringHuman(seconds: number, limit = 6): string {
     const units = ["y", "mo", "d", "h", "m", "s"];
-    const values = [
-        Math.floor(seconds / 31536000),
-        Math.floor(seconds / 2592000) % 12,
-        Math.floor(seconds / 86400) % 30,
-        Math.floor(seconds / 3600) % 24,
-        Math.floor(seconds / 60) % 60,
-        Math.floor(seconds) % 60,
-    ];
-    
+    const values = [Math.floor(seconds / 31536000), Math.floor(seconds / 2592000) % 12, Math.floor(seconds / 86400) % 30, Math.floor(seconds / 3600) % 24, Math.floor(seconds / 60) % 60, Math.floor(seconds) % 60];
+
     let result = "";
     for (let i = 0; i < limit; i++) {
         if (values[i] !== 0) {
             result += `${values[i]}${units[i]} `;
         }
     }
-    
+
     return result.trim();
 }
 
-export function splitArray(array: any[], chunk_size: number) {
+export function splitArray<T>(array: T[], chunk_size: number): T[][] {
+    const initial: T[][] = [];
     return array.reduce((acc, curr, i) => {
-        const ch = Math.floor(i / chunk_size);
-        acc[ch] = [].concat(acc[ch] || [], curr);
+        const chIndex = Math.floor(i / chunk_size);
+        const newArray: T[] = [];
+        acc[chIndex] = newArray.concat(acc[chIndex] || newArray, curr);
         return acc;
-    }, []);
+    }, initial);
 }

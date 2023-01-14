@@ -14,12 +14,21 @@ export const INITIAL: ReduxState = {
     preferences: { theme: "dark", torrent: false, lang: "en", developer: false, blur: true, volume: 50 },
     filterData: { page: 0, searchTerm: "", genres: null, year: null, type: null, status: null, sort: "TITLE_ASC", tags: null, items: 100, group: "NO" },
     playerData: {
-        state: "WAITING", preset: "X264", theater: false, overlay: true,
-        subs: { enabled: true, lang: "eng" }, audio: { lang: "jpn" },
-        opNotification: true, edNotification: true,
-        manifest: { levels: [], subtitles: [] }, manifestLevel: 0, bandwith: 0, overrideUrl: null
+        state: "WAITING",
+        preset: "X264",
+        theater: false,
+        settings: false,
+        overlay: true,
+        subs: { enabled: true, lang: "eng" },
+        audio: { lang: "jpn" },
+        opNotification: true,
+        edNotification: true,
+        manifest: { levels: [], audio: [], subtitles: [] },
+        manifestLevel: 0,
+        bandwith: 0,
+        overrideUrl: null,
     },
-    authResult: "NONE"
+    authResult: "NONE",
 };
 
 export enum ResourceType {
@@ -44,14 +53,14 @@ export function mapDispatch(actions: Record<string, any>): any {
 
 export function saveResources(state: ReduxState, key: KeysOfType<ReduxState, Map<string, object>>, resources: any[]) {
     const newResources = new Map(state[key] as Map<string, object>);
-    resources.forEach(resource => {
+    resources.forEach((resource) => {
         newResources.set(resource.id, resource);
     });
     return { ...state, [key]: newResources };
 }
 
 export function cacheResource(state: ReduxState, resource: any, resourceType: ResourceType): ReduxState {
-    return cacheResources(state, [ resource ], resourceType);
+    return cacheResources(state, [resource], resourceType);
 }
 
 export function cacheResources(state: ReduxState, resources: any[], resourceType: ResourceType): ReduxState {

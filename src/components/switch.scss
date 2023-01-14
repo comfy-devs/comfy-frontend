@@ -3,42 +3,48 @@
     width: 60px;
     height: 34px;
 }
+
 .switch input {
     width: 0;
     height: 0;
 }
+
 .switch-slider {
     position: absolute;
-    cursor: pointer;
     top: 0;
-    left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--color-primary-light);
-    -webkit-transition: .4s;
-    transition: .4s;
+    left: 0;
     border-radius: 8px;
-}
-.switch-slider:before {
-    position: absolute;
-    content: "";
-    height: 24px;
-    width: 24px;
-    left: 5px;
-    bottom: 5px;
-    background-color: var(--color-secondary-text);
-    -webkit-transition: .4s;
+    background-color: var(--color-primary-light);
+    cursor: pointer;
     transition: .4s;
-    border-radius: 20%;
+    transition: .4s;
 }
+
+.switch-slider::before {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    width: 24px;
+    height: 24px;
+    border-radius: 20%;
+    background-color: var(--color-secondary-text);
+    content: "";
+    transition: .4s;
+    transition: .4s;
+}
+
 input:checked + .switch-slider {
     background-color: var(--color-primary-text)
 }
+
 input:focus + .switch-slider {
     box-shadow: 0 0 1px var(--color-primary-text)
 }
-input:checked + .switch-slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
+
+input:checked + .switch-slider::before {
+    transform: translateX(26px);
+    transform: translateX(26px);
     transform: translateX(26px);
 }
