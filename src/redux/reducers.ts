@@ -139,20 +139,29 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, filterData: { ...state.filterData, searchTerm: action.data } };
     },
 
+    SET_FILTER_TYPE: (state: ReduxState, action: ReduxAction) => {
+        const filterData = { ...state.filterData, type: action.data };
+        if(filterData.type === null) {
+            filterData.format = null;
+            filterData.genres = null;
+        }
+        return { ...state, filterData };
+    },
+
+    SET_FILTER_FORMAT: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, filterData: { ...state.filterData, format: action.data } };
+    },
+
+    SET_FILTER_STATUS: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, filterData: { ...state.filterData, status: action.data } };
+    },
+
     SET_FILTER_GENRES: (state: ReduxState, action: ReduxAction) => {
         return { ...state, filterData: { ...state.filterData, genres: action.data } };
     },
 
     SET_FILTER_YEAR: (state: ReduxState, action: ReduxAction) => {
         return { ...state, filterData: { ...state.filterData, year: action.data } };
-    },
-
-    SET_FILTER_TYPE: (state: ReduxState, action: ReduxAction) => {
-        return { ...state, filterData: { ...state.filterData, type: action.data } };
-    },
-
-    SET_FILTER_STATUS: (state: ReduxState, action: ReduxAction) => {
-        return { ...state, filterData: { ...state.filterData, status: action.data } };
     },
 
     SET_FILTER_SORT: (state: ReduxState, action: ReduxAction) => {

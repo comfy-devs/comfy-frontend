@@ -12,7 +12,7 @@ export const INITIAL: ReduxState = {
     stats: { id: "default", size: 0, files: 0, torrents: 0 },
     random: Math.floor(Math.random() * 1000000),
     preferences: { theme: "dark", torrent: false, lang: "en", developer: false, blur: true, volume: 50 },
-    filterData: { page: 0, searchTerm: "", genres: null, year: null, type: null, status: null, sort: "TITLE_ASC", tags: null, items: 100, group: "NO" },
+    filterData: { page: 0, searchTerm: "", type: null, format: null, status: null, genres: null, year: null, sort: "TITLE_ASC", tags: null, items: 100, group: "NO" },
     playerData: {
         state: "WAITING",
         preset: "X264",

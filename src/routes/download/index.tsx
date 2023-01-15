@@ -20,35 +20,7 @@ const Download: FunctionalComponent<DownloadConnectedProps> = (props: DownloadCo
                 > Added support for new HLS releases`,
             version: "beta-4",
             link: "https://files.catbox.moe/ju93k5.apk",
-        },
-        {
-            name: "Android",
-            type: "android",
-            details: `> Video player improvements
-                - Improved UI with rewinding/seeking buttons
-                - Better and animated fading
-                > Minor bug fixes`,
-            version: "beta-3",
-            link: "https://files.catbox.moe/u7c0m7.apk",
-        },
-        {
-            name: "Android",
-            type: "android",
-            details: `> Catching up to web version
-                - Home screen previews
-                - Segments in video player
-                > Made compatible with API changes
-                > Minor bug fixes`,
-            version: "beta-2",
-            link: "https://files.catbox.moe/c8erwb.apk",
-        },
-        {
-            name: "Android",
-            type: "android",
-            details: "> First release of the app",
-            version: "beta-1",
-            link: "https://files.catbox.moe/93qsr2.apk",
-        },
+        }
     ];
     const androidVersions = versions.filter((e) => {
         return e.type === "android";
@@ -76,31 +48,33 @@ const Download: FunctionalComponent<DownloadConnectedProps> = (props: DownloadCo
                 <div className={style["download-title"]}>
                     <Text id="download.versions" />
                 </div>
-                {versions.map((e, i) => {
-                    return (
-                        <div key={i} className={style["download-item"]}>
-                            <div className={style["download-item-row"]}>
-                                <div className={style[`icon-${e.type}`]} />
-                                {e.name} <span className={style["download-item-row-version"]}>[{e.version}]</span>
-                                <a href={e.link} download={`comfy-${e.version}`} className={style["download-item-row-link"]}>
-                                    (<Text id="download.link" />)
-                                </a>
-                            </div>
-                            <div className={style["download-item-row"]}>
-                                <div className={style["download-item-row-details"]}>
-                                    {e.details.split("\n").map((e, i) => {
-                                        return (
-                                            <div key={i}>
-                                                {e}
-                                                <br />
-                                            </div>
-                                        );
-                                    })}
+                <div className={style["download-items"]}>
+                    {versions.map((e, i) => {
+                        return (
+                            <div key={i} className={style["download-item"]}>
+                                <div className={style["download-item-row"]}>
+                                    <div className={style[`icon-${e.type}`]} />
+                                    {e.name} <span className={style["download-item-row-version"]}>[{e.version}]</span>
+                                    <a href={e.link} download={`comfy-${e.version}`} className={style["download-item-row-link"]}>
+                                        (<Text id="download.link" />)
+                                    </a>
+                                </div>
+                                <div className={style["download-item-row"]}>
+                                    <div className={style["download-item-row-details"]}>
+                                        {e.details.split("\n").map((e, i) => {
+                                            return (
+                                                <div key={i}>
+                                                    {e}
+                                                    <br />
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );

@@ -189,20 +189,24 @@ export function setFilterSearchTerm(searchTerm: string): ReduxAction {
     return getAction("SET_FILTER_SEARCH_TERM", searchTerm);
 }
 
-export function setFilterGenres(genres: ShowGenre | null): ReduxAction {
+export function setFilterType(type: ShowType | null): ReduxAction {
+    return getAction("SET_FILTER_TYPE", type);
+}
+
+export function setFilterFormat(format: AnimeFormat | TVFormat | null): ReduxAction {
+    return getAction("SET_FILTER_FORMAT", format);
+}
+
+export function setFilterStatus(status: ShowStatus | null): ReduxAction {
+    return getAction("SET_FILTER_STATUS", status);
+}
+
+export function setFilterGenres(genres: AnimeGenre | TVGenre | null): ReduxAction {
     return getAction("SET_FILTER_GENRES", genres);
 }
 
 export function setFilterYear(year: number | null): ReduxAction {
     return getAction("SET_FILTER_YEAR", year);
-}
-
-export function setFilterType(type: ShowType | null): ReduxAction {
-    return getAction("SET_FILTER_TYPE", type);
-}
-
-export function setFilterStatus(status: ShowStatus | null): ReduxAction {
-    return getAction("SET_FILTER_STATUS", status);
 }
 
 export function setFilterSort(sort: FilterSort): ReduxAction {

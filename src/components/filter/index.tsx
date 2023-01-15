@@ -11,12 +11,12 @@ import { useEffect, useState } from "react";
 const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnectedProps) => {
     const [filterValues, setFilterValues] = useState<any[]>([]);
     useEffect(() => {
-        const v = filterTypeToValues(props.type).slice();
-        if (props.type !== "SORT" && props.type !== "ITEMS" && props.type !== "GROUP") {
+        const v = filterTypeToValues(props.filterData.type, props.filter);
+        if (props.filter !== "SORT" && props.filter !== "ITEMS" && props.filter !== "GROUP") {
             v.unshift(null);
         }
         setFilterValues(v);
-    }, [props.type]);
+    }, [props.filter]);
 
     const filterButtons = filterValues.map((e, i) => {
         return (
@@ -24,21 +24,25 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
                 key={i}
                 className={style["filter-item"]}
                 onClick={() => {
-                    switch (props.type) {
+                    switch (props.filter) {
+                        case "TYPE":
+                            props.actions.setFilterType(e);
+                            return;
+
+                        case "FORMAT":
+                            props.actions.setFilterFormat(e);
+                            return;
+
+                        case "STATUS":
+                            props.actions.setFilterStatus(e);
+                            return;
+
                         case "GENRES":
                             props.actions.setFilterGenres(e);
                             return;
 
                         case "YEAR":
                             props.actions.setFilterYear(e);
-                            return;
-
-                        case "TYPE":
-                            props.actions.setFilterType(e);
-                            return;
-
-                        case "STATUS":
-                            props.actions.setFilterStatus(e);
                             return;
 
                         case "SORT":
@@ -59,18 +63,18 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
                     }
                 }}
                 data={props.value === e ? "active" : undefined}>
-                {filterValueToDisplayName(props.type, e)}
+                {filterValueToDisplayName(props.filterData.type, props.filter, e)}
             </div>
         );
     });
 
     return (
-        <button className={style["filter-wrapper"]}>
+        <button className={style["filter-wrapper"]} disabled={props.filterData.type === null && (props.filter === "FORMAT" || props.filter === "GENRES")}>
             <div className={style.filter}>
                 <div className={style["filter-title"]}>
-                    <Text id={`enum.filterType.${props.type}`} />:{" "}
+                    <Text id={`enum.filterType.${props.filter}`} />:{" "}
                 </div>
-                <div className={style["filter-value"]}>{filterValueToDisplayName(props.type, props.value)}</div>
+                <div className={style["filter-value"]}>{filterValueToDisplayName(props.filterData.type, props.filter, props.value)}</div>
             </div>
             <div className={style["filter-items-wrapper"]}>
                 {splitArray(filterButtons, 15).map((e: h.JSX.Element[], i: number) => {

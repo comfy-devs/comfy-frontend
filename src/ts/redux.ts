@@ -55,10 +55,11 @@ type ConnectedActions = {
     setAuthResult(result: AuthResult): ReduxAction;
 
     setFilterSearchTerm(searchTerm: string): ReduxAction;
-    setFilterGenres(genres: ShowGenre | null): ReduxAction;
-    setFilterYear(year: number | null): ReduxAction;
     setFilterType(type: ShowType | null): ReduxAction;
+    setFilterFormat(format: AnimeFormat | TVFormat | null): ReduxAction;
     setFilterStatus(status: ShowStatus | null): ReduxAction;
+    setFilterGenres(genres: AnimeGenre | TVGenre | null): ReduxAction;
+    setFilterYear(year: number | null): ReduxAction;
     setFilterSort(sort: FilterSort): ReduxAction;
     setFilterTags(tags: ShowTag | null): ReduxAction;
     setFilterItems(items: number): ReduxAction;

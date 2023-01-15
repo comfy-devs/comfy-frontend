@@ -2,22 +2,23 @@
 import { h } from "preact";
 import { Text } from "preact-i18n";
 
-const filterTypeMap: Record<FilterType, (value: number) => h.JSX.Element> = {
-    GENRES: (value: number) => <Text id={`enum.showGenre.${value}`} />,
-    YEAR: (value: number) => <Text id="">{value.toString()}</Text>,
-    TYPE: (value: number) => <Text id={`enum.showType.${value}`} />,
-    STATUS: (value: number) => <Text id={`enum.showStatus.${value}`} />,
-    SORT: (value: number) => <Text id={`enum.filterSort.${value}`} />,
-    TAGS: (value: number) => <Text id={`enum.showTag.${value}`} />,
-    ITEMS: (value: number) => <Text id="">{value.toString()}</Text>,
-    GROUP: (value: number) => <Text id={`enum.filterGroup.${value}`} />,
+const filterTypeMap: Record<FilterType, (type: number | null, value: number) => h.JSX.Element> = {
+    TYPE: (type: number | null, value: number) => <Text id={`enum.showType.${value}`} />,
+    FORMAT: (type: number | null, value: number) => <Text id={`enum.showFormat.${type}.${value}`} />,
+    STATUS: (type: number | null, value: number) => <Text id={`enum.showStatus.${value}`} />,
+    GENRES: (type: number | null, value: number) => <Text id={`enum.showGenre.${type}.${value}`} />,
+    YEAR: (type: number | null, value: number) => <Text id="">{value.toString()}</Text>,
+    SORT: (type: number | null, value: number) => <Text id={`enum.filterSort.${value}`} />,
+    TAGS: (type: number | null, value: number) => <Text id={`enum.showTag.${value}`} />,
+    ITEMS: (type: number | null, value: number) => <Text id="">{value.toString()}</Text>,
+    GROUP: (type: number | null, value: number) => <Text id={`enum.filterGroup.${value}`} />,
 };
-export function filterValueToDisplayName(type: FilterType, value: any) {
+export function filterValueToDisplayName(type: number | null, filter: FilterType, value: any) {
     if (value === null) {
-        if (type === "SORT") {
+        if (filter === "SORT") {
             return <Text id="filter.default" />;
         }
         return <Text id="filter.any" />;
     }
-    return filterTypeMap[type](value);
+    return filterTypeMap[filter](type, value);
 }

@@ -30,22 +30,33 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
 
     /* Filter through shows */
     let shows = Array.from(props.shows.values());
-    shows = shows.filter((e) => {
-        return e.title.toLowerCase().includes(props.filterData.searchTerm.toLowerCase());
-    });
-    shows = shows.filter((e) => {
-        return props.filterData.genres === null ? true : (e.genres & props.filterData.genres) === props.filterData.genres;
-    });
+    if(props.filterData.searchTerm !== "") {
+        const search = props.filterData.searchTerm.toLowerCase();
+        shows = shows.filter((e) =>
+            e.title.toLowerCase().includes(search) ||
+            e.altTitles.some(t => t.toLowerCase().includes(search))
+        );
+    }
+    if(props.filterData.type !== null) {
+        shows = shows.filter((e) => e.type === props.filterData.type);
+    }
+    if(props.filterData.format !== null) {
+        shows = shows.filter((e) => e.format === props.filterData.format);
+    }
+    if(props.filterData.status !== null) {
+        shows = shows.filter((e) => e.status === props.filterData.status);
+    }
+    if(props.filterData.genres !== null) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        shows = shows.filter((e) => (e.genres & props.filterData.genres) === props.filterData.genres);
+    }
     // shows = shows.filter((e) => { return props.filterData.year === null ? true : true; });
-    shows = shows.filter((e) => {
-        return props.filterData.type === null ? true : e.type === props.filterData.type;
-    });
-    shows = shows.filter((e) => {
-        return props.filterData.status === null ? true : e.status === props.filterData.status;
-    });
-    shows = shows.filter((e) => {
-        return props.filterData.tags === null ? true : (e.tags & props.filterData.tags) === props.filterData.tags;
-    });
+    if(props.filterData.tags !== null) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        shows = shows.filter((e) => (e.tags & props.filterData.tags) === props.filterData.tags);
+    }
     shows.sort((a, b) => {
         switch (props.filterData.sort) {
             case "TITLE_ASC":
@@ -69,12 +80,13 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
     });
 
     const filterItems = [
-        <Filter key={0} type={"GENRES"} value={props.filterData.genres} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={1} type={"YEAR"} value={props.filterData.year} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={2} type={"TYPE"} value={props.filterData.type} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={3} type={"STATUS"} value={props.filterData.status} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={4} type={"SORT"} value={props.filterData.sort} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={5} type={"TAGS"} value={props.filterData.tags} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={0} filter={"TYPE"} value={props.filterData.type} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={1} filter={"FORMAT"} value={props.filterData.format} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={2} filter={"STATUS"} value={props.filterData.status} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={3} filter={"GENRES"} value={props.filterData.genres} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={4} filter={"YEAR"} value={props.filterData.year} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={5} filter={"SORT"} value={props.filterData.sort} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={6} filter={"TAGS"} value={props.filterData.tags} filterData={props.filterData} actions={props.actions} />,
     ];
 
     let previews: any[] = [];
@@ -116,9 +128,9 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                 </div>
                 <div className={style["all-filters"]}>
                     <div className={style["all-filters-chunk-wrapper"]}>
-                        {props.dimensions.w > 500 ? <div className={style["all-filters-chunk"]}>{filterItems.slice(0, 3)}</div> : <div className={style["all-filters-chunk"]}>{filterItems.slice(0, 2)}</div>}
-                        {props.dimensions.w > 500 ? <div className={style["all-filters-chunk"]}>{filterItems.slice(3)}</div> : <div className={style["all-filters-chunk"]}>{filterItems.slice(2, 4)}</div>}
-                        {props.dimensions.w > 500 ? null : <div className={style["all-filters-chunk"]}>{filterItems.slice(4)}</div>}
+                        {props.dimensions.w > 800 ? <div className={style["all-filters-chunk"]}>{filterItems.slice(0, 4)}</div> : <div className={style["all-filters-chunk"]}>{filterItems.slice(0, 3)}</div>}
+                        {props.dimensions.w > 800 ? <div className={style["all-filters-chunk"]}>{filterItems.slice(4)}</div> : <div className={style["all-filters-chunk"]}>{filterItems.slice(3, 6)}</div>}
+                        {props.dimensions.w > 800 ? null : <div className={style["all-filters-chunk"]}>{filterItems.slice(6)}</div>}
                     </div>
                     <div className={style["all-filters-chunk-wrapper"]}>
                         <Localizer>
@@ -132,8 +144,8 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
                             />
                         </Localizer>
                         <div className={style["all-filters-chunk"]}>
-                            <Filter type={"ITEMS"} value={props.filterData.items} filterData={props.filterData} actions={props.actions} />
-                            <Filter type={"GROUP"} value={props.filterData.group} filterData={props.filterData} actions={props.actions} />
+                            <Filter filter={"ITEMS"} value={props.filterData.items} filterData={props.filterData} actions={props.actions} />
+                            <Filter filter={"GROUP"} value={props.filterData.group} filterData={props.filterData} actions={props.actions} />
                         </div>
                     </div>
                 </div>

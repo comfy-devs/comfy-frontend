@@ -59,15 +59,16 @@ type FilterData = {
     page: number;
     searchTerm: string;
 
+    type: number | null;
+    format: number | null;
+    status: number | null;
     genres: number | null;
     year: number | null;
-    type: number | null;
-    status: number | null;
     sort: FilterSort;
     tags: number | null;
     items: number;
     group: FilterGroup;
 };
-type FilterType = "GENRES" | "YEAR" | "TYPE" | "STATUS" | "SORT" | "TAGS" | "ITEMS" | "GROUP";
+type FilterType = "TYPE" | "FORMAT" | "STATUS" | "GENRES" | "YEAR" | "SORT" | "TAGS" | "ITEMS" | "GROUP";
 type FilterSort = "TITLE_ASC" | "TITLE_DESC" | "RELEASE_ASC" | "RELEASE_DESC" | "FAVOURITES_ASC" | "FAVOURITES_DESC";
 type FilterGroup = "YES" | "NO";

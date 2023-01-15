@@ -4,7 +4,9 @@ import { useEffect } from "react";
 import { Text } from "preact-i18n";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import { ShowGenreMapping, ShowTagMapping } from "../../ts/common/const";
+import { ShowTagMapping } from "../../ts/common/const";
+import { getImageEndpoint } from "../../scripts/api/api";
+import { showTypeToGenres } from "../../scripts/comfy/constants";
 /* Redux */
 import { connect } from "react-redux";
 import { mapState, mapDispatch } from "../../redux/util";
@@ -14,7 +16,6 @@ import baseStyle from "../style.scss";
 import style from "./style.scss";
 /* Components */
 import EpisodeCard from "../../components/episode-card";
-import { getImageEndpoint } from "../../scripts/api/api";
 
 const Show: FunctionalComponent<ShowConnectedProps> = (props: ShowConnectedProps) => {
     const show = props.shows.get(props.id);
@@ -40,33 +41,32 @@ const Show: FunctionalComponent<ShowConnectedProps> = (props: ShowConnectedProps
         episodeElements.push(<EpisodeCard key={i} parent={show} item={episodes[i]} i={i} disabled={false} preferences={props.preferences} />);
     }
 
-    const genres = Object.values(ShowGenreMapping)
+    const altTitles = show.altTitles.map((e, i) =>
+        <div key={i} className={style["show-overview-data-field"]}>
+            <span className={style["show-overview-data-field-highlight"]}>
+                {i === 0 ? "" : ", "}{e}
+            </span>
+        </div>
+    );
+    const genres = showTypeToGenres(show.type)
         .filter((e) => show.genres & e)
-        .map((e, i) => {
-            return (
-                <div key={i} className={style["show-overview-data-field"]}>
-                    <span className={style["show-overview-data-field-highlight"]}>
-                        {i === 0 ? "" : ", "}
-                        {<Text id={`enum.showGenre.${e}`} />}
-                    </span>
-                </div>
-            );
-        });
+        .map((e, i) =>
+            <div key={i} className={style["show-overview-data-field"]}>
+                <span className={style["show-overview-data-field-highlight"]}>
+                    {i === 0 ? "" : ", "}{<Text id={`enum.showGenre.${show.type}.${e}`} />}
+                </span>
+            </div>
+        );
     const tags = Object.values(ShowTagMapping)
         .filter((e) => show.tags & e)
-        .map((e, i) => {
-            return (
-                <div key={i} className={style["show-overview-data-field"]}>
-                    <span className={style["show-overview-data-field-highlight"]}>
-                        {i === 0 ? "" : ", "}
-                        {<Text id={`enum.showTag.${e}`} />}
-                    </span>
-                </div>
-            );
-        });
-    const views = episodes.reduce((acc, curr) => {
-        return acc + curr.views;
-    }, 0);
+        .map((e, i) =>
+            <div key={i} className={style["show-overview-data-field"]}>
+                <span className={style["show-overview-data-field-highlight"]}>
+                    {i === 0 ? "" : ", "}{<Text id={`enum.showTag.${e}`} />}
+                </span>
+            </div>
+        );
+    const views = episodes.reduce((acc, curr) => acc + curr.views, 0);
 
     return (
         <div className={baseStyle["page-content"]}>
@@ -94,10 +94,17 @@ const Show: FunctionalComponent<ShowConnectedProps> = (props: ShowConnectedProps
                         <div className={style["show-overview-synopsis"]}>{show.synopsis === null ? <Text id="show.noSynopsis" /> : <ReactMarkdown rehypePlugins={[rehypeRaw]} children={show.synopsis} />}</div>
                         <div className={style["show-overview-data-separator"]} />
                         <div className={style["show-overview-data-field"]}>
-                            <div className={style["icon-type"]} />
+                            <div className={style["icon-type"]} data={show.type.toString()} />
                             <Text id="show.type" />
                             <span className={style["show-overview-data-field-highlight"]}>
                                 <Text id={`enum.showType.${show.type}`} />
+                            </span>
+                        </div>
+                        <div className={style["show-overview-data-field"]}>
+                            <div className={style["icon-format"]} />
+                            <Text id="show.format" />
+                            <span className={style["show-overview-data-field-highlight"]}>
+                                <Text id={`enum.showFormat.${show.type}.${show.format}`} />
                             </span>
                         </div>
                         <div className={style["show-overview-data-field"]}>
@@ -140,6 +147,11 @@ const Show: FunctionalComponent<ShowConnectedProps> = (props: ShowConnectedProps
                             <div className={style["icon-tag"]} />
                             <Text id="show.tags" />
                             <span className={style["show-overview-data-field-highlight"]}>{tags.length === 0 ? <Text id="show.noTags" /> : tags}</span>
+                        </div>
+                        <div className={style["show-overview-data-field"]}>
+                            <div className={style["icon-titles"]} />
+                            <Text id="show.altTitles" />
+                            {altTitles.length === 0 ? <Text id="show.noAltTitles" /> : altTitles}
                         </div>
                     </div>
                 </div>

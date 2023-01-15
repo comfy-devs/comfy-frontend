@@ -1,6 +1,8 @@
-type ShowType = "TV" | "SPECIAL" | "OVA" | "MOVIE" | "ONA";
+type ShowType = "ANIME" | "TV";
+type AnimeFormat = "TV" | "SPECIAL" | "OVA" | "MOVIE" | "ONA";
+type TVFormat = "TV" | "SPECIAL" | "MOVIE";
 type ShowStatus = "AIRING" | "FINISHED";
-type ShowGenre =
+type AnimeGenre =
     | "ACTION"
     | "ADVENTURE"
     | "COMEDY"
@@ -19,15 +21,52 @@ type ShowGenre =
     | "SPORTS"
     | "SUPERNATURAL"
     | "THRILLER";
+type TVGenre =
+    | "ACTION"
+    | "ADVENTURE"
+    | "ANIMATION"
+    | "AWARDS_SHOW"
+    | "CHILDREN"
+    | "COMEDY"
+    | "CRIME"
+    | "DOCUMENTARY"
+    | "DRAMA"
+    | "FAMILY"
+    | "FANTASY"
+    | "FOOD"
+    | "GAME_SHOW"
+    | "HISTORY"
+    | "HOME_GARDEN"
+    | "HORROR"
+    | "INDIE"
+    | "MARTIAL_ARTS"
+    | "MINI_SERIES"
+    | "MUSICAL"
+    | "MYSTERY"
+    | "NEWS"
+    | "PODCAST"
+    | "REALITY"
+    | "ROMANCE"
+    | "SCIENCE_FICTION"
+    | "SOAP"
+    | "SPORT"
+    | "SUSPENSE"
+    | "TALK_SHOW"
+    | "THRILLER"
+    | "TRAVEL"
+    | "WAR"
+    | "WESTERN";
 type ShowTag = "SUBBED" | "HARD_SUBBED" | "DUBBED";
 type ShowRating = "PG" | "R";
 type Show = {
     id: string;
     type: number;
+    format: number;
     group: string | null;
     season: number | null;
 
     title: string;
+    altTitles: string[];
     synopsis: string | null;
     episodes: number;
     favourites: number;

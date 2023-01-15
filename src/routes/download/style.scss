@@ -36,6 +36,12 @@
 	grid-gap: 10px;
 }
 
+.download-items {
+	display: flex;
+	flex-direction: column;
+	grid-gap: 8px;
+}
+
 .download-item-row {
 	@extend %align-y;
 

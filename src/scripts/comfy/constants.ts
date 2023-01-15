@@ -1,18 +1,32 @@
-import { ShowGenreMapping, ShowStatusMapping, ShowTagMapping, ShowTypeMapping, EpisodeLocationMapping } from "../../ts/common/const";
+import { AnimeGenreMapping, TVGenreMapping, ShowStatusMapping, ShowTagMapping, ShowTypeMapping, EpisodeLocationMapping, AnimeFormatMapping, TVFormatMapping } from "../../ts/common/const";
 
-const filterTypeMap: Record<FilterType, any[]> = {
-    GENRES: Object.values(ShowGenreMapping),
-    YEAR: [2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012],
-    TYPE: Object.values(ShowTypeMapping),
-    STATUS: Object.values(ShowStatusMapping),
-    SORT: ["TITLE_ASC", "TITLE_DESC", "RELEASE_ASC", "RELEASE_DESC", "FAVOURITES_ASC", "FAVOURITES_DESC"],
-    TAGS: Object.values(ShowTagMapping),
-    ITEMS: [50, 100, 150, 200],
-    GROUP: ["YES", "NO"],
-};
+export function showTypeToGenres(type: number | null) {
+    if(type) {
+        return [];
+    }
+    return type === ShowTypeMapping.ANIME ? Object.values(AnimeGenreMapping) : Object.values(TVGenreMapping)
+}
 
-export function filterTypeToValues(type: FilterType) {
-    return filterTypeMap[type];
+export function showTypeToFormats(type: number | null) {
+    if(type) {
+        return [];
+    }
+    return type === ShowTypeMapping.ANIME ? Object.values(AnimeFormatMapping) : Object.values(TVFormatMapping)
+}
+
+export function filterTypeToValues(type: number | null, filter: FilterType) {
+    const filterTypeMap: Record<FilterType, any[]> = {
+        TYPE: Object.values(ShowTypeMapping),
+        FORMAT: showTypeToFormats(type),
+        STATUS: Object.values(ShowStatusMapping),
+        GENRES: showTypeToGenres(type),
+        YEAR: [2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012],
+        SORT: ["TITLE_ASC", "TITLE_DESC", "RELEASE_ASC", "RELEASE_DESC", "FAVOURITES_ASC", "FAVOURITES_DESC"],
+        TAGS: Object.values(ShowTagMapping),
+        ITEMS: [50, 100, 150, 200],
+        GROUP: ["YES", "NO"],
+    };
+    return filterTypeMap[filter];
 }
 
 const episodeLocationMap: Record<number, string> = {
@@ -22,12 +36,4 @@ const episodeLocationMap: Record<number, string> = {
 };
 export function episodeLocationToURL(location: number) {
     return episodeLocationMap[location];
-}
-
-const fileNameMap: Record<EncodePreset, string> = {
-    X264: "episode_x264.mp4",
-    VP9: "episode_vp9.webm",
-};
-export function presetToFilename(preset: EncodePreset) {
-    return fileNameMap[preset];
 }

@@ -11,7 +11,7 @@ type FooterConnectedProps = {
 
 /* Types */
 type GenreConnectedProps = {
-    item: ShowGenre;
+    item: AnimeGenre | TVGenre;
     shows: Map<string, Show>;
 };
 
@@ -114,7 +114,7 @@ type EpisodeCardConnectedProps = {
 type EpisodeSmallCardConnectedProps = Record<string, never>;
 
 type FilterConnectedProps = {
-    type: FilterType;
+    filter: FilterType;
     value: any | null;
 
     filterData: FilterData;
