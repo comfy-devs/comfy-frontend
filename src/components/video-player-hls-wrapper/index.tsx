@@ -31,16 +31,18 @@ function createLoader(torrent: Torrent | null, root: string) {
 const VideoPlayerHlsWrapper: FunctionalComponent<VideoPlayerHlsWrapperConnectedProps> = (props: VideoPlayerHlsWrapperConnectedProps) => {
     const [torrentClient, setTorrentClient] = useState<null | any>(null);
     useEffect(() => {
-        /* if (props.preferences.torrent && props.parent.magnet !== null) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            const torrentClient = new window.WebTorrent();
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            torrentClient.loadWorker(navigator.serviceWorker.controller);
-
-            setTorrentClient(torrentClient);
-        } */
+        /*
+         * if (props.preferences.torrent && props.parent.magnet !== null) {
+         *  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+         *  // @ts-ignore
+         *  const torrentClient = new window.WebTorrent();
+         *  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+         *  // @ts-ignore
+         *  torrentClient.loadWorker(navigator.serviceWorker.controller);
+         *
+         *  setTorrentClient(torrentClient);
+         * }
+         */
     }, [props.parent.magnet]);
     const [torrentReady, setTorrentReady] = useState<null | boolean>(null);
     const [torrent, setTorrent] = useState<null | Torrent>(null);
@@ -117,7 +119,7 @@ const VideoPlayerHlsWrapper: FunctionalComponent<VideoPlayerHlsWrapperConnectedP
                 client.audioTracks.map((e) => {
                     return {
                         name: e.name,
-                        lang: e.lang ?? e.name 
+                        lang: e.lang ?? e.name,
                     };
                 })
             );
@@ -127,7 +129,7 @@ const VideoPlayerHlsWrapper: FunctionalComponent<VideoPlayerHlsWrapperConnectedP
                 client.subtitleTracks.map((e) => {
                     return {
                         name: e.name,
-                        lang: e.lang ?? e.name 
+                        lang: e.lang ?? e.name,
                     };
                 })
             );
@@ -165,6 +167,12 @@ const VideoPlayerHlsWrapper: FunctionalComponent<VideoPlayerHlsWrapperConnectedP
             console.log(`new subtitles: ${props.playerData.subs.lang}`);
         }
     }, [client, client?.subtitleTracks, props.playerData.subs.lang]);
+    useEffect(() => {
+        if (client === null) {
+            return;
+        }
+        client.subtitleDisplay = props.playerData.subs.enabled;
+    }, [client, props.playerData.subs.enabled]);
 
     return null;
 };

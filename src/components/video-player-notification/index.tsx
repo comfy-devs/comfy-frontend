@@ -10,49 +10,55 @@ const VideoPlayerNotification: FunctionalComponent<VideoPlayerNotificationConnec
             <div className={style["notification-text"]}>
                 <Text id={`enum.videoPlayerNotification.${props.type}`} />
             </div>
-            {props.type === "OP" || props.type === "ED" ? (
-                <div className={style["notification-links"]}>
-                    <div
-                        onClick={() => {
-                            if (props.video === null) {
-                                return;
-                            }
-                            props.video.currentTime = props.segment.end;
-                            switch (props.type) {
-                                case "OP":
-                                    props.actions.setPlayerOpNotification(false);
-                                    break;
+            <div className={style["notification-links"]}>
+                <div
+                    onClick={() => {
+                        if (props.video === null) {
+                            return;
+                        }
+                        props.video.currentTime = props.time;
+                        switch (props.type) {
+                            case "OP":
+                                props.actions.setPlayerOpNotification(false);
+                                break;
 
-                                case "ED":
-                                    props.actions.setPlayerEdNotification(false);
-                                    break;
-                            }
-                        }}
-                        className={style["notification-link"]}
-                        data="skip">
-                        ({<Text id="video.notification.skip" />})
-                    </div>
-                    <div
-                        onClick={() => {
-                            if (props.video === null) {
-                                return;
-                            }
-                            switch (props.type) {
-                                case "OP":
-                                    props.actions.setPlayerOpNotification(false);
-                                    break;
+                            case "ED":
+                                props.actions.setPlayerEdNotification(false);
+                                break;
 
-                                case "ED":
-                                    props.actions.setPlayerEdNotification(false);
-                                    break;
-                            }
-                        }}
-                        className={style["notification-link"]}
-                        data="hide">
-                        ({<Text id="video.notification.hide" />})
-                    </div>
+                            case "RESUME":
+                                props.actions.setPlayerResumeNotification(false);
+                                break;
+                        }
+                    }}
+                    className={style["notification-link"]}
+                    data="skip">
+                    ({<Text id="video.notification.skip" />})
                 </div>
-            ) : null}
+                <div
+                    onClick={() => {
+                        if (props.video === null) {
+                            return;
+                        }
+                        switch (props.type) {
+                            case "OP":
+                                props.actions.setPlayerOpNotification(false);
+                                break;
+
+                            case "ED":
+                                props.actions.setPlayerEdNotification(false);
+                                break;
+
+                            case "RESUME":
+                                props.actions.setPlayerResumeNotification(false);
+                                break;
+                        }
+                    }}
+                    className={style["notification-link"]}
+                    data="hide">
+                    ({<Text id="video.notification.hide" />})
+                </div>
+            </div>
         </div>
     );
 };

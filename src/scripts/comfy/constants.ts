@@ -1,17 +1,17 @@
 import { AnimeGenreMapping, TVGenreMapping, ShowStatusMapping, ShowTagMapping, ShowTypeMapping, EpisodeLocationMapping, AnimeFormatMapping, TVFormatMapping } from "../../ts/common/const";
 
 export function showTypeToGenres(type: number | null) {
-    if(type) {
+    if (type) {
         return [];
     }
-    return type === ShowTypeMapping.ANIME ? Object.values(AnimeGenreMapping) : Object.values(TVGenreMapping)
+    return type === ShowTypeMapping.ANIME ? Object.values(AnimeGenreMapping) : Object.values(TVGenreMapping);
 }
 
 export function showTypeToFormats(type: number | null) {
-    if(type) {
+    if (type) {
         return [];
     }
-    return type === ShowTypeMapping.ANIME ? Object.values(AnimeFormatMapping) : Object.values(TVFormatMapping)
+    return type === ShowTypeMapping.ANIME ? Object.values(AnimeFormatMapping) : Object.values(TVFormatMapping);
 }
 
 export function filterTypeToValues(type: number | null, filter: FilterType) {

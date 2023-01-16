@@ -160,6 +160,9 @@ export function setPreferencesBlur(blur: boolean): ReduxAction {
 export function setPreferencesVolume(volume: number): ReduxAction {
     return getAction("SET_PREFERENCES_VOLUME", volume);
 }
+export function setPreferencesProgress(id: string, time: number): ReduxAction {
+    return getAction("SET_PREFERENCES_PROGRESS", { id, time });
+}
 
 /* Notifications */
 export function pushSubscribe(url: string, key: string, auth: string): ReduxAction {
@@ -257,6 +260,9 @@ export function setPlayerOpNotification(opNotifaction: boolean): ReduxAction {
 export function setPlayerEdNotification(edNotifaction: boolean): ReduxAction {
     return getAction("SET_PLAYER_ED_NOTIFICATION", edNotifaction);
 }
+export function setPlayerResumeNotification(resumeNotifaction: boolean): ReduxAction {
+    return getAction("SET_PLAYER_RESUME_NOTIFICATION", resumeNotifaction);
+}
 export function setPlayerManifestLevels(levels: PlayerManifestLevel[]): ReduxAction {
     return getAction("SET_PLAYER_MANIFEST_LEVELS", levels);
 }
@@ -271,7 +277,4 @@ export function setPlayerManifestLevel(level: number): ReduxAction {
 }
 export function setPlayerBandwith(bandwith: number): ReduxAction {
     return getAction("SET_PLAYER_BANDWITH", bandwith);
-}
-export function setPlayerOverrideUrl(url?: string): ReduxAction {
-    return getAction("SET_PLAYER_OVERRIDE_URL", url);
 }

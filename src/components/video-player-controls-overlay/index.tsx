@@ -14,7 +14,7 @@ const VideoPlayerControlsOverlay: FunctionalComponent<VideoPlayerControlsOverlay
             setBuffer(props.video.buffered.length);
         }
     }, [props.video, props.video?.currentTime]);
-    const level = props.playerData.manifest.levels.length > 0 ? props.playerData.manifest.levels[props.playerData.manifestLevel] : null;
+    const level = props.playerData.preset === "X264" && props.playerData.manifest.levels.length > 0 ? props.playerData.manifest.levels[props.playerData.manifestLevel] : null;
 
     return (
         <div class={style["video-controls-overlay"]}>
@@ -35,11 +35,6 @@ const VideoPlayerControlsOverlay: FunctionalComponent<VideoPlayerControlsOverlay
                     <span class={style["video-controls-overlay-text-highlight"]}>
                         {props.playerData.preset === "X264" ? "aac" : "opus"} ({Math.round(props.encode.audioBitrate / 1000)}kbits/s)
                     </span>
-                </div>
-            ) : null}
-            {props.encode ? (
-                <div class={style["video-controls-overlay-text"]}>
-                    Captions: <span class={style["video-controls-overlay-text-highlight"]}>{props.item.subtitles.join(", ")}</span>
                 </div>
             ) : null}
             {props.encode ? (

@@ -49,13 +49,15 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
     useEffect(() => {
         // Make sure that everytime the original language is selected, VP9 is preferred if available
         if (episode !== undefined) {
-            if (props.playerData.audio.lang === episode.audio[0] && hasVP9 && props.playerData.preset !== "VP9") {
-                props.actions.setPlayerPreset("VP9");
+            if (hasVP9 && props.playerData.audio.lang === episode.audio[0]) {
+                if (props.playerData.preset !== "VP9") {
+                    props.actions.setPlayerPreset("VP9");
+                }
             } else if (props.playerData.preset !== "X264") {
                 props.actions.setPlayerPreset("X264");
             }
         }
-    }, [props.id, episode, props.actions, props.playerData.audio, hasVP9, props.playerData.preset]);
+    }, [props.id, episode, props.actions, props.playerData.audio, hasVP9]);
     if (episode === undefined || show === undefined) {
         return null;
     }

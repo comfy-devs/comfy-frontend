@@ -19,7 +19,6 @@
     background-color: var(--color-primary-light);
     cursor: pointer;
     transition: .4s;
-    transition: .4s;
 }
 
 .switch-slider::before {
@@ -32,7 +31,6 @@
     background-color: var(--color-secondary-text);
     content: "";
     transition: .4s;
-    transition: .4s;
 }
 
 input:checked + .switch-slider {
@@ -44,7 +42,6 @@ input:focus + .switch-slider {
 }
 
 input:checked + .switch-slider::before {
-    transform: translateX(26px);
     transform: translateX(26px);
     transform: translateX(26px);
 }

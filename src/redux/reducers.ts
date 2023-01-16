@@ -19,6 +19,13 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         preferences.developer = (localStorage.getItem("developer") ?? "false") === "true";
         preferences.blur = (localStorage.getItem("blur") ?? "false") === "true";
         preferences.volume = parseFloat(localStorage.getItem("volume") ?? "0.5");
+        preferences.progress = new Map();
+        for (const key in localStorage) {
+            if (key.startsWith("progress_")) {
+                const id = key.replace("progress_", "");
+                preferences.progress.set(id, parseInt(localStorage[key], 10));
+            }
+        }
 
         return { ...state, preferences };
     },
@@ -135,13 +142,19 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, preferences: { ...state.preferences, volume: action.data } };
     },
 
+    SET_PREFERENCES_PROGRESS: (state: ReduxState, action: ReduxAction) => {
+        const preferences = { ...state.preferences, progress: new Map(state.preferences.progress) };
+        preferences.progress.set(action.data.id, action.data.time);
+        return { ...state, preferences };
+    },
+
     SET_FILTER_SEARCH_TERM: (state: ReduxState, action: ReduxAction) => {
         return { ...state, filterData: { ...state.filterData, searchTerm: action.data } };
     },
 
     SET_FILTER_TYPE: (state: ReduxState, action: ReduxAction) => {
         const filterData = { ...state.filterData, type: action.data };
-        if(filterData.type === null) {
+        if (filterData.type === null) {
             filterData.format = null;
             filterData.genres = null;
         }
@@ -216,6 +229,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, playerData: { ...state.playerData, edNotification: action.data } };
     },
 
+    SET_PLAYER_RESUME_NOTIFICATION: (state: ReduxState, action: ReduxAction) => {
+        return { ...state, playerData: { ...state.playerData, resumeNotification: action.data } };
+    },
+
     SET_PLAYER_OVERLAY: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, overlay: action.data } };
     },
@@ -238,10 +255,6 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
 
     SET_PLAYER_BANDWITH: (state: ReduxState, action: ReduxAction) => {
         return { ...state, playerData: { ...state.playerData, bandwith: action.data } };
-    },
-
-    SET_PLAYER_OVERRIDE_URL: (state: ReduxState, action: ReduxAction) => {
-        return { ...state, playerData: { ...state.playerData, overrideUrl: action.data } };
     },
 };
 const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction) => Promise<void>> = {

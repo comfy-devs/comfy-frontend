@@ -11,7 +11,7 @@ export const INITIAL: ReduxState = {
     segments: new Map(),
     stats: { id: "default", size: 0, files: 0, torrents: 0 },
     random: Math.floor(Math.random() * 1000000),
-    preferences: { theme: "dark", torrent: false, lang: "en", developer: false, blur: true, volume: 50 },
+    preferences: { theme: "dark", torrent: false, lang: "en", developer: false, blur: true, volume: 50, progress: new Map() },
     filterData: { page: 0, searchTerm: "", type: null, format: null, status: null, genres: null, year: null, sort: "TITLE_ASC", tags: null, items: 100, group: "NO" },
     playerData: {
         state: "WAITING",
@@ -23,10 +23,10 @@ export const INITIAL: ReduxState = {
         audio: { lang: "jpn" },
         opNotification: true,
         edNotification: true,
+        resumeNotification: true,
         manifest: { levels: [], audio: [], subtitles: [] },
         manifestLevel: 0,
         bandwith: 0,
-        overrideUrl: null,
     },
     authResult: "NONE",
 };

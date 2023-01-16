@@ -20,7 +20,7 @@ const Download: FunctionalComponent<DownloadConnectedProps> = (props: DownloadCo
                 > Added support for new HLS releases`,
             version: "beta-4",
             link: "https://files.catbox.moe/ju93k5.apk",
-        }
+        },
     ];
     const androidVersions = versions.filter((e) => {
         return e.type === "android";

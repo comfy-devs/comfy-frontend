@@ -11,6 +11,7 @@ type AppPreferences = {
     developer: boolean;
     blur: boolean;
     volume: number;
+    progress: Map<string, number>;
 };
 type AuthResult = "NONE" | "USERNAME_TOO_SHORT" | "PASSWORD_TOO_SHORT" | "PASSWORD_NO_MATCH" | "NOT_FOUND" | "NOT_AUTHORIZED" | "USER_TAKEN";
 type Dimensions = {
@@ -33,10 +34,10 @@ type PlayerData = {
 
     opNotification: boolean;
     edNotification: boolean;
+    resumeNotification: boolean;
     bandwith: number;
     manifest: PlayerManifest;
     manifestLevel: number;
-    overrideUrl: string | null;
 };
 type PlayerManifest = {
     levels: PlayerManifestLevel[];
@@ -52,7 +53,7 @@ type PlayerManifestTrack = {
     name: string;
     lang: string;
 };
-type VideoPlayerNotificationType = "OP" | "ED";
+type VideoPlayerNotificationType = "OP" | "ED" | "RESUME";
 
 /* Filter */
 type FilterData = {

@@ -30,29 +30,26 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
 
     /* Filter through shows */
     let shows = Array.from(props.shows.values());
-    if(props.filterData.searchTerm !== "") {
+    if (props.filterData.searchTerm !== "") {
         const search = props.filterData.searchTerm.toLowerCase();
-        shows = shows.filter((e) =>
-            e.title.toLowerCase().includes(search) ||
-            e.altTitles.some(t => t.toLowerCase().includes(search))
-        );
+        shows = shows.filter((e) => e.title.toLowerCase().includes(search) || e.altTitles.some((t) => t.toLowerCase().includes(search)));
     }
-    if(props.filterData.type !== null) {
+    if (props.filterData.type !== null) {
         shows = shows.filter((e) => e.type === props.filterData.type);
     }
-    if(props.filterData.format !== null) {
+    if (props.filterData.format !== null) {
         shows = shows.filter((e) => e.format === props.filterData.format);
     }
-    if(props.filterData.status !== null) {
+    if (props.filterData.status !== null) {
         shows = shows.filter((e) => e.status === props.filterData.status);
     }
-    if(props.filterData.genres !== null) {
+    if (props.filterData.genres !== null) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         shows = shows.filter((e) => (e.genres & props.filterData.genres) === props.filterData.genres);
     }
     // shows = shows.filter((e) => { return props.filterData.year === null ? true : true; });
-    if(props.filterData.tags !== null) {
+    if (props.filterData.tags !== null) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         shows = shows.filter((e) => (e.tags & props.filterData.tags) === props.filterData.tags);

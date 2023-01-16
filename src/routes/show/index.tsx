@@ -41,31 +41,34 @@ const Show: FunctionalComponent<ShowConnectedProps> = (props: ShowConnectedProps
         episodeElements.push(<EpisodeCard key={i} parent={show} item={episodes[i]} i={i} disabled={false} preferences={props.preferences} />);
     }
 
-    const altTitles = show.altTitles.map((e, i) =>
+    const altTitles = show.altTitles.map((e, i) => (
         <div key={i} className={style["show-overview-data-field"]}>
             <span className={style["show-overview-data-field-highlight"]}>
-                {i === 0 ? "" : ", "}{e}
+                {i === 0 ? "" : ", "}
+                {e}
             </span>
         </div>
-    );
+    ));
     const genres = showTypeToGenres(show.type)
         .filter((e) => show.genres & e)
-        .map((e, i) =>
+        .map((e, i) => (
             <div key={i} className={style["show-overview-data-field"]}>
                 <span className={style["show-overview-data-field-highlight"]}>
-                    {i === 0 ? "" : ", "}{<Text id={`enum.showGenre.${show.type}.${e}`} />}
+                    {i === 0 ? "" : ", "}
+                    {<Text id={`enum.showGenre.${show.type}.${e}`} />}
                 </span>
             </div>
-        );
+        ));
     const tags = Object.values(ShowTagMapping)
         .filter((e) => show.tags & e)
-        .map((e, i) =>
+        .map((e, i) => (
             <div key={i} className={style["show-overview-data-field"]}>
                 <span className={style["show-overview-data-field-highlight"]}>
-                    {i === 0 ? "" : ", "}{<Text id={`enum.showTag.${e}`} />}
+                    {i === 0 ? "" : ", "}
+                    {<Text id={`enum.showTag.${e}`} />}
                 </span>
             </div>
-        );
+        ));
     const views = episodes.reduce((acc, curr) => acc + curr.views, 0);
 
     return (

@@ -18,6 +18,7 @@
     display: flex;
     width: 280px;
     flex-direction: column;
+    padding: 5px 0;
     border-radius: 5px;
     background-color: var(--color-primary-dark);
     opacity: 0.95;
@@ -46,15 +47,19 @@
     grid-template-columns: repeat(5, 25px);
 }
 
-.option-flag {
+.option-flag-wrapper {
     @extend %align-center;
+
     position: relative;
     cursor: pointer;
 }
 
-.option-flag[data="selected"] {
-    border-bottom: 2px solid var(--color-primary-text);
+.option-flag-wrapper[data="selected"] {
     cursor: default;
+}
+
+.option-flag-wrapper[data="selected"] > img {
+    border-bottom: 2px solid var(--color-primary-text);
 }
 
 /* Icons */

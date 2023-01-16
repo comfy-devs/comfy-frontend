@@ -1,6 +1,6 @@
 /* Base */
 import { h, Component } from "preact";
-import { episodeLocationToURL, presetToFilename } from "../../scripts/comfy/constants";
+import { episodeLocationToURL } from "../../scripts/comfy/constants";
 import { findSegmentForTimestamp } from "../../scripts/comfy/segment";
 /* Styles */
 import style from "./style.scss";
@@ -138,10 +138,9 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
 
     render() {
         const currentSegment = this.video === null ? { end: 0, item: null } : findSegmentForTimestamp(this.props.segments, this.video.currentTime);
-        let videoUrl = `${episodeLocationToURL(this.props.parent.location)}/${this.props.item.show}/${this.props.item.pos}/${presetToFilename(this.props.playerData.preset)}`;
-        if (this.props.playerData.overrideUrl !== null) {
-            videoUrl = this.props.playerData.overrideUrl;
-        }
+        const hasResumeNotification = this.props.playerData.resumeNotification && this.props.preferences.progress.has(this.props.item.id);
+        const hasOpNotification = !hasResumeNotification && this.props.playerData.opNotification && currentSegment.item !== null && currentSegment.item.type === SegmentTypeMapping.OP;
+        const hasEdNotification = !hasResumeNotification && this.props.playerData.edNotification && currentSegment.item !== null && currentSegment.item.type === SegmentTypeMapping.ED;
 
         return (
             <div className={style["episode-video-wrapper"]} data={this.props.playerData.theater ? "true" : "false"}>
@@ -158,6 +157,10 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                         this.forceUpdate();
                     }}
                     onTimeUpdate={() => {
+                        const time = Math.round(this.video?.currentTime ?? 0);
+                        if (this.props.preferences.progress.get(this.props.item.id) !== time) {
+                            this.props.actions.setPreferencesProgress(this.props.item.id, time);
+                        }
                         this.forceUpdate();
                     }}
                     onVolumeChange={() => {
@@ -170,8 +173,8 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                         this.props.actions.setPlayerState("DONE");
                     }}
                     volume={this.props.preferences.volume}>
-                    {this.props.playerData.preset === "VP9" ? <source src={videoUrl} /> : null}
-                    {!this.props.playerData.subs || this.props.playerData.preset === "X264" ? null : (
+                    {this.props.playerData.preset === "VP9" ? <source src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.show}/${this.props.item.pos}/episode_vp9.webm`} /> : null}
+                    {this.props.playerData.preset === "X264" || !this.props.playerData.subs ? null : (
                         <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.show}/${this.props.item.pos}/subs/eng.vtt`} default />
                     )}
                 </video>
@@ -193,15 +196,12 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     <canvas className={style["episode-timeline-tooltip-canvas"]} ref={this.setTimelineCanvasRef} id="canvas" width={192} height={108} />
                     <div className={style["episode-timeline-tooltip-text"]} ref={this.setTimelineTextRef} />
                 </div>
-                {!this.props.playerData.opNotification || currentSegment.item === null || currentSegment.item.type !== SegmentTypeMapping.OP ? null : (
-                    <VideoPlayerNotification type={"OP"} segment={currentSegment} video={this.video} actions={this.props.actions} />
-                )}
-                {!this.props.playerData.edNotification || currentSegment.item === null || currentSegment.item.type !== SegmentTypeMapping.ED ? null : (
-                    <VideoPlayerNotification type={"ED"} segment={currentSegment} video={this.video} actions={this.props.actions} />
-                )}
+                {hasOpNotification ? <VideoPlayerNotification type={"OP"} time={currentSegment.end} video={this.video} actions={this.props.actions} /> : null}
+                {hasEdNotification ? <VideoPlayerNotification type={"ED"} time={currentSegment.end} video={this.video} actions={this.props.actions} /> : null}
+                {hasResumeNotification ? <VideoPlayerNotification type={"RESUME"} time={this.props.preferences.progress.get(this.props.item.id) ?? 0} video={this.video} actions={this.props.actions} /> : null}
                 <VideoPlayerOverlay state={this.props.playerData.state} />
                 {!this.props.playerData.settings ? null : <VideoPlayerSettings item={this.props.item} encode={this.props.encode} actions={this.props.actions} playerData={this.props.playerData} />}
-                {this.props.playerData.preset === "VP9" || this.props.playerData.overrideUrl !== null ? null : (
+                {this.props.playerData.preset === "VP9" ? null : (
                     <VideoPlayerHlsWrapper item={this.props.item} parent={this.props.parent} video={this.video} preferences={this.props.preferences} actions={this.props.actions} playerData={this.props.playerData} />
                 )}
             </div>

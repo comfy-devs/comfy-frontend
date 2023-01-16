@@ -52,6 +52,7 @@ type ConnectedActions = {
     setPreferencesTorrent(torrent: boolean): ReduxAction;
     setPreferencesBlur(blur: boolean): ReduxAction;
     setPreferencesVolume(volume: number): ReduxAction;
+    setPreferencesProgress(id: string, time: number): ReduxAction;
     setAuthResult(result: AuthResult): ReduxAction;
 
     setFilterSearchTerm(searchTerm: string): ReduxAction;
@@ -73,9 +74,9 @@ type ConnectedActions = {
     setPlayerOverlay(overlay: boolean): ReduxAction;
     setPlayerSubs(subs: PlayerDataSubs): ReduxAction;
     setPlayerAudio(audio: PlayerDataAudio): ReduxAction;
-    setPlayerOverrideUrl(url?: string): ReduxAction;
     setPlayerOpNotification(opNotifaction: boolean): ReduxAction;
     setPlayerEdNotification(edNotifaction: boolean): ReduxAction;
+    setPlayerResumeNotification(resumeNotifaction: boolean): ReduxAction;
     setPlayerBandwith(bandwith: number): ReduxAction;
     setPlayerManifestLevels(levels: PlayerManifestLevel[]): ReduxAction;
     setPlayerManifestAudio(tracks: PlayerManifestTrack[]): ReduxAction;

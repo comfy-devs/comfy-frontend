@@ -37,7 +37,7 @@ type SegmentData = {
 };
 type VideoPlayerNotificationConnectedProps = {
     type: VideoPlayerNotificationType;
-    segment: SegmentData;
+    time: number;
     video: HTMLVideoElement | null;
 
     actions: ConnectedActions;

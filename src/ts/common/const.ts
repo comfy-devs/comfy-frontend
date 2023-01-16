@@ -1,6 +1,6 @@
 export const ShowTypeMapping: Record<ShowType, number> = {
     ANIME: 0,
-    TV: 1
+    TV: 1,
 };
 
 export const AnimeFormatMapping: Record<AnimeFormat, number> = {

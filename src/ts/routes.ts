@@ -9,12 +9,14 @@ type RouteProps = {
 
 type HomeConnectedProps = RouteProps & {
     dimensions: Dimensions;
-    users: Map<string, User>;
     shows: Map<string, Show>;
-    episodes: Map<string, Episode>;
-    groups: Map<string, Group>;
     random: number;
-    user?: User;
+    user: User | null;
+};
+type AccountConnectedProps = RouteProps & {
+    dimensions: Dimensions;
+    shows: Map<string, Show>;
+    user: User | null;
 };
 
 type AllConnectedProps = RouteProps & {

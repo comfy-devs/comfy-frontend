@@ -12,26 +12,45 @@ const VideoPlayerSettings: FunctionalComponent<VideoPlayerSettingsConnectedProps
                 <div className={style["icon-quality"]} />
                 Quality
                 <div className={style["episode-video-settings-item-option"]} data="margin">
-                    good
+                    {[{ type: "hd", name: "HD (1080p)" }].map((e, i) => (
+                        <div key={i} className={[tooltipStyle["tooltip-wrapper"], style["option-flag-wrapper"]].join(" ")} data={"selected"}>
+                            <img
+                                src={"/assets/icons/ui/thething.svg"}
+                                width={20}
+                                height={20}
+                                onClick={() => {
+                                    /* */
+                                }}
+                            />
+                            <div className={tooltipStyle.tooltip} data="no-arrow">
+                                {e.name}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
             <div className={style["episode-video-settings-item"]}>
                 <div className={style["icon-audio"]} />
                 Audio
                 <div className={style["episode-video-settings-item-option"]} data="margin">
-                    {props.playerData.manifest.audio.map((e, i) => (
-                        <div key={i} className={[tooltipStyle["tooltip-wrapper"], style["option-flag"]].join(" ")}>
+                    {(props.playerData.manifest.audio.length === 0
+                        ? props.item.audio.map((e) => {
+                              return { lang: e, name: e };
+                          })
+                        : props.playerData.manifest.audio
+                    ).map((e, i) => (
+                        <div key={i} className={[tooltipStyle["tooltip-wrapper"], style["option-flag-wrapper"]].join(" ")} data={e.lang === props.playerData.audio.lang ? "selected" : undefined}>
                             <img
-                                className={[tooltipStyle["tooltip-wrapper"], style["option-flag"]].join(" ")}
-                                data={e.lang === props.playerData.audio.lang ? "selected" : undefined}
                                 src={`/assets/icons/flags/${e.lang}.svg`}
-                                width={20} 
+                                width={20}
                                 height={20}
                                 onClick={() => {
                                     props.actions.setPlayerAudio({ lang: e.lang });
                                 }}
                             />
-                            <div className={tooltipStyle.tooltip} data="no-arrow">{e.name}</div>
+                            <div className={tooltipStyle.tooltip} data="no-arrow">
+                                {e.name}
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -40,11 +59,14 @@ const VideoPlayerSettings: FunctionalComponent<VideoPlayerSettingsConnectedProps
                 <div className={style["icon-subs"]} />
                 Subtitles
                 <div className={style["episode-video-settings-item-option"]} data="margin">
-                    {props.playerData.manifest.subtitles.map((e, i) => (
-                        <div key={i} className={[tooltipStyle["tooltip-wrapper"], style["option-flag"]].join(" ")}>
+                    {(props.playerData.manifest.subtitles.length === 0
+                        ? props.item.subtitles.map((e) => {
+                              return { lang: e, name: e };
+                          })
+                        : props.playerData.manifest.subtitles
+                    ).map((e, i) => (
+                        <div key={i} className={[tooltipStyle["tooltip-wrapper"], style["option-flag-wrapper"]].join(" ")} data={e.lang === props.playerData.subs.lang ? "selected" : undefined}>
                             <img
-                                className={[tooltipStyle["tooltip-wrapper"], style["option-flag"]].join(" ")}
-                                data={e.lang === props.playerData.subs.lang ? "selected" : undefined}
                                 src={`/assets/icons/flags/${e.lang}.svg`}
                                 width={20}
                                 height={20}
@@ -52,7 +74,9 @@ const VideoPlayerSettings: FunctionalComponent<VideoPlayerSettingsConnectedProps
                                     props.actions.setPlayerSubs({ enabled: true, lang: e.lang });
                                 }}
                             />
-                            <div className={tooltipStyle.tooltip} data="no-arrow">{e.name}</div>
+                            <div className={tooltipStyle.tooltip} data="no-arrow">
+                                {e.name}
+                            </div>
                         </div>
                     ))}
                 </div>
