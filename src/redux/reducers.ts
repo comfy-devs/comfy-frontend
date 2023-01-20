@@ -177,10 +177,6 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, filterData: { ...state.filterData, genres: action.data } };
     },
 
-    SET_FILTER_YEAR: (state: ReduxState, action: ReduxAction) => {
-        return { ...state, filterData: { ...state.filterData, year: action.data } };
-    },
-
     SET_FILTER_SORT: (state: ReduxState, action: ReduxAction) => {
         return { ...state, filterData: { ...state.filterData, sort: action.data } };
     },

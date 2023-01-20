@@ -48,7 +48,6 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
         // @ts-ignore
         shows = shows.filter((e) => (e.genres & props.filterData.genres) === props.filterData.genres);
     }
-    // shows = shows.filter((e) => { return props.filterData.year === null ? true : true; });
     if (props.filterData.tags !== null) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -81,9 +80,8 @@ const All: FunctionalComponent<AllConnectedProps> = (props: AllConnectedProps) =
         <Filter key={1} filter={"FORMAT"} value={props.filterData.format} filterData={props.filterData} actions={props.actions} />,
         <Filter key={2} filter={"STATUS"} value={props.filterData.status} filterData={props.filterData} actions={props.actions} />,
         <Filter key={3} filter={"GENRES"} value={props.filterData.genres} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={4} filter={"YEAR"} value={props.filterData.year} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={5} filter={"SORT"} value={props.filterData.sort} filterData={props.filterData} actions={props.actions} />,
-        <Filter key={6} filter={"TAGS"} value={props.filterData.tags} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={4} filter={"SORT"} value={props.filterData.sort} filterData={props.filterData} actions={props.actions} />,
+        <Filter key={5} filter={"TAGS"} value={props.filterData.tags} filterData={props.filterData} actions={props.actions} />,
     ];
 
     let previews: any[] = [];

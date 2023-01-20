@@ -215,10 +215,6 @@ export function setFilterGenres(genres: AnimeGenre | TVGenre | null): ReduxActio
     return getAction("SET_FILTER_GENRES", genres);
 }
 
-export function setFilterYear(year: number | null): ReduxAction {
-    return getAction("SET_FILTER_YEAR", year);
-}
-
 export function setFilterSort(sort: FilterSort): ReduxAction {
     return getAction("SET_FILTER_SORT", sort);
 }

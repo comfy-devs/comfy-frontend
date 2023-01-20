@@ -7,7 +7,6 @@ const filterTypeMap: Record<FilterType, (type: number | null, value: number) => 
     FORMAT: (type: number | null, value: number) => <Text id={`enum.showFormat.${type}.${value}`} />,
     STATUS: (type: number | null, value: number) => <Text id={`enum.showStatus.${value}`} />,
     GENRES: (type: number | null, value: number) => <Text id={`enum.showGenre.${type}.${value}`} />,
-    YEAR: (type: number | null, value: number) => <Text id="">{value.toString()}</Text>,
     SORT: (type: number | null, value: number) => <Text id={`enum.filterSort.${value}`} />,
     TAGS: (type: number | null, value: number) => <Text id={`enum.showTag.${value}`} />,
     ITEMS: (type: number | null, value: number) => <Text id="">{value.toString()}</Text>,

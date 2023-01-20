@@ -9,10 +9,11 @@ export const INITIAL: ReduxState = {
     episodes: new Map(),
     encodes: new Map(),
     segments: new Map(),
+    stats: { id: "default", size: 0, files: 0, users: 0, shows: 0, episodes: 0, torrents: 0 },
     jobs: new Map(),
     random: Math.floor(Math.random() * 1000000),
     preferences: { theme: "dark", torrent: false, lang: "en", developer: false, blur: true, volume: 50, progress: new Map() },
-    filterData: { page: 0, searchTerm: "", type: null, format: null, status: null, genres: null, year: null, sort: "TITLE_ASC", tags: null, items: 100, group: "NO" },
+    filterData: { page: 0, searchTerm: "", type: null, format: null, status: null, genres: null, sort: "TITLE_ASC", tags: null, items: 100, group: "NO" },
     playerData: {
         state: "WAITING",
         preset: "X264",
@@ -38,6 +39,7 @@ export enum ResourceType {
     ENCODE,
     SEGMENT,
     GROUP,
+    JOB,
     UNKNOWN,
 }
 
@@ -82,6 +84,9 @@ export function cacheResources(state: ReduxState, resources: any[], resourceType
 
         case ResourceType.GROUP:
             return saveResources(state, "groups", resources);
+
+        case ResourceType.JOB:
+            return saveResources(state, "jobs", resources);
     }
 
     return state;

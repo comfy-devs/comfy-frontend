@@ -64,12 +64,11 @@ type FilterData = {
     format: number | null;
     status: number | null;
     genres: number | null;
-    year: number | null;
     sort: FilterSort;
     tags: number | null;
     items: number;
     group: FilterGroup;
 };
-type FilterType = "TYPE" | "FORMAT" | "STATUS" | "GENRES" | "YEAR" | "SORT" | "TAGS" | "ITEMS" | "GROUP";
+type FilterType = "TYPE" | "FORMAT" | "STATUS" | "GENRES" | "SORT" | "TAGS" | "ITEMS" | "GROUP";
 type FilterSort = "TITLE_ASC" | "TITLE_DESC" | "RELEASE_ASC" | "RELEASE_DESC" | "FAVOURITES_ASC" | "FAVOURITES_DESC";
 type FilterGroup = "YES" | "NO";

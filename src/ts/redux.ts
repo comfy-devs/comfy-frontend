@@ -62,7 +62,6 @@ type ConnectedActions = {
     setFilterFormat(format: AnimeFormat | TVFormat | null): ReduxAction;
     setFilterStatus(status: ShowStatus | null): ReduxAction;
     setFilterGenres(genres: AnimeGenre | TVGenre | null): ReduxAction;
-    setFilterYear(year: number | null): ReduxAction;
     setFilterSort(sort: FilterSort): ReduxAction;
     setFilterTags(tags: ShowTag | null): ReduxAction;
     setFilterItems(items: number): ReduxAction;

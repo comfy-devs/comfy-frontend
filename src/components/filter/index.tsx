@@ -41,10 +41,6 @@ const Filter: FunctionalComponent<FilterConnectedProps> = (props: FilterConnecte
                             props.actions.setFilterGenres(e);
                             return;
 
-                        case "YEAR":
-                            props.actions.setFilterYear(e);
-                            return;
-
                         case "SORT":
                             props.actions.setFilterSort(e);
                             return;
