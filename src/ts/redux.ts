@@ -15,6 +15,7 @@ type ReduxState = {
     encodes: Map<string, Encode>;
     segments: Map<string, Segment>;
     stats: Stats;
+    jobs: Map<string, EncodingJob>;
     random: number;
     preferences: AppPreferences;
     authResult: AuthResult;
@@ -43,6 +44,7 @@ type ConnectedActions = {
     fetchSegment(id: string): ReduxAction;
     fetchAllSegments(): ReduxAction;
     fetchStats(): ReduxAction;
+    fetchAllJobs(): ReduxAction;
     pushSubscribe(url: string, key: string, auth: string): ReduxAction;
     pushUnsubscribe(): ReduxAction;
     favourite(id: string): ReduxAction;

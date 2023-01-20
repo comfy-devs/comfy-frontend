@@ -28,6 +28,7 @@ const App: FunctionalComponent<any> = (props: AppConnectedProps) => {
     // API calls
     useEffect(() => {
         props.actions.fetchStats();
+        props.actions.fetchAllJobs();
         props.actions.fetchPreferences();
         props.actions.createSession("token");
 

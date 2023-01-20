@@ -78,6 +78,9 @@ export async function fetchEpisodeSegments(id: string): Promise<Segment[]> {
 export async function fetchStats(): Promise<Stats | undefined> {
     return await fetchResource("/stats", "default");
 }
+export async function fetchAllJobs(): Promise<EncodingJob[]> {
+    return await fetchResources("/jobs/all");
+}
 
 export async function pushSubscribe(url: string, key: string, auth: string): Promise<number> {
     const response: APIResponse = await post({ path: `/notifications/subscribe?url=${url}&key=${key}&auth=${auth}`, body: {} });

@@ -118,6 +118,10 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
         return { ...state, stats: action.data };
     },
 
+    FETCH_ALL_JOBS_SUCCESS: (state: ReduxState, action: ReduxAction) => {
+        return cacheResources(state, action.data, ResourceType.JOB);
+    },
+
     PUSH_SUBSCRIBE_SUCCESS: (state: ReduxState) => {
         return state;
     },
@@ -336,6 +340,10 @@ const ASYNC_REDUCERS: Record<string, (dispatch: Dispatch<ReduxAction>, getState:
 
     FETCH_STATS: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
         await reducerFetch(dispatch, action.data, routes.fetchStats, actions.fetchStatsSuccess);
+    },
+
+    FETCH_ALL_JOBS: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {
+        await reducerFetchMultiple(dispatch, action.data, routes.fetchAllJobs, actions.fetchAllJobsSuccess);
     },
 
     PUSH_SUBSCRIBE: async (dispatch: Dispatch<ReduxAction>, getState: () => ReduxState, action: ReduxAction): Promise<void> => {

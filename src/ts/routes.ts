@@ -35,7 +35,10 @@ type SettingsConnectedProps = RouteProps & {
 };
 
 type DownloadConnectedProps = RouteProps;
-type StatusConnectedProps = RouteProps;
+type StatusConnectedProps = RouteProps & {
+    stats: Stats;
+    jobs: Map<string, EncodingJob>;
+};
 
 type ShowConnectedProps = RouteProps & {
     shows: Map<string, Show>;

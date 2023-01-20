@@ -9,7 +9,7 @@ export const INITIAL: ReduxState = {
     episodes: new Map(),
     encodes: new Map(),
     segments: new Map(),
-    stats: { id: "default", size: 0, files: 0, torrents: 0 },
+    jobs: new Map(),
     random: Math.floor(Math.random() * 1000000),
     preferences: { theme: "dark", torrent: false, lang: "en", developer: false, blur: true, volume: 50, progress: new Map() },
     filterData: { page: 0, searchTerm: "", type: null, format: null, status: null, genres: null, year: null, sort: "TITLE_ASC", tags: null, items: 100, group: "NO" },

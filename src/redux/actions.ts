@@ -124,6 +124,13 @@ export function fetchStatsSuccess(stats: Stats): ReduxAction {
     return getAction("FETCH_STATS_SUCCESS", stats);
 }
 
+export function fetchAllJobs(): ReduxAction {
+    return getAction("FETCH_ALL_JOBS", {});
+}
+export function fetchAllJobsSuccess(jobs: EncodingJob[]): ReduxAction {
+    return getAction("FETCH_ALL_JOBS_SUCCESS", jobs);
+}
+
 /* Authentication */
 export function login(username: string, password: string): ReduxAction {
     return getAction("LOGIN", { username, password });

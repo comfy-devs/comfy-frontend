@@ -32,7 +32,7 @@ const AppRouter: FunctionalComponent<any> = (props: AppConnectedProps) => {
             <Account path="/account" dimensions={props.dimensions} shows={props.shows} user={props.user} session={props.session} actions={props.actions} dictionary={props.dictionary} preferences={props.preferences} />
             <Settings path="/settings" user={props.user} session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
             <Download path="/download" session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
-            <Status path="/status" session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
+            <Status path="/status" session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} stats={props.stats} jobs={props.jobs} />
             <Login path="/login" session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} authResult={props.authResult} />
             <Register path="/register" session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} authResult={props.authResult} />
             <Show path="/shows/:id" id="" shows={props.shows} episodes={props.episodes} user={props.user} session={props.session} actions={props.actions} preferences={props.preferences} dictionary={props.dictionary} />
