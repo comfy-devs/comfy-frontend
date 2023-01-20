@@ -250,7 +250,7 @@ const REDUCERS: Record<string, (state: ReduxState, action: ReduxAction) => any> 
     },
 
     SET_PLAYER_MANIFEST_LEVEL: (state: ReduxState, action: ReduxAction) => {
-        return { ...state, playerData: { ...state.playerData, manifestLevel: action.data } };
+        return { ...state, playerData: { ...state.playerData, manifest: { ...state.playerData.manifest, level: action.data } } };
     },
 
     SET_PLAYER_BANDWITH: (state: ReduxState, action: ReduxAction) => {

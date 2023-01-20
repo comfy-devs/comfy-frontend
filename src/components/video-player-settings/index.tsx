@@ -12,14 +12,19 @@ const VideoPlayerSettings: FunctionalComponent<VideoPlayerSettingsConnectedProps
                 <div className={style["icon-quality"]} />
                 Quality
                 <div className={style["episode-video-settings-item-option"]} data="margin">
-                    {[{ type: "hd", name: "HD (1080p)" }].map((e, i) => (
-                        <div key={i} className={[tooltipStyle["tooltip-wrapper"], style["option-flag-wrapper"]].join(" ")} data={"selected"}>
+                    {[
+                        { level: -1, type: "auto", name: "Automatic" },
+                        { level: 2, type: "high", name: "1080p ᴴᴰ" },
+                        { level: 1, type: "med", name: "720p" },
+                        { level: 0, type: "low", name: "480p" }
+                    ].map((e, i) => (
+                        <div key={i} className={[tooltipStyle["tooltip-wrapper"], style["option-flag-wrapper"]].join(" ")} data={props.playerData.manifest.level === e.level ? "selected" : undefined}>
                             <img
-                                src={"/assets/icons/ui/thething.svg"}
+                                src={`/assets/icons/ui/quality_${e.type}.svg`}
                                 width={20}
                                 height={20}
                                 onClick={() => {
-                                    /* */
+                                    props.actions.setPlayerManifestLevel(e.level);
                                 }}
                             />
                             <div className={tooltipStyle.tooltip} data="no-arrow">

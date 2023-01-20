@@ -37,9 +37,9 @@ type PlayerData = {
     resumeNotification: boolean;
     bandwith: number;
     manifest: PlayerManifest;
-    manifestLevel: number;
 };
 type PlayerManifest = {
+    level: number;
     levels: PlayerManifestLevel[];
     audio: PlayerManifestTrack[];
     subtitles: PlayerManifestTrack[];

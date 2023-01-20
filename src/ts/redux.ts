@@ -82,5 +82,5 @@ type ConnectedActions = {
     setPlayerManifestLevels(levels: PlayerManifestLevel[]): ReduxAction;
     setPlayerManifestAudio(tracks: PlayerManifestTrack[]): ReduxAction;
     setPlayerManifestSubtitles(tracks: PlayerManifestTrack[]): ReduxAction;
-    setPlayerManifestLevel(level: number): ReduxAction;
+    setPlayerManifestLevel(level: number | null): ReduxAction;
 };

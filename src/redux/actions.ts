@@ -275,7 +275,7 @@ export function setPlayerManifestAudio(tracks: PlayerManifestTrack[]): ReduxActi
 export function setPlayerManifestSubtitles(tracks: PlayerManifestTrack[]): ReduxAction {
     return getAction("SET_PLAYER_MANIFEST_SUBTITLES", tracks);
 }
-export function setPlayerManifestLevel(level: number): ReduxAction {
+export function setPlayerManifestLevel(level: number | null): ReduxAction {
     return getAction("SET_PLAYER_MANIFEST_LEVEL", level);
 }
 export function setPlayerBandwith(bandwith: number): ReduxAction {

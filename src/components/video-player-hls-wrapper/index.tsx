@@ -173,6 +173,14 @@ const VideoPlayerHlsWrapper: FunctionalComponent<VideoPlayerHlsWrapperConnectedP
         }
         client.subtitleDisplay = props.playerData.subs.enabled;
     }, [client, props.playerData.subs.enabled]);
+    useEffect(() => {
+        if (client === null || client.currentLevel === props.playerData.manifest.level) {
+            return;
+        }
+        client.currentLevel = props.playerData.manifest.level;
+        client.autoLevelCapping = props.playerData.manifest.level;
+        console.log(`new level: ${props.playerData.manifest.level}`);
+    }, [client, props.playerData.manifest.level]);
 
     return null;
 };

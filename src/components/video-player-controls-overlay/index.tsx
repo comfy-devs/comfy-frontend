@@ -14,7 +14,7 @@ const VideoPlayerControlsOverlay: FunctionalComponent<VideoPlayerControlsOverlay
             setBuffer(props.video.buffered.length);
         }
     }, [props.video, props.video?.currentTime]);
-    const level = props.playerData.manifest.levels.length > 0 ? props.playerData.manifest.levels[props.playerData.manifestLevel] : null;
+    const level = props.playerData.manifest.levels.length > 0 ? props.playerData.manifest.levels[props.playerData.manifest.level] : null;
 
     return (
         <div class={style["video-controls-overlay"]}>
