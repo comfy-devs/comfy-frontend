@@ -93,7 +93,7 @@ const VideoPlayerHlsWrapper: FunctionalComponent<VideoPlayerHlsWrapperConnectedP
     }, [loader]);
 
     useEffect(() => {
-        if (client === null || props.video === null || props.playerData.preset === "VP9") {
+        if (client === null || props.video === null) {
             return;
         }
         client.attachMedia(props.video);

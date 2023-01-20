@@ -1,4 +1,5 @@
 import { AnimeGenreMapping, TVGenreMapping, ShowStatusMapping, ShowTagMapping, ShowTypeMapping, EpisodeLocationMapping, AnimeFormatMapping, TVFormatMapping } from "../../ts/common/const";
+import { forceRemoteEndpoints } from "../api/api";
 
 export function showTypeToGenres(type: number | null) {
     if (type) {
@@ -20,7 +21,6 @@ export function filterTypeToValues(type: number | null, filter: FilterType) {
         FORMAT: showTypeToFormats(type),
         STATUS: Object.values(ShowStatusMapping),
         GENRES: showTypeToGenres(type),
-        YEAR: [2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012],
         SORT: ["TITLE_ASC", "TITLE_DESC", "RELEASE_ASC", "RELEASE_DESC", "FAVOURITES_ASC", "FAVOURITES_DESC"],
         TAGS: Object.values(ShowTagMapping),
         ITEMS: [50, 100, 150, 200],
@@ -30,7 +30,7 @@ export function filterTypeToValues(type: number | null, filter: FilterType) {
 }
 
 const episodeLocationMap: Record<number, string> = {
-    [EpisodeLocationMapping.VAPOREON]: location.host === "comfy.lamkas.dev" ? "https://vaporeon.comfy.lamkas.dev" : "https://localhost:546",
+    [EpisodeLocationMapping.VAPOREON]: location.host === "comfy.lamkas.dev" || forceRemoteEndpoints ? "https://vaporeon.comfy.lamkas.dev" : "https://localhost:546",
     [EpisodeLocationMapping.JOLTEON]: "https://jolteon.comfy.lamkas.dev",
     [EpisodeLocationMapping.FLAREON]: "https://flareon.comfy.lamkas.dev",
 };

@@ -1,9 +1,10 @@
 export const apiVersion = "/v1";
+export const forceRemoteEndpoints = false;
 export function getImageEndpoint() {
-    return location.host === "comfy.lamkas.dev" ? "https://image.comfy.lamkas.dev" : "https://localhost:545";
+    return location.host === "comfy.lamkas.dev" || forceRemoteEndpoints ? "https://image.comfy.lamkas.dev" : "https://localhost:545";
 }
 export function getApiEndpoint() {
-    return location.host === "comfy.lamkas.dev" ? "https://api.comfy.lamkas.dev" : "https://localhost:9101";
+    return location.host === "comfy.lamkas.dev" || forceRemoteEndpoints ? "https://api.comfy.lamkas.dev" : "https://localhost:9101";
 }
 
 export async function get(descriptor: APIGetRequest): Promise<APIResponse> {

@@ -22,6 +22,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
     setTimelineTextRef: any;
     setTimelineCanvasRef: any;
     keyCallbackBinded: any;
+    hadResumeProgress: boolean;
 
     constructor(props: VideoPlayerConnectedProps) {
         super(props);
@@ -43,6 +44,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
             this.forceUpdate();
         };
         this.keyCallbackBinded = this.keyCallback.bind(this);
+        this.hadResumeProgress = this.props.preferences.progress.has(this.props.item.id);
     }
 
     componentDidMount() {
@@ -138,7 +140,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
 
     render() {
         const currentSegment = this.video === null ? { end: 0, item: null } : findSegmentForTimestamp(this.props.segments, this.video.currentTime);
-        const hasResumeNotification = this.props.playerData.resumeNotification && this.props.preferences.progress.has(this.props.item.id);
+        const hasResumeNotification = this.props.playerData.resumeNotification && this.hadResumeProgress;
         const hasOpNotification = !hasResumeNotification && this.props.playerData.opNotification && currentSegment.item !== null && currentSegment.item.type === SegmentTypeMapping.OP;
         const hasEdNotification = !hasResumeNotification && this.props.playerData.edNotification && currentSegment.item !== null && currentSegment.item.type === SegmentTypeMapping.ED;
 
@@ -158,7 +160,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     }}
                     onTimeUpdate={() => {
                         const time = Math.round(this.video?.currentTime ?? 0);
-                        if (this.props.preferences.progress.get(this.props.item.id) !== time) {
+                        if (time > 30 && this.props.preferences.progress.get(this.props.item.id) !== time) {
                             this.props.actions.setPreferencesProgress(this.props.item.id, time);
                         }
                         this.forceUpdate();
@@ -172,12 +174,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                     onLoadedData={() => {
                         this.props.actions.setPlayerState("DONE");
                     }}
-                    volume={this.props.preferences.volume}>
-                    {this.props.playerData.preset === "VP9" ? <source src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.show}/${this.props.item.pos}/episode_vp9.webm`} /> : null}
-                    {this.props.playerData.preset === "X264" || !this.props.playerData.subs ? null : (
-                        <track label="English" kind="subtitles" srcLang="en" src={`${episodeLocationToURL(this.props.parent.location)}/${this.props.item.show}/${this.props.item.pos}/subs/eng.vtt`} default />
-                    )}
-                </video>
+                    volume={this.props.preferences.volume} />
                 <VideoPlayerControls
                     dimensions={this.props.dimensions}
                     playerData={this.props.playerData}
@@ -201,9 +198,7 @@ class VideoPlayer extends Component<VideoPlayerConnectedProps> {
                 {hasResumeNotification ? <VideoPlayerNotification type={"RESUME"} time={this.props.preferences.progress.get(this.props.item.id) ?? 0} video={this.video} actions={this.props.actions} /> : null}
                 <VideoPlayerOverlay state={this.props.playerData.state} />
                 {!this.props.playerData.settings ? null : <VideoPlayerSettings item={this.props.item} encode={this.props.encode} actions={this.props.actions} playerData={this.props.playerData} />}
-                {this.props.playerData.preset === "VP9" ? null : (
-                    <VideoPlayerHlsWrapper item={this.props.item} parent={this.props.parent} video={this.video} preferences={this.props.preferences} actions={this.props.actions} playerData={this.props.playerData} />
-                )}
+                <VideoPlayerHlsWrapper item={this.props.item} parent={this.props.parent} video={this.video} preferences={this.props.preferences} actions={this.props.actions} playerData={this.props.playerData} />
             </div>
         );
     }

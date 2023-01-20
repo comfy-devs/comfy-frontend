@@ -47,17 +47,15 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
         }
     }, [props.id, episode, props.actions]);
     useEffect(() => {
-        // Make sure that everytime the original language is selected, VP9 is preferred if available
-        if (episode !== undefined) {
-            if (hasVP9 && props.playerData.audio.lang === episode.audio[0]) {
-                if (props.playerData.preset !== "VP9") {
-                    props.actions.setPlayerPreset("VP9");
-                }
-            } else if (props.playerData.preset !== "X264") {
-                props.actions.setPlayerPreset("X264");
-            }
+        if (episode === undefined) {
+            return;
         }
-    }, [props.id, episode, props.actions, props.playerData.audio, hasVP9]);
+        if (hasVP9) {
+            props.actions.setPlayerPreset("VP9");
+        } else {
+            props.actions.setPlayerPreset("X264");
+        }
+    }, [props.id, episode, props.actions, hasVP9]);
     if (episode === undefined || show === undefined) {
         return null;
     }
@@ -70,7 +68,7 @@ const Episode: FunctionalComponent<EpisodeConnectedProps> = (props: EpisodeConne
                     <span className={style["episode-overview-title-highlight"]}>{episode.title}</span>
                 </div>
                 <VideoPlayer dimensions={props.dimensions} playerData={props.playerData} item={episode} encode={encode ?? null} parent={show} segments={segments} preferences={props.preferences} actions={props.actions} />
-                <div className={style["episode-overview-extra"]}>
+                <div className={style["episode-overview-data"]}>
                     <div className={style["episode-overview-subtitle"]}>
                         <Text id="episode.show" />
                         <a href={`/shows/${show.id}`} className={style["episode-overview-subtitle-highlight"]}>
